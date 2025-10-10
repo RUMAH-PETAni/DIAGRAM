@@ -1,26 +1,60 @@
-import { DeployButton } from "@/components/deploy-button";
+'use client';
+
 import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
 import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { NextLogo } from "@/components/next-logo";
+import { SupabaseLogo } from "@/components/supabase-logo";
+import { Button } from "@/components/ui/button";
+import OpenAILogo from "@/components/openai-logo";
+import LogoCarousel from "@/components/logo-carousel";
 import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
 import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Home() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  // Handle scroll to show/hide back to top button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
+      <div className="flex-1 w-full flex flex-col gap-10 items-center">
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
+          <div className="w-full max-w-5xl flex justify-end items-center p-3 px-5 text-sm">
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+              <ThemeSwitcher />
+              {!hasEnvVars ? <EnvVarWarning /> : (
+                <Link href="/auth/login">
+                  <Button variant="outline">Log in</Button>
+                </Link>
+              )}
             </div>
-            {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
           </div>
         </nav>
         <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
@@ -31,21 +65,129 @@ export default function Home() {
           </main>
         </div>
 
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            Powered by{" "}
+        <footer className="w-full flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-4 py-8">
+          <p className="pt-4">
+            Powered by:
+          </p>
+          <div className="hidden md:flex gap-8 items-center">
+            <a
+              href="https://example.com/"  /* Replace with actual RumahPetani URL */
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:opacity-80 flex items-center"
+            >
+              <Image 
+                src="/rumahpetani.svg" 
+                alt="Rumah Petani Logo" 
+                width={90} 
+                height={30}
+                className="h-8 object-contain"
+              />
+            </a>
             <a
               href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
               target="_blank"
-              className="font-bold hover:underline"
               rel="noreferrer"
+              className="transition hover:opacity-80 flex items-center"
             >
-              Supabase
+              <div className="h-8 flex items-center">
+                <SupabaseLogo />
+              </div>
             </a>
-          </p>
-          <ThemeSwitcher />
+            <a
+              href="https://nextjs.org/"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:opacity-80 flex items-center"
+            >
+              <div className="h-8 flex items-center">
+                <NextLogo />
+              </div>
+            </a>
+            <a
+              href="https://react-leaflet.js.org/"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:opacity-80 flex items-center"
+            >
+              <Image 
+                src="/logo-react-leaflet.svg" 
+                alt="React Leaflet Logo" 
+                width={120}
+                height={50}
+                className="h-12 object-contain"
+              />
+            </a>
+            <a
+              href="https://openai.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:opacity-80 flex items-center"
+            >
+              <div className="h-8 flex items-center">
+                <OpenAILogo width={90} height={30} />
+              </div>
+            </a>
+          </div>
+          <div className="md:hidden w-full max-w-xs mt-4">
+            <LogoCarousel 
+              logos={[
+                {
+                  href: "https://example.com/",
+                  alt: "Rumah Petani Logo",
+                  children: <Image 
+                    src="/rumahpetani.svg" 
+                    alt="Rumah Petani Logo" 
+                    width={90} 
+                    height={30}
+                    className="h-8 object-contain"
+                  />
+                },
+                {
+                  href: "https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs",
+                  alt: "Supabase Logo",
+                  children: <div className="h-8 flex items-center"><SupabaseLogo /></div>
+                },
+                {
+                  href: "https://nextjs.org/",
+                  alt: "Next.js Logo",
+                  children: <div className="h-8 flex items-center"><NextLogo /></div>
+                },
+                {
+                  href: "https://react-leaflet.js.org/",
+                  alt: "React Leaflet Logo",
+                  children: <Image 
+                    src="/logo-react-leaflet.svg" 
+                    alt="React Leaflet Logo" 
+                    width={120}
+                    height={50}
+                    className="h-12 object-contain"
+                  />
+                },
+                {
+                  href: "https://openai.com/",
+                  alt: "OpenAI Logo",
+                  children: <div className="h-8 flex items-center"><OpenAILogo width={90} height={30} /></div>
+                }
+              ]}
+            />
+          </div>
+          
         </footer>
       </div>
+      
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300 z-50"
+          aria-label="Back to top"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+      )}
     </main>
   );
 }
