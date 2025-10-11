@@ -106,12 +106,13 @@ export const translations = {
     landMapping: 'Mapping & Survey',
     farmMonitoring: 'Farm Monitoring',
     soilClimateData: 'Soil & Climate Data',
-    logActivity: 'Activity Record',
+    logActivity: 'Activities Record',
     carbonFootprint: 'Carbon Footprint',
-    aiRecomendation: 'AI Recommendation',
+    aiRecommendation: 'AI Recommendation',
     commoditySupplyChain: 'Commodity Supply Chain',
     communityHub: 'Community Network',
     aiGronomistAssistant: 'AI-Gronomist Assistant',
+    freeAccess: 'Easy & Free Access',
     accessibleToAnyone: 'Accessible to Anyone and Everywhere',
     
     // Login form
@@ -213,7 +214,7 @@ export const translations = {
     
     // Hero section
     diagram: 'DIAGRAM',
-    digitalEcosystem: 'Ekosistem Digital untuk Petani Modern',
+    digitalEcosystem: 'Ekosistem Digital Petani Modern',
     heroQuote: '"Platform digital berkelanjutan yang dirancang untuk mentransformasi pertanian konvensional menjadi masa depan yang terhubung dan berbasis data."',
     heroAnimationTexts: [
       'Memberdayakan Petani Kecil dengan: Pertanian Cerdas Iklim.',
@@ -240,6 +241,7 @@ export const translations = {
     commoditySupplyChain: 'Rantai Pasok Komoditas',
     communityHub: 'Jaringan Komunitas',
     aiGronomistAssistant: 'Asisten AI-Gronomis',
+    freeAccess: 'Akses Mudah & Bebas',
     accessibleToAnyone: 'Dapat Diakses oleh Siapa Saja dan di Mana Saja',
     
     // Login form

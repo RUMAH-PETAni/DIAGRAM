@@ -6,7 +6,7 @@ import indonesiaMap from "./indonesia-map-data";
 import { useTheme } from "next-themes";
 import { TypeAnimation } from 'react-type-animation';
 import Link from "next/link";
-import { Trees, ThermometerSun, Network, Factory, Brain, NotebookText, Truck, Bot, Users, Sprout, LandPlot } from "lucide-react";
+import { Trees, ThermometerSun, Network, Factory, Brain, NotebookText, MonitorSmartphone, Truck, Bot, Users, Sprout, LandPlot } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -61,7 +61,7 @@ export function Hero() {
             </div>
             <div className="flex flex-col justify-between p-4 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full overflow-hidden">
               <div className="flex items-start justify-start">
-                <p className="text-left text-xl md:text-2xl lg:text-3xl roboto-mono font-medium">
+                <p className="text-left text-sm md:text-xl lg:text-2xl roboto-mono font-medium">
                   {/* Saat belum di-mount, tampilkan placeholder untuk mencegah tampilan kosong */}
                   <span className="opacity-0 h-6 block">Loading...</span>
                 </p>
@@ -122,7 +122,7 @@ export function Hero() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full mt-8">
           <div className="">
-            <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Trees className="w-6 h-6 text-primary" />
               </div>
@@ -146,18 +146,14 @@ export function Hero() {
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <Sprout className="w-8 h-8 mb-2" />
                   <h3 className="font-bold text-sm text-center">{t('farmMonitoring')}</h3>
-                </div>
-                <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <ThermometerSun className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
-                </div>
+                </div>                
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <NotebookText className="w-8 h-8 mb-2" />
                   <h3 className="font-bold text-sm text-center">{t('logActivity')}</h3>
                 </div>
-                  <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Brain className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('aiRecommendation')}</h3>
+                <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <ThermometerSun className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
                 </div>
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <Factory className="w-8 h-8 mb-2" />
@@ -172,12 +168,16 @@ export function Hero() {
                   <Network className="w-8 h-8 mb-2" />
                   <h3 className="font-bold text-sm text-center">{t('communityHub')}</h3>
                 </div>
+                <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <Brain className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-sm text-center">{t('aiRecommendation')}</h3>
+                </div>
               </div>
             </div>
           </div>
           
           <div className="">
-            <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="flex items-center  gap-3 mb-4">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Bot className="w-6 h-6 text-primary" />
               </div>
@@ -191,8 +191,14 @@ export function Hero() {
           </div>
         </div>
         
-        <div className="w-full max-w-full overflow-hidden mt-12">
-          <p className="text-muted-foreground mb-6 text-left">{t('accessibleToAnyone')}</p>
+        <div className="w-full max-w-full overflow-hidden mt-6">
+          <div className="flex items-center  gap-3 mb-4">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <MonitorSmartphone className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="font-bold text-xl">{t('freeAccess')}</h3>
+          </div>
+         
           
           <AspectRatio ratio={16 / 9} className="border rounded-lg overflow-hidden max-w-full">
             <div className="w-full h-full flex items-center justify-center p-4 relative">
@@ -207,6 +213,7 @@ export function Hero() {
                   preserveAspectRatio: 'xMidYMid slice'
                 }}
               />
+              <p className="text-muted-foreground mb-6 text-left">{t('accessibleToAnyone')}</p>
               <div className="absolute top-4 right-4 flex -space-x-4">
                 <div className="p-1 bg-white rounded-full hover:scale-125 transition-transform duration-200 ease-in-out cursor-pointer w-10 h-10 md:w-16 md:h-16">
                   <div className="w-full h-full rounded-full border border-gray-200 hover:scale-125 transition-transform duration-200 ease-in-out cursor-pointer object-cover" />
@@ -228,9 +235,9 @@ export function Hero() {
                 </div>
               </div>
             </div>
+             
           </AspectRatio>
         </div>
-        <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
       </div>
     );
   }
@@ -255,7 +262,7 @@ export function Hero() {
           </div>
           <div className="flex flex-col justify-between p-4 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full overflow-hidden">
             <div className="flex items-start justify-start">
-              <p className="text-left text-xl md:text-2xl lg:text-3xl roboto-mono font-medium">
+              <p className="text-left text-sm md:text-xl lg:text-2xl roboto-mono font-medium">
                 <TypeAnimation
                   key={currentLocale} // Gunakan state lokal untuk key agar lebih stabil
                   sequence={[
@@ -316,7 +323,7 @@ export function Hero() {
             <h3 className="font-bold text-lg">{t('farmerLandDataManagement')}</h3>
           </div>
           <Separator className="my-3" />
-          <p className="text-muted-foreground">
+          <p className="text-sm md:text text-muted-foreground">
             {t('farmerLandDataManagementDesc')}
           </p>
         </div>
@@ -332,7 +339,7 @@ export function Hero() {
             <h3 className="font-bold text-lg">{t('interactiveMonitoringMap')}</h3>
           </div>
           <Separator className="my-3" />
-          <p className="text-muted-foreground">
+          <p className="text-sm md:text text-muted-foreground">
             {t('interactiveMonitoringMapDesc')}
           </p>
         </div>
@@ -348,7 +355,7 @@ export function Hero() {
             <h3 className="font-bold text-lg">{t('agroforestryMarketplace')}</h3>
           </div>
           <Separator className="my-3" />
-          <p className="text-muted-foreground">
+          <p className="text-sm md:text text-muted-foreground">
             {t('agroforestryMarketplaceDesc')}
           </p>
         </div>
@@ -357,7 +364,7 @@ export function Hero() {
       {/* New 2-column grid layout below features cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full mt-8">
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="flex items-center  gap-3 mb-4">
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
               <Trees className="w-6 h-6 text-primary" />
             </div>
@@ -381,20 +388,15 @@ export function Hero() {
               <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                 <Sprout className="w-8 h-8 mb-2" />
                 <h3 className="font-bold text-sm text-center">{t('farmMonitoring')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                <ThermometerSun className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
-              </div>
+              </div>             
               <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                 <NotebookText className="w-8 h-8 mb-2" />
                 <h3 className="font-bold text-sm text-center">{t('logActivity')}</h3>
               </div>
-             
               <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Brain className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('aiRecommendation')}</h3>
-              </div>
+                <ThermometerSun className="w-8 h-8 mb-2" />
+                <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
+              </div>              
               <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                 <Factory className="w-8 h-8 mb-2" />
                 <h3 className="font-bold text-sm text-center">{t('carbonFootprint')}</h3>
@@ -407,12 +409,16 @@ export function Hero() {
                   <Network className="w-8 h-8 mb-2" />
                   <h3 className="font-bold text-sm text-center">{t('communityHub')}</h3>
               </div>
+              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <Brain className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-sm text-center">{t('aiRecommendation')}</h3>
+              </div>
             </div>
           </div>
         </div>
         
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="flex items-center  gap-3 mb-4">
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
               <Bot className="w-6 h-6 text-primary" />
             </div>
@@ -426,8 +432,14 @@ export function Hero() {
         </div>
       </div>
       
-      <div className="w-full max-w-full overflow-hidden mt-12">
-        <p className="text-muted-foreground mb-6 text-left">{t('accessibleToAnyone')}</p>
+      <div className="w-full max-w-full overflow-hidden mt-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+            <MonitorSmartphone className="w-6 h-6 text-primary" />
+          </div>
+          <h3 className="font-bold text-xl">{t('freeAccess')}</h3>
+        </div>
+        
         
         {/* Aspect Ratio component with Lottie animation and multiple stacked Avatars */}
         <AspectRatio ratio={16 / 9} className="border rounded-lg overflow-hidden max-w-full">
@@ -443,6 +455,7 @@ export function Hero() {
                 preserveAspectRatio: 'xMidYMid slice'
               }}
             />
+            
             <div className="absolute top-4 right-4 flex -space-x-4"> {/* Overlapping effect with negative margin */}
               <div className="p-1 bg-white rounded-full hover:scale-125 transition-transform duration-200 ease-in-out cursor-pointer w-10 h-10 md:w-16 md:h-16">
                 <Image
@@ -499,10 +512,11 @@ export function Hero() {
                 />
               </div>
             </div>
+            <p className="absolute bottom-4 left-4 text-muted-foreground text-xs md:text-sm text-left">{t('accessibleToAnyone')}</p>
           </div>
+          
         </AspectRatio>
       </div>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );
 }

@@ -136,7 +136,7 @@ export default function FakeChatAgroforestry() {
             <Bot size={14} className="sm:hidden" />
             <Bot size={16} className="hidden sm:block" />
           </div>
-          <div className="max-w-[70%] bg-neutral-800 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl rounded-tl-none leading-relaxed">
+          <div className="max-w-[70%] bg-neutral-800 text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl rounded-tl-none leading-relaxed">
             {messages[messages.length - 1]?.content === msg.content && isBubbleTyping && typingRole === "assistant" ? displayedText : msg.content}
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function FakeChatAgroforestry() {
             <User size={14} className="sm:hidden" />
             <User size={16} className="hidden sm:block" />
           </div>
-          <div className="max-w-[70%] bg-blue-600 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl rounded-tr-none text-white leading-relaxed">
+          <div className="max-w-[70%] bg-blue-600 text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl rounded-tr-none text-white leading-relaxed">
             {messages[messages.length - 1]?.content === msg.content && isBubbleTyping && typingRole === "user" ? displayedText : msg.content}
           </div>
         </div>
@@ -195,7 +195,7 @@ export default function FakeChatAgroforestry() {
                         <Bot size={14} className="sm:hidden" />
                         <Bot size={16} className="hidden sm:block" />
                       </div>
-                      <div className="bg-neutral-800 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl rounded-tl-none">
+                      <div className="bg-neutral-800 text-white text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl rounded-tl-none">
                         {displayedText}
                       </div>
                     </div>
