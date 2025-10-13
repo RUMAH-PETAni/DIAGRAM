@@ -25,8 +25,8 @@ export const translations = {
     theme: 'Theme',
     
     // Page content
-    title: 'Next.js and Supabase Starter Kit',
-    description: 'The fastest way to build apps with Next.js and Supabase',
+    title: 'Diagram',
+    description: 'A digital ecosystem for agroforestry management and monitoring',
     nextSteps: 'Next steps',
     poweredBy: 'Powered by',
     
@@ -72,6 +72,8 @@ export const translations = {
     resetPassword: 'Reset Password',
     newPassword: 'New Password',
     confirmPasswordError: 'Passwords do not match',
+    privacyPolicy: 'Privacy Policy',
+    termCondition: 'Term and Condition',
     
     // Errors
     requiredField: 'This field is required',
@@ -108,7 +110,7 @@ export const translations = {
     soilClimateData: 'Soil & Climate Data',
     logActivity: 'Activities Record',
     carbonFootprint: 'Carbon Footprint',
-    aiRecommendation: 'AI Recommendation',
+    aiRecommendation: 'AI-Gronomist Recommendation',
     commoditySupplyChain: 'Commodity Supply Chain',
     communityHub: 'Community Network',
     aiGronomistAssistant: 'AI-Gronomist Assistant',
@@ -154,8 +156,8 @@ export const translations = {
     theme: 'Tema',
     
     // Page content
-    title: 'Kit Pemula Next.js dan Supabase',
-    description: 'Cara tercepat untuk membangun aplikasi dengan Next.js dan Supabase',
+    title: 'Diagram',
+    description: 'Ekosistem digital untuk manajemen dan monitoring agroforestri',
     nextSteps: 'Langkah selanjutnya',
     poweredBy: 'Didukung oleh',
     
@@ -201,6 +203,8 @@ export const translations = {
     resetPassword: 'Reset Kata Sandi',
     newPassword: 'Kata Sandi Baru',
     confirmPasswordError: 'Kata sandi tidak cocok',
+    privacyPolicy: 'Kebijakan Privasi',
+    termCondition: 'Syarat dan Ketentuan',
     
     // Errors
     requiredField: 'Bidang ini wajib diisi',
@@ -231,13 +235,13 @@ export const translations = {
     agroforestryMarketplaceDesc: 'Hubungkan petani, pembeli, dan penyedia layanan dalam ekosistem pertanian berkelanjutan. Temukan mitra tepercaya, dan bangun rantai nilai yang adil dan transparan.',
     sustainableTech: 'Teknologi Berkelanjutan',
     sustainableTechDesc: 'Platform kami mempromosikan praktik pertanian berkelanjutan melalui teknik pertanian agroforestri presisi dan solusi ramah lingkungan. Kami membantu petani kecil menerapkan sistem berbasis data yang terintegrasi, untuk meningkatkan hasil produktivitas sekaligus melestarikan lingkungan untuk generasi mendatang.',
-    usersDashboard: 'Dasbor Pengguna',
+    usersDashboard: 'Dashboard Pengguna',
     landMapping: 'Survey & Pemetaan',
     farmMonitoring: 'Pemantauan Pertanian',
-    soilClimateData: 'Data Tanah & Iklim',
+    soilClimateData: 'Data Tanah & Klimatologi',
     logActivity: 'Catatan Aktifitas',
     carbonFootprint: 'Lacak Jejak Karbon',
-    aiRecommendation: 'Rekomendasi AI',
+    aiRecommendation: 'Rekomendasi AI-Gronomis',
     commoditySupplyChain: 'Rantai Pasok Komoditas',
     communityHub: 'Jaringan Komunitas',
     aiGronomistAssistant: 'Asisten AI-Gronomis',

@@ -23,11 +23,7 @@ export default function ProtectedLayout({
             <div className="flex items-center gap-4">
               <LanguageSwitcher />
               <ThemeSwitcher />
-              {!hasEnvVars ? <EnvVarWarning /> : (
-                <Link href="/auth/login">
-                  <Button variant="outline">Log in</Button>
-                </Link>
-              )}
+              {!hasEnvVars ? <EnvVarWarning /> : null}
             </div>
           </div>
         </nav>

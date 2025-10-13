@@ -10,6 +10,8 @@ import { Trees, ThermometerSun, Network, Factory, Brain, NotebookText, MonitorSm
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+
+
 import { Separator } from "@/components/ui/separator";
 import FakeChatAgroforestry from "./FakeChatAgroforestry";
 import { useI18n } from "@/lib/i18n-context";
@@ -246,6 +248,8 @@ export function Hero() {
   return (
     <div className="flex flex-col gap-8 items-center w-full max-w-5xl px-4">
       <h1 className="sr-only">DIAGRAM</h1>
+ 
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full overflow-hidden">
         {/* Left column with DIAGRAM title and subtitle */}
         <div className="grid grid-rows-2 gap-4 max-w-full">
@@ -517,6 +521,8 @@ export function Hero() {
           
         </AspectRatio>
       </div>
+      
     </div>
   );
 }
+

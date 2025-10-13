@@ -15,7 +15,8 @@ import { Label } from "@/components/ui/label";
 import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Modal } from "@/components/modal";
 
 export function LoginForm({
   className,
@@ -27,6 +28,38 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { t } = useI18n();
+
+   // State for modals
+    const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+    const [showTermsModal, setShowTermsModal] = useState(false);
+    const [policyContent, setPolicyContent] = useState("");
+    const [modalTitle, setModalTitle] = useState("");
+  
+    // Load policy content when needed
+    useEffect(() => {
+      const loadPolicyContent = async (fileName: string) => {
+        try {
+          // Since we're in a client component, we need to fetch from the public directory
+          const response = await fetch(`/${fileName}`);
+          if (!response.ok) {
+            throw new Error(`Failed to load ${fileName}`);
+          }
+          const content = await response.text();
+          setPolicyContent(content);
+        } catch (err) {
+          console.error(`Error loading ${fileName}:`, err);
+          setPolicyContent(`Error loading ${fileName}`);
+        }
+      };
+  
+      if (showPrivacyModal) {
+        setModalTitle(t('privacyPolicy'));
+        loadPolicyContent("privacy-policy.md");
+      } else if (showTermsModal) {
+        setModalTitle(t('termCondition'));
+        loadPolicyContent("terms-and-condition.md");
+      }
+    }, [showPrivacyModal, showTermsModal]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,9 +137,47 @@ export function LoginForm({
                 {t('signUp')}
               </Link>
             </div>
+            <div className="mt-4 text-center text-sm flex justify-center gap-4">
+              <button 
+                type="button" 
+                className="text-xs text-muted-foreground cursor-pointer"
+                onClick={() => {
+                  setShowPrivacyModal(true);
+                  setShowTermsModal(false);
+                }}
+              >
+                {t('privacyPolicy')}
+              </button>
+              <span className="text-muted-foreground">|</span>
+              <button 
+                type="button" 
+                className=" text-xs text-muted-foreground cursor-pointer"
+                onClick={() => {
+                  setShowTermsModal(true);
+                  setShowPrivacyModal(false);
+                }}
+              >
+                {t('termCondition')}
+              </button>
+            </div>
           </form>
         </CardContent>
       </Card>
+      {/* Privacy Policy Modal */}
+            <Modal
+              isOpen={showPrivacyModal}
+              onClose={() => setShowPrivacyModal(false)}
+              title={modalTitle}
+              content={policyContent}
+            />
+      
+            {/* Terms and Condition Modal */}
+            <Modal
+              isOpen={showTermsModal}
+              onClose={() => setShowTermsModal(false)}
+              title={modalTitle}
+              content={policyContent}
+            />
     </div>
   );
 }
