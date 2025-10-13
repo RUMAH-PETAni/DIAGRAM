@@ -1,13 +1,11 @@
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { Button } from "@/components/ui/button";
 import { NextLogo } from "@/components/next-logo";
 import { SupabaseLogo } from "@/components/supabase-logo";
 import OpenAILogo from "@/components/openai-logo";
 import LogoCarousel from "@/components/logo-carousel";
 import { hasEnvVars } from "@/lib/utils";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function ProtectedLayout({

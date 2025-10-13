@@ -13,8 +13,6 @@ interface TickerOverflowProps {
 }
 
 const TickerOverflow: React.FC<TickerOverflowProps> = ({ items }) => {
-  // Duplicate items to ensure seamless looping
-  const duplicatedItems = [...items, ...items];
   
   return (
     <div className="w-full bg-muted py-8">
@@ -33,7 +31,7 @@ const TickerOverflow: React.FC<TickerOverflowProps> = ({ items }) => {
             repeatType: "loop"
           }}
         >
-          {[...items, ...items].map((item, index) => (
+          {([...items, ...items]).map((item, index) => (
             <div 
               key={index} 
               className="flex items-center justify-center flex-shrink-0 m-0 h-full px-4"

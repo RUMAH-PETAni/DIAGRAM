@@ -23,6 +23,7 @@ export const translations = {
     logout: 'Logout',
     signup: 'Sign Up',
     theme: 'Theme',
+    infoDiagram: 'Welcome to DIAGRAM,',
     
     // Page content
     title: 'Diagram',

@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { User, ChevronDown } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -11,13 +10,21 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 
+interface AddressSuggestion {
+  properties: {
+    name: string;
+    state?: string;
+    country?: string;
+  };
+}
+
 const ProfileManagement = () => {
   const [avatar, setAvatar] = useState<string | null>(null); // Default to null to show icon
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState('Petani'); // Default role
   const [address, setAddress] = useState('');
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const addressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -54,7 +61,7 @@ const ProfileManagement = () => {
   };
 
   // Function to handle suggestion click
-  const handleSuggestionClick = (suggestion: any) => {
+  const handleSuggestionClick = (suggestion: AddressSuggestion) => {
     setAddress(suggestion.properties.name + ', ' + (suggestion.properties.state || suggestion.properties.country));
     setSuggestions([]);
     setShowSuggestions(false);
