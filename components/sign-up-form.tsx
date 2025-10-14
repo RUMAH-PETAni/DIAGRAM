@@ -16,7 +16,14 @@ import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Modal } from "@/components/modal";
+import dynamic from 'next/dynamic';
+import { ModalProps } from '@/components/modal';
+
+// Dynamically import Modal with SSR disabled to ensure it only renders client-side
+const Modal = dynamic<ModalProps>(() => import('@/components/modal').then(mod => mod.Modal), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Loading...</div>
+});
 
 export function SignUpForm({
   className,
@@ -179,7 +186,10 @@ export function SignUpForm({
       {/* Privacy Policy Modal */}
       <Modal
         isOpen={showPrivacyModal}
-        onClose={() => setShowPrivacyModal(false)}
+        onClose={() => {
+          setShowPrivacyModal(false);
+          setPolicyContent(""); // Reset content when closing
+        }}
         title={modalTitle}
         content={policyContent}
       />
@@ -187,7 +197,10 @@ export function SignUpForm({
       {/* Terms and Condition Modal */}
       <Modal
         isOpen={showTermsModal}
-        onClose={() => setShowTermsModal(false)}
+        onClose={() => {
+          setShowTermsModal(false);
+          setPolicyContent(""); // Reset content when closing
+        }}
         title={modalTitle}
         content={policyContent}
       />

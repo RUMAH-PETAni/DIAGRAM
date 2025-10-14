@@ -16,7 +16,14 @@ import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Modal } from "@/components/modal";
+import dynamic from 'next/dynamic';
+import { ModalProps } from '@/components/modal';
+
+// Dynamically import Modal with SSR disabled to ensure it only renders client-side
+const Modal = dynamic<ModalProps>(() => import('@/components/modal').then(mod => mod.Modal), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Loading...</div>
+});
 
 export function LoginForm({
   className,
@@ -41,14 +48,16 @@ export function LoginForm({
         try {
           // Since we're in a client component, we need to fetch from the public directory
           const response = await fetch(`/${fileName}`);
+          console.log(`Fetching ${fileName}, status: ${response.status}`);
           if (!response.ok) {
-            throw new Error(`Failed to load ${fileName}`);
+            throw new Error(`Failed to load ${fileName} with status ${response.status}`);
           }
           const content = await response.text();
+          console.log(`Content length for ${fileName}: ${content.length}`);
           setPolicyContent(content);
         } catch (err) {
           console.error(`Error loading ${fileName}:`, err);
-          setPolicyContent(`Error loading ${fileName}`);
+          setPolicyContent(`Error loading ${fileName}: ${err instanceof Error ? err.message : String(err)}`);
         }
       };
   
