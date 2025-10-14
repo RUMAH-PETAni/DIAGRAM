@@ -42,14 +42,16 @@ export function SignUpForm({
       try {
         // Since we're in a client component, we need to fetch from the public directory
         const response = await fetch(`/${fileName}`);
+        console.log(`Fetching ${fileName}, status: ${response.status}`);
         if (!response.ok) {
-          throw new Error(`Failed to load ${fileName}`);
+          throw new Error(`Failed to load ${fileName} with status ${response.status}`);
         }
         const content = await response.text();
+        console.log(`Content length for ${fileName}: ${content.length}`);
         setPolicyContent(content);
       } catch (err) {
         console.error(`Error loading ${fileName}:`, err);
-        setPolicyContent(`Error loading ${fileName}`);
+        setPolicyContent(`Error loading ${fileName}: ${err instanceof Error ? err.message : String(err)}`);
       }
     };
 
