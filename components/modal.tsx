@@ -75,21 +75,21 @@ export function Modal({ isOpen, onClose, title, content }: ModalProps) {
             rehypePlugins={[rehypeRaw]}
             components={{
               // Custom components to ensure proper rendering
-              h1: (...props) => <h1 className="text font-bold mt-6 mb-4" {...props} />,
-              h2: (...props) => <h2 className="text font-semibold mt-5 mb-3" {...props} />,
-              h3: (...props) => <h3 className="text-sm font-medium mt-4 mb-2" {...props} />,
-              p: (...props) => <p className="text-sm my-3" {...props} />,
-              ul: (...props) => <ul className="text-sm list-disc list-inside my-3 ml-4" {...props} />,
-              ol: (...props) => <ol className="list-decimal list-inside my-3 ml-4" {...props} />,
-              li: (...props) => <li className="text-sm my-1" {...props} />,
-              a: (...props) => <a className="text-primary hover:underline" {...props} />,
-              strong: (...props) => <strong className="font-semibold" {...props} />,
-              em: (...props) => <em className="italic" {...props} />,
-              blockquote: (...props) => <blockquote className="border-l-4 border-primary pl-4 italic" {...props} />,
+              h1: (props) => <h1 className="text font-bold mt-6 mb-4" {...props} />,
+              h2: (props) => <h2 className="text font-semibold mt-5 mb-3" {...props} />,
+              h3: (props) => <h3 className="text-sm font-medium mt-4 mb-2" {...props} />,
+              p: (props) => <p className="text-sm my-3" {...props} />,
+              ul: (props) => <ul className="text-sm list-disc list-inside my-3 ml-4" {...props} />,
+              ol: (props) => <ol className="list-decimal list-inside my-3 ml-4" {...props} />,
+              li: (props) => <li className="text-sm my-1" {...props} />,
+              a: (props) => <a className="text-primary hover:underline" {...props} />,
+              strong: (props) => <strong className="font-semibold" {...props} />,
+              em: (props) => <em className="italic" {...props} />,
+              blockquote: (props) => <blockquote className="border-l-4 border-primary pl-4 italic" {...props} />,
               // Explicitly handle form elements to prevent errors
-              input: (...props) => <input {...props} readOnly={true} />,
-              select: (...props) => <select {...props} disabled={true} />,
-              textarea: (...props) => <textarea {...props} readOnly={true} />,
+              input: (props) => <input {...props} readOnly={true} />,
+              select: (props) => <select {...props} disabled={true} />,
+              textarea: (props) => <textarea {...props} readOnly={true} />,
             }}
           >
             {content}
