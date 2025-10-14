@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useModal } from '@/components/modal-context';
 
 export function SignUpForm({
