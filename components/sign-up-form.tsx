@@ -16,14 +16,7 @@ import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import dynamic from 'next/dynamic';
-import { ModalProps } from '@/components/modal';
-
-// Dynamically import Modal with SSR disabled to ensure it only renders client-side
-const Modal = dynamic<ModalProps>(() => import('@/components/modal').then(mod => mod.Modal), {
-  ssr: false,
-  loading: () => <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">Loading...</div>
-});
+import { useModal } from '@/components/modal-context';
 
 export function SignUpForm({
   className,
@@ -37,39 +30,23 @@ export function SignUpForm({
   const router = useRouter();
   const { t } = useI18n();
 
-  // State for modals
-  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
-  const [showTermsModal, setShowTermsModal] = useState(false);
-  const [policyContent, setPolicyContent] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
+  const { openModal } = useModal();
 
-  // Load policy content when needed
-  useEffect(() => {
-    const loadPolicyContent = async (fileName: string) => {
-      try {
-        // Since we're in a client component, we need to fetch from the public directory
-        const response = await fetch(`/${fileName}`);
-        console.log(`Fetching ${fileName}, status: ${response.status}`);
-        if (!response.ok) {
-          throw new Error(`Failed to load ${fileName} with status ${response.status}`);
-        }
-        const content = await response.text();
-        console.log(`Content length for ${fileName}: ${content.length}`);
-        setPolicyContent(content);
-      } catch (err) {
-        console.error(`Error loading ${fileName}:`, err);
-        setPolicyContent(`Error loading ${fileName}: ${err instanceof Error ? err.message : String(err)}`);
+  const loadAndOpenModal = async (fileName: string, title: string) => {
+    try {
+      const response = await fetch(`/${fileName}`);
+      console.log(`Fetching ${fileName}, status: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${fileName} with status ${response.status}`);
       }
-    };
-
-    if (showPrivacyModal) {
-      setModalTitle(t('privacyPolicy'));
-      loadPolicyContent("privacy-policy.md");
-    } else if (showTermsModal) {
-      setModalTitle(t('termCondition'));
-      loadPolicyContent("terms-and-condition.md");
+      const content = await response.text();
+      console.log(`Content length for ${fileName}: ${content.length}`);
+      openModal(title, content);
+    } catch (err) {
+      console.error(`Error loading ${fileName}:`, err);
+      openModal(title, `Error loading ${fileName}: ${err instanceof Error ? err.message : String(err)}`);
     }
-  }, [showPrivacyModal, showTermsModal]);
+  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -160,10 +137,7 @@ export function SignUpForm({
               <button 
                 type="button" 
                 className="text-xs text-muted-foreground cursor-pointer"
-                onClick={() => {
-                  setShowPrivacyModal(true);
-                  setShowTermsModal(false);
-                }}
+                onClick={() => loadAndOpenModal("privacy-policy.md", t('privacyPolicy'))}
               >
                 {t('privacyPolicy')}
               </button>
@@ -171,10 +145,7 @@ export function SignUpForm({
               <button 
                 type="button" 
                 className="text-xs text-muted-foreground cursor-pointer"
-                onClick={() => {
-                  setShowTermsModal(true);
-                  setShowPrivacyModal(false);
-                }}
+                onClick={() => loadAndOpenModal("terms-and-condition.md", t('termCondition'))}
               >
                 {t('termCondition')}
               </button>
@@ -183,27 +154,7 @@ export function SignUpForm({
         </CardContent>
       </Card>
 
-      {/* Privacy Policy Modal */}
-      <Modal
-        isOpen={showPrivacyModal}
-        onClose={() => {
-          setShowPrivacyModal(false);
-          setPolicyContent(""); // Reset content when closing
-        }}
-        title={modalTitle}
-        content={policyContent}
-      />
 
-      {/* Terms and Condition Modal */}
-      <Modal
-        isOpen={showTermsModal}
-        onClose={() => {
-          setShowTermsModal(false);
-          setPolicyContent(""); // Reset content when closing
-        }}
-        title={modalTitle}
-        content={policyContent}
-      />
     </div>
   );
 }
