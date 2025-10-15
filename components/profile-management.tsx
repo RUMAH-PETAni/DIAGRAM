@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { User, ChevronDown } from 'lucide-react';
+import { useI18n } from '@/lib/i18n-context';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -19,15 +20,39 @@ interface AddressSuggestion {
 }
 
 const ProfileManagement = () => {
+  const { locale, t } = useI18n();
   const [avatar, setAvatar] = useState<string | null>(null); // Default to null to show icon
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [selectedRole, setSelectedRole] = useState('Petani'); // Default role
+  const [selectedRole, setSelectedRole] = useState(locale === 'id' ? 'Petani' : 'Farmer'); // Default role
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const addressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const initialRoleRef = useRef(selectedRole);
+
+  // Update default role when language changes
+  useEffect(() => {
+    // Check if the current role is still the initial default role
+    const isDefaultRole = initialRoleRef.current === selectedRole;
+    
+    if (isDefaultRole) {
+      // Update to the appropriate default role for the new language
+      const newDefaultRole = locale === 'id' ? 'Petani' : 'Farmer';
+      setSelectedRole(newDefaultRole);
+      initialRoleRef.current = newDefaultRole;
+    }
+  }, [locale, selectedRole]);
+  const initializedRef = useRef(false);
+
+  // Set default role based on initial language only
+  useEffect(() => {
+    if (!initializedRef.current) {
+      setSelectedRole(locale === 'id' ? 'Petani' : 'Farmer');
+      initializedRef.current = true;
+    }
+  }, [locale]);
 
   // Function to handle address input changes with debouncing
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +130,7 @@ const ProfileManagement = () => {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="bg-card p-6 rounded-lg border">
-        <h2 className="text-xl font-bold mb-4 ">Profil Pengguna</h2>
+        <h2 className="text-xl font-bold mb-4 ">{t('userProfile')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Avatar Section */}
           <div className="md:col-span-1">
@@ -137,7 +162,7 @@ const ProfileManagement = () => {
                   className="text-sm text-primary hover:underline"
                   onClick={() => setShowAvatarModal(true)}
                 >
-                  Pilih Avatar
+                  {t('chooseAvatar')}
                 </button>
                 <div className="h-4 w-px bg-border" />
                 <button 
@@ -145,7 +170,7 @@ const ProfileManagement = () => {
                   className="text-sm text-primary hover:underline"
                   onClick={triggerFileInput}
                 >
-                  Unggah Foto
+                  {t('uploadPhoto')}
                 </button>
                 <input 
                   ref={fileInputRef}
@@ -163,13 +188,13 @@ const ProfileManagement = () => {
               <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                 <div className="bg-background rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Pilih Avatar</h3>
+                    <h3 className="text-lg font-semibold">{t('chooseAvatar')}</h3>
                     <button 
                       type="button"
                       className="text-muted-foreground hover:text-foreground"
                       onClick={() => setShowAvatarModal(false)}
                     >
-                      ✕
+                      {t('close')}
                     </button>
                   </div>
                   <div className="grid grid-cols-3 sm:grid-cols-5 gap-4">
@@ -203,7 +228,7 @@ const ProfileManagement = () => {
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        <span className="text-xs mt-1">Avatar {index+1}</span>
+                        <span className="text-xs mt-1">{t('avatar')} {index+1}</span>
                       </div>
                     ))}
                   </div>
@@ -216,7 +241,7 @@ const ProfileManagement = () => {
           <div className="md:col-span-2">
             <form className="space-y-4">
                <div>
-                <label htmlFor="userName" className="block text-sm font-medium mb-1">Nama Pengguna</label>
+                <label htmlFor="userName" className="block text-sm font-medium mb-1">{t('userName')}</label>
                 <input
                   type="email"
                   id="email"
@@ -227,7 +252,7 @@ const ProfileManagement = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium mb-1">Nama depan</label>
+                  <label htmlFor="firstName" className="block text-sm font-medium mb-1">{t('firstName')}</label>
                   <input
                     type="text"
                     id="firstName"
@@ -236,7 +261,7 @@ const ProfileManagement = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium mb-1">Nama belakang</label>
+                  <label htmlFor="lastName" className="block text-sm font-medium mb-1">{t('lastName')}</label>
                   <input
                     type="text"
                     id="lastName"
@@ -247,32 +272,32 @@ const ProfileManagement = () => {
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                <label htmlFor="email" className="block text-sm font-medium mb-1">{t('email')}</label>
                 <input
                   type="email"
                   id="email"
                   className="w-full p-2 border rounded-md"
-                  placeholder="email@example.com"
+                  placeholder={locale === 'id' ? "email@example.com" : "email@example.com"}
                 />
               </div>
               
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium mb-1">No Telepon</label>
+                <label htmlFor="phone" className="block text-sm font-medium mb-1">{t('phoneNumber')}</label>
                 <input
                   type="tel"
                   id="phone"
                   className="w-full p-2 border rounded-md"
-                  placeholder="+62 ..."
+                  placeholder={locale === 'id' ? "+62 ..." : "+62 ..."}
                 />
               </div>
               
               <div className="relative">
-                <label htmlFor="address" className="block text-sm font-medium mb-1">Alamat</label>
+                <label htmlFor="address" className="block text-sm font-medium mb-1">{t('address')}</label>
                 <input
                   type="text"
                   id="address"
                   className="w-full p-2 border rounded-md"
-                  placeholder="Masukkan alamat Anda"
+                  placeholder={locale === 'id' ? "Masukkan alamat Anda" : "Enter your address"}
                   value={address}
                   onChange={handleAddressChange}
                   autoComplete="off"
@@ -294,7 +319,7 @@ const ProfileManagement = () => {
               
               <div className="flex justify-between items-end gap-4">
                 <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">Peran</label>
+                  <label className="block text-sm font-medium mb-1">{t('role')}</label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
@@ -306,12 +331,24 @@ const ProfileManagement = () => {
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-full">
-                      <DropdownMenuItem onSelect={() => setSelectedRole('Petani')}>Petani</DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole('Penyuluh')}>Penyuluh</DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole('Peneliti')}>Peneliti</DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole('Investor')}>Investor</DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole('Pembeli')}>Pembeli</DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole('Lainnya')}>Lainnya</DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Petani' : 'Farmer')}>
+                        {locale === 'id' ? 'Petani' : 'Farmer'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Petugas Lapangan' : 'Field Officer')}>
+                        {locale === 'id' ? 'Petugas Lapangan' : 'Field Officer'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Peneliti' : 'Researcher')}>
+                        {locale === 'id' ? 'Peneliti' : 'Researcher'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Investor' : 'Investor')}>
+                        {locale === 'id' ? 'Investor' : 'Investor'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Pembeli' : 'Buyer')}>
+                        {locale === 'id' ? 'Pembeli' : 'Buyer'}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Lainnya' : 'Other')}>
+                        {locale === 'id' ? 'Lainnya' : 'Other'}
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
@@ -320,7 +357,7 @@ const ProfileManagement = () => {
                     type="button"
                     className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
                   >
-                    Simpan
+                    {t('save')}
                   </button>
                 </div>
               </div>

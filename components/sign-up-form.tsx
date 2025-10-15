@@ -16,7 +16,6 @@ import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useModal } from '@/components/modal-context';
 
 export function SignUpForm({
   className,
@@ -30,23 +29,7 @@ export function SignUpForm({
   const router = useRouter();
   const { t } = useI18n();
 
-  const { openModal } = useModal();
 
-  const loadAndOpenModal = async (fileName: string, title: string) => {
-    try {
-      const response = await fetch(`/${fileName}`);
-      console.log(`Fetching ${fileName}, status: ${response.status}`);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${fileName} with status ${response.status}`);
-      }
-      const content = await response.text();
-      console.log(`Content length for ${fileName}: ${content.length}`);
-      openModal(title, content);
-    } catch (err) {
-      console.error(`Error loading ${fileName}:`, err);
-      openModal(title, `Error loading ${fileName}: ${err instanceof Error ? err.message : String(err)}`);
-    }
-  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,23 +116,7 @@ export function SignUpForm({
                 {t('login')}
               </Link>
             </div>
-            <div className="mt-4 text-center text-sm flex justify-center gap-4">
-              <button 
-                type="button" 
-                className="text-xs text-muted-foreground cursor-pointer"
-                onClick={() => loadAndOpenModal("privacy-policy.md", t('privacyPolicy'))}
-              >
-                {t('privacyPolicy')}
-              </button>
-              <span className="text-muted-foreground">|</span>
-              <button 
-                type="button" 
-                className="text-xs text-muted-foreground cursor-pointer"
-                onClick={() => loadAndOpenModal("terms-and-condition.md", t('termCondition'))}
-              >
-                {t('termCondition')}
-              </button>
-            </div>
+
           </form>
         </CardContent>
       </Card>

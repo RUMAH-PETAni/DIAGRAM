@@ -23,7 +23,7 @@ export const translations = {
     logout: 'Logout',
     signup: 'Sign Up',
     theme: 'Theme',
-    infoDiagram: 'Welcome to DIAGRAM,',
+  
     
     // Page content
     title: 'Diagram',
@@ -115,7 +115,8 @@ export const translations = {
     commoditySupplyChain: 'Commodity Supply Chain',
     communityHub: 'Community Network',
     aiGronomistAssistant: 'AI-Gronomist Assistant',
-    freeAccess: 'Easy & Free Access',
+    chatDesc:'*AI can make mistakes, give specific questions for the best answers',
+    freeAccess: 'Easy Use & Free Access',
     accessibleToAnyone: 'Accessible to Anyone and Everywhere',
     
     // Login form
@@ -139,7 +140,23 @@ export const translations = {
     checkYourEmail: 'Check Your Email',
     passwordResetInstructionsSent: 'Password reset instructions sent',
     resetEmailSentInfo: 'If you registered using your email and password, you will receive a password reset email.',
+  
+      //Profile Form Section
+    infoDiagram: 'Welcome to DIAGRAM, please fill in and complete your personal data first',
+    userProfile: 'User Profile',
+    chooseAvatar: 'Choose Avatar',
+    uploadPhoto: 'Upload Photo',
+    userName: 'User Name',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    phoneNumber: 'Phone Number',
+    address: 'Address',
+    role: 'Role',
+  
   },
+
+
+
   id: {
     // Navigation
     home: 'Beranda',
@@ -155,6 +172,7 @@ export const translations = {
     logout: 'Keluar',
     signup: 'Daftar',
     theme: 'Tema',
+    save: 'Simpan',
     
     // Page content
     title: 'Diagram',
@@ -187,7 +205,7 @@ export const translations = {
     deploy: 'Deploy',
     continue: 'Lanjutkan',
     cancel: 'Batal',
-    save: 'Simpan',
+  
     delete: 'Hapus',
     update: 'Perbarui',
     
@@ -246,7 +264,8 @@ export const translations = {
     commoditySupplyChain: 'Rantai Pasok Komoditas',
     communityHub: 'Jaringan Komunitas',
     aiGronomistAssistant: 'Asisten AI-Gronomis',
-    freeAccess: 'Akses Mudah & Bebas',
+    chatDesc:'*AI dapat membuat kesalahan, berikan pertanyaan spesifik untuk jawaban terbaik',
+    freeAccess: 'Kemudahan Penggunaan & Akses Gratis',
     accessibleToAnyone: 'Dapat Diakses oleh Siapa Saja dan di Mana Saja',
     
     // Login form
@@ -270,6 +289,18 @@ export const translations = {
     checkYourEmail: 'Periksa Email Anda',
     passwordResetInstructionsSent: 'Instruksi reset kata sandi telah dikirim',
     resetEmailSentInfo: 'Jika Anda mendaftar menggunakan email dan kata sandi, Anda akan menerima email reset kata sandi.',
+
+    //Profile Form Section
+    infoDiagram: 'Selamat Datang di DIAGRAM, silahkan isi dan lengkapi data diri anda terlebih dahulu',
+    userProfile: 'Profil Pengguna',
+    chooseAvatar: 'Pilih Avatar',
+    uploadPhoto: 'Unggah Foto',
+    userName: 'Nama Pengguna',
+    firstName: 'Nama Depan',
+    lastName: 'Nama Belakang',
+    phoneNumber: 'Nomor Telepon',
+    address: 'Alamat',
+    role: 'Peran',
   },
 };
 

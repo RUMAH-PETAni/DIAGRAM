@@ -210,6 +210,7 @@ export function Hero() {
                 style={{
                   width: '100%',
                   height: '100%',
+                  filter: theme === 'dark' ? 'invert(1) hue-rotate(180deg)' : 'none',
                 }}
                 rendererSettings={{
                   preserveAspectRatio: 'xMidYMid slice'
@@ -433,7 +434,10 @@ export function Hero() {
           <div className="flex-grow flex items-center justify-center">
             <FakeChatAgroforestry />
           </div>
-        </div>
+            <p className="text-xs italic text-muted-foreground text-center items-center justify-center flex-grow mt-4">
+              {t('chatDesc')}
+            </p>
+         </div>
       </div>
       
       <div className="w-full max-w-full overflow-hidden mt-6">
@@ -454,6 +458,7 @@ export function Hero() {
               style={{
                 width: '100%',
                 height: '100%',
+                filter: theme === 'dark' ? 'invert(1) hue-rotate(180deg)' : 'none',
               }}
               rendererSettings={{
                 preserveAspectRatio: 'xMidYMid slice'

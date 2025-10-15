@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-
+import { useI18n } from '@/lib/i18n-context';
 import ProfileManagement from "@/components/profile-management";
 
 export default function ProtectedPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const { t } = useI18n();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -36,7 +37,7 @@ export default function ProtectedPage() {
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
         <div className="bg-accent text-sm p-3 px-4 rounded-md text-foreground flex gap-3 items-center">
-          Selamat Datang di DIAGRAM, silahkan isi dan lengkapi data diri anda terlebih dahulu.
+          {t('infoDiagram')}
         </div>
       </div>
       <ProfileManagement />     
