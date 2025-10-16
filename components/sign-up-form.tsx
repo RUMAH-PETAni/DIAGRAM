@@ -24,12 +24,11 @@ export function SignUpForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { t } = useI18n();
-
-
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +37,7 @@ export function SignUpForm({
     setError(null);
 
     if (password !== repeatPassword) {
-      setError(t('passwordsDoNotMatch'));
+      setError(t("passwordsDoNotMatch"));
       setIsLoading(false);
       return;
     }
@@ -49,8 +48,12 @@ export function SignUpForm({
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/protected`,
+          data: {
+            display_name: username,
+          },
         },
       });
+
       if (error) throw error;
       router.push("/auth/sign-up-success");
     } catch (error: unknown) {
@@ -64,27 +67,44 @@ export function SignUpForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">{t('signUp')}</CardTitle>
-          <CardDescription>{t('createAccount')}</CardDescription>
+          <CardTitle className="text-2xl">{t("signUp")}</CardTitle>
+          <CardDescription>{t("createAccount")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignUp}>
             <div className="flex flex-col gap-6">
+
+              {/* 🧑 Username */}
               <div className="grid gap-2">
-                <Label htmlFor="email">{t('email')}</Label>
+                <Label htmlFor="username">{t("userName")}</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder={t("enterYourUserName")}
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+
+          
+
+              {/* 📧 Email */}
+              <div className="grid gap-2">
+                <Label htmlFor="email">{t("email")}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder={t('enterYourEmail')}
+                  placeholder={t("enterYourEmail")}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
+              {/* 🔑 Password */}
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">{t('password')}</Label>
-                </div>
+                <Label htmlFor="password">{t("password")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -93,10 +113,10 @@ export function SignUpForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+
+              {/* 🔁 Repeat password */}
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="repeat-password">{t('repeatPassword')}</Label>
-                </div>
+                <Label htmlFor="repeat-password">{t("repeatPassword")}</Label>
                 <Input
                   id="repeat-password"
                   type="password"
@@ -105,23 +125,22 @@ export function SignUpForm({
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
+
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? t('creatingAccount') : t('signUp')}
+                {isLoading ? t("creatingAccount") : t("signUp")}
               </Button>
             </div>
+
             <div className="mt-4 text-center text-sm">
-              {t('alreadyHaveAccount')}{" "}
+              {t("alreadyHaveAccount")}{" "}
               <Link href="/auth/login" className="underline underline-offset-4">
-                {t('login')}
+                {t("login")}
               </Link>
             </div>
-
           </form>
         </CardContent>
       </Card>
-
-
     </div>
   );
 }

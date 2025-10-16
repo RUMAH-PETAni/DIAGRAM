@@ -9,7 +9,7 @@ import ProfileManagement from "@/components/profile-management";
 export default function ProtectedPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const { t } = useI18n();
+  useI18n();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -34,13 +34,10 @@ export default function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-4 rounded-md text-foreground flex gap-3 items-center">
-          {t('infoDiagram')}
-        </div>
+    <div className="flex w-full items-center justify-center p-4 md:p-6">
+      <div className="w-full max-w-2xl">
+        <ProfileManagement />     
       </div>
-      <ProfileManagement />     
     </div>
   );
 }

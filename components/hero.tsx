@@ -8,7 +8,7 @@ import { TypeAnimation } from 'react-type-animation';
 import Link from "next/link";
 import { Trees, ThermometerSun, Network, Factory, Brain, NotebookText, MonitorSmartphone, Truck, Bot, Users, Sprout, LandPlot } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 
 
@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import FakeChatAgroforestry from "./FakeChatAgroforestry";
 import { useI18n } from "@/lib/i18n-context";
 import { Locale } from "@/lib/i18n";
+import ImageCompareSlider from '@/components/ImageCompareSlider';
 
 export function Hero() {
   const { t, getTranslations, locale } = useI18n();
@@ -26,6 +27,7 @@ export function Hero() {
   const [animationTexts, setAnimationTexts] = useState<string[]>([]);
   // Set default animationTexts untuk mencegah tampilan kosong saat pertama load
   const [currentLocale, setCurrentLocale] = useState<Locale>('en'); // Default sementara
+  const hydratedRef = useRef(false);
 
   useEffect(() => {
     // Update locale lokal untuk memperbarui nilai default sebelum mount
@@ -38,6 +40,7 @@ export function Hero() {
 
   useEffect(() => {
     setIsMounted(true);
+    hydratedRef.current = true;
     // Setelah di-mount, ambil teks animasi pertama kali
     const texts = getTranslations().heroAnimationTexts as string[];
     setAnimationTexts(texts);
@@ -113,14 +116,23 @@ export function Hero() {
           <div className="border rounded-lg p-6 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg">
             <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
               <div className="w-16 h-16 text-primary" />
-              <h3 className="font-bold text-lg">{t('agroforestryMarketplace')}</h3>
+              <h3 className="font-bold text-lg">{t('agroforestryStore')}</h3>
             </div>
             <Separator className="my-3" />
             <p className="text-muted-foreground">
-              {t('agroforestryMarketplaceDesc')}
+              {t('agroforestryStoreDesc')}
             </p>
           </div>
         </div>
+
+   
+          
+          <ImageCompareSlider
+            before="/before.jpg"
+            after="/after.jpg"
+           
+          />
+    
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full mt-8">
           <div className="">
@@ -205,12 +217,13 @@ export function Hero() {
           <AspectRatio ratio={16 / 9} className="border rounded-lg overflow-hidden max-w-full">
             <div className="w-full h-full flex items-center justify-center p-4 relative">
               <Lottie 
+                key={`lottie-mobile-${theme || 'system'}`} // Force re-render when theme changes
                 animationData={indonesiaMap} 
                 loop={true}
                 style={{
                   width: '100%',
                   height: '100%',
-                  filter: theme === 'dark' ? 'invert(1) hue-rotate(180deg)' : 'none',
+                  filter: hydratedRef.current && theme === 'dark' ? 'invert(1) hue-rotate(180deg)' : 'none',
                 }}
                 rendererSettings={{
                   preserveAspectRatio: 'xMidYMid slice'
@@ -348,7 +361,12 @@ export function Hero() {
             {t('interactiveMonitoringMapDesc')}
           </p>
         </div>
-        <div className="border rounded-lg p-6 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg">
+        <div className="border rounded-lg p-6 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative">
+          <div className="absolute top-2 right-2 z-10">
+            <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full">
+              {t('comingSoon')}
+            </span>
+          </div>
           <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
             <Image 
               src="/feature3.svg" 
@@ -357,14 +375,23 @@ export function Hero() {
               height={64}
               className={`w-16 h-16  text-primary ${theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">{t('agroforestryMarketplace')}</h3>
+            <h3 className="font-bold text-lg">{t('agroforestryStore')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-sm md:text text-muted-foreground">
-            {t('agroforestryMarketplaceDesc')}
+            {t('agroforestryStoreDesc')}
           </p>
         </div>
       </div>
+
+     
+          <ImageCompareSlider
+            before="/before.jpg"
+            after="/after.jpg"
+        
+          />
+      
+
 
       {/* New 2-column grid layout below features cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full mt-8">
@@ -402,13 +429,23 @@ export function Hero() {
                 <ThermometerSun className="w-8 h-8 mb-2" />
                 <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
               </div>              
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md relative">
+                <div className="absolute top-1 right-1 z-10">
+                  <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                    {t('onDemandService')}
+                  </span>
+                </div>
                 <Factory className="w-8 h-8 mb-2" />
                 <h3 className="font-bold text-sm text-center">{t('carbonFootprint')}</h3>
               </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Truck className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('commoditySupplyChain')}</h3>
+              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md relative">
+                <div className="absolute top-1 right-1 z-10">
+                  <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                    {t('onDemandService')}
+                  </span>
+                </div>
+                <Truck className="w-8 h-8 mb-2" />
+                <h3 className="font-bold text-sm text-center">{t('commoditySupplyChain')}</h3>
               </div>
               <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <Network className="w-8 h-8 mb-2" />
@@ -453,12 +490,13 @@ export function Hero() {
         <AspectRatio ratio={16 / 9} className="border rounded-lg overflow-hidden max-w-full">
           <div className="w-full h-full flex items-center justify-center p-4 relative">
             <Lottie 
+              key={`lottie-${theme || 'system'}`} // Force re-render when theme changes
               animationData={indonesiaMap} 
               loop={true}
               style={{
                 width: '100%',
                 height: '100%',
-                filter: theme === 'dark' ? 'invert(1) hue-rotate(180deg)' : 'none',
+                filter: hydratedRef.current && theme === 'dark' ? 'invert(1) hue-rotate(180deg)' : 'none',
               }}
               rendererSettings={{
                 preserveAspectRatio: 'xMidYMid slice'

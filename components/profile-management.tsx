@@ -4,12 +4,23 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { User, ChevronDown } from 'lucide-react';
 import { useI18n } from '@/lib/i18n-context';
+import { cn } from "@/lib/utils";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import { 
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface AddressSuggestion {
   properties: {
@@ -19,40 +30,21 @@ interface AddressSuggestion {
   };
 }
 
-const ProfileManagement = () => {
+const ProfileManagement = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) => {
   const { locale, t } = useI18n();
   const [avatar, setAvatar] = useState<string | null>(null); // Default to null to show icon
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [selectedRole, setSelectedRole] = useState(locale === 'id' ? 'Petani' : 'Farmer'); // Default role
+  const [selectedRole, setSelectedRole] = useState(''); // No default role
+  const [selectedGender, setSelectedGender] = useState(''); // No default gender
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const addressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const initialRoleRef = useRef(selectedRole);
-
-  // Update default role when language changes
-  useEffect(() => {
-    // Check if the current role is still the initial default role
-    const isDefaultRole = initialRoleRef.current === selectedRole;
-    
-    if (isDefaultRole) {
-      // Update to the appropriate default role for the new language
-      const newDefaultRole = locale === 'id' ? 'Petani' : 'Farmer';
-      setSelectedRole(newDefaultRole);
-      initialRoleRef.current = newDefaultRole;
-    }
-  }, [locale, selectedRole]);
-  const initializedRef = useRef(false);
-
-  // Set default role based on initial language only
-  useEffect(() => {
-    if (!initializedRef.current) {
-      setSelectedRole(locale === 'id' ? 'Petani' : 'Farmer');
-      initializedRef.current = true;
-    }
-  }, [locale]);
 
   // Function to handle address input changes with debouncing
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,65 +120,18 @@ const ProfileManagement = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <div className="bg-card p-6 rounded-lg border">
-        <h2 className="text-xl font-bold mb-4 ">{t('userProfile')}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Avatar Section */}
-          <div className="md:col-span-1">
-            <div className="flex flex-col items-center">
-              <div className="w-32 h-32 rounded-full bg-muted flex items-center justify-center mb-4 overflow-hidden border-2 border-dashed border-muted-foreground/30 relative">
-                {previewImage ? (
-                  <Image 
-                    src={previewImage} 
-                    alt="Preview" 
-                    width={128} 
-                    height={128} 
-                    className="w-full h-full object-cover"
-                  />
-                ) : avatar ? (
-                  <Image 
-                    src={avatar} 
-                    alt="User Avatar" 
-                    width={128} 
-                    height={128} 
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <User size={64} className="text-muted-foreground" />
-                )}
-              </div>
-              <div className="flex items-center justify-center gap-2 w-full">
-                <button 
-                  type="button"
-                  className="text-sm text-primary hover:underline"
-                  onClick={() => setShowAvatarModal(true)}
-                >
-                  {t('chooseAvatar')}
-                </button>
-                <div className="h-4 w-px bg-border" />
-                <button 
-                  type="button"
-                  className="text-sm text-primary hover:underline"
-                  onClick={triggerFileInput}
-                >
-                  {t('uploadPhoto')}
-                </button>
-                <input 
-                  ref={fileInputRef}
-                  id="file-input" 
-                  type="file" 
-                  className="hidden" 
-                  accept="image/*"
-                  onChange={handleFileUpload}
-                />
-              </div>
-            </div>
-            
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Card className="w-full max-w-4xl mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl">{t('welcome')}</CardTitle>
+          <CardDescription>{t('info')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
             {/* Avatar Selection Modal */}
             {showAvatarModal && (
-              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                <div className="bg-background rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+                <div className="bg-background rounded-lg p-6 max-w-2xl w-full max-h-[60vh] overflow-y-auto">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-lg font-semibold">{t('chooseAvatar')}</h3>
                     <button 
@@ -194,141 +139,173 @@ const ProfileManagement = () => {
                       className="text-muted-foreground hover:text-foreground"
                       onClick={() => setShowAvatarModal(false)}
                     >
-                      {t('close')}
+                      ✕
                     </button>
                   </div>
                   <div className="grid grid-cols-3 sm:grid-cols-5 gap-4">
-                    {[
-                      '/avatar/male.png',
-                      '/avatar/male1.png',
-                      '/avatar/male2.png',
-                      '/avatar/male3.png',
-                      '/avatar/male4.png',
-                      '/avatar/female.png',
-                      '/avatar/female1.png',
-                      '/avatar/female2.png',
-                      '/avatar/female3.png',
-                      '/avatar/female4.png'
-                    ].map((avatarPath, index) => (
-                      <div 
-                        key={index}
-                        className="flex flex-col items-center cursor-pointer p-2 rounded-md hover:bg-accent transition-colors"
-                        onClick={() => {
-                          setAvatar(avatarPath);
-                          setPreviewImage(null);
-                          setShowAvatarModal(false);
-                        }}
-                      >
-                        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-transparent hover:border-primary transition-colors">
-                          <Image 
-                            src={avatarPath} 
-                            alt={`Avatar ${index+1}`} 
-                            width={64} 
-                            height={64} 
-                            className="w-full h-full object-cover"
-                          />
+                    {Array.from({ length: 10 }).map((_, index) => {
+                      const avatarPath = `/avatar/male${index}.png`;
+                      return (
+                        <div 
+                          key={index}
+                          className="flex flex-col items-center cursor-pointer p-2 rounded-md hover:bg-accent transition-colors"
+                          onClick={() => {
+                            setAvatar(avatarPath);
+                            setPreviewImage(null);
+                            setShowAvatarModal(false);
+                          }}
+                        >
+                          <div className="w-16 h-16 rounded-full overflow-hidden">
+                            <Image 
+                              src={avatarPath} 
+                              alt={`Avatar ${index+1}`} 
+                              width={64} 
+                              height={64} 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <span className="text-xs mt-1">{t('avatar')} {index+1}</span>
                         </div>
-                        <span className="text-xs mt-1">{t('avatar')} {index+1}</span>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             )}
-          </div>
-          
-          {/* Profile Form Section */}
-          <div className="md:col-span-2">
-            <form className="space-y-4">
-               <div>
-                <label htmlFor="userName" className="block text-sm font-medium mb-1">{t('userName')}</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full p-2 border rounded-md"
-                
-                />
+
+            {/* Two-column layout: Avatar on left, Form on right */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Avatar Section - Left Column */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-32 h-32 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-dashed border-muted-foreground/30 relative">
+                  {previewImage ? (
+                    <Image 
+                      src={previewImage} 
+                      alt="Preview" 
+                      width={128} 
+                      height={128} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : avatar ? (
+                    <Image 
+                      src={avatar} 
+                      alt="User Avatar" 
+                      width={128} 
+                      height={128} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <User size={64} className="text-muted-foreground" />
+                  )}
+                </div>
+                <div className="flex items-center gap-2">
+                  <button 
+                    type="button"
+                    className="text-xs text-primary hover:underline"
+                    onClick={() => setShowAvatarModal(true)}
+                  >
+                    {t('chooseAvatar')}
+                  </button>
+                  <span className="text-muted-foreground">|</span>
+                  <button 
+                    type="button"
+                    className="text-xs text-primary hover:underline"
+                    onClick={triggerFileInput}
+                  >
+                    {t('uploadPhoto')}
+                  </button>
+                  <input 
+                    ref={fileInputRef}
+                    id="file-input" 
+                    type="file" 
+                    className="hidden" 
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium mb-1">{t('firstName')}</label>
-                  <input
+              {/* Profile Form Section - Right Column */}
+              <div className="space-y-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="fullName">{t('fullName')}</Label>
+                  <Input
                     type="text"
-                    id="firstName"
-                    className="w-full p-2 border rounded-md"
+                    id="fullName"
+                    placeholder={t('enterFullName')}
+                  />
+                </div>
+
                 
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium mb-1">{t('lastName')}</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    className="w-full p-2 border rounded-md"
-                  
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">{t('email')}</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full p-2 border rounded-md"
-                  placeholder={locale === 'id' ? "email@example.com" : "email@example.com"}
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium mb-1">{t('phoneNumber')}</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  className="w-full p-2 border rounded-md"
-                  placeholder={locale === 'id' ? "+62 ..." : "+62 ..."}
-                />
-              </div>
-              
-              <div className="relative">
-                <label htmlFor="address" className="block text-sm font-medium mb-1">{t('address')}</label>
-                <input
-                  type="text"
-                  id="address"
-                  className="w-full p-2 border rounded-md"
-                  placeholder={locale === 'id' ? "Masukkan alamat Anda" : "Enter your address"}
-                  value={address}
-                  onChange={handleAddressChange}
-                  autoComplete="off"
-                />
-                {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute mt-1 w-full bg-popover text-popover-foreground border rounded-md shadow-lg z-10 max-h-60 overflow-y-auto">
-                    {suggestions.map((suggestion, index) => (
-                      <div
-                        key={index}
-                        className="p-2 hover:bg-accent cursor-pointer border-b last:border-b-0"
-                        onClick={() => handleSuggestionClick(suggestion)}
-                      >
-                        {suggestion.properties.name}, {suggestion.properties.state || suggestion.properties.country}
-                      </div>
-                    ))}
+                  <div className="grid gap-2">
+                    <Label>{t('gender')}</Label>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                        >
+                          <span>{selectedGender || (locale === 'id' ? 'Pilih Jenis Kelamin' : 'Select Gender')}</span>
+                          <ChevronDown className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-full">
+                        <DropdownMenuItem onSelect={() => setSelectedGender(locale === 'id' ? 'Laki-laki' : 'Male')}>
+                          {locale === 'id' ? 'Laki-laki' : 'Male'}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => setSelectedGender(locale === 'id' ? 'Perempuan' : 'Female')}>
+                          {locale === 'id' ? 'Perempuan' : 'Female'}
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
-                )}
-              </div>
-              
-              <div className="flex justify-between items-end gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">{t('role')}</label>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="phone">{t('phone')}</Label>
+                    <Input
+                      type="tel"
+                      id="phone"
+                      placeholder={locale === 'id' ? "+62 ..." : "+62 ..."}
+                    />
+                  </div>
+               
+                <div className="grid gap-2 relative">
+                  <Label htmlFor="address">{t('address')}</Label>
+                  <Input
+                    type="text"
+                    id="address"
+                    placeholder={locale === 'id' ? "Masukkan alamat Anda" : "Enter your address"}
+                    value={address}
+                    onChange={handleAddressChange}
+                    autoComplete="off"
+                  />
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="absolute mt-1 w-full bg-popover text-popover-foreground border rounded-md shadow-lg z-10 max-h-60 overflow-y-auto overflow-x-hidden">
+                      {suggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className="p-2 hover:bg-accent cursor-pointer border-b last:border-b-0 truncate"
+                          onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                          {suggestion.properties.name}, {suggestion.properties.state || suggestion.properties.country}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="role">{t('role')}</Label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button
+                      <Button
                         id="role"
-                        className="w-full flex justify-between items-center p-2 border rounded-md hover:bg-accent"
+                        variant="outline"
+                        className="w-full justify-between"
                       >
-                        <span>{selectedRole}</span>
+                        <span>{selectedRole || (locale === 'id' ? 'Pilih Peran' : 'Select Role')}</span>
                         <ChevronDown className="h-4 w-4 opacity-50" />
-                      </button>
+                      </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-full">
                       <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Petani' : 'Farmer')}>
@@ -352,19 +329,21 @@ const ProfileManagement = () => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <div>
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-                  >
+
+              
+
+                
+
+                <div className="grid gap-2">
+                  <Button type="button">
                     {t('save')}
-                  </button>
+                  </Button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
