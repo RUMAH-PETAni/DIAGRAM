@@ -43,10 +43,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-10 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-end items-center p-3 px-5 text-sm">
-            <div className="flex items-center gap-2">
+      <div className="flex-1 w-full flex flex-col items-center">
+        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16 fixed top-0 z-50 bg-background">
+          <div className="w-full max-w-5xl flex justify-end items-center p-3 px-8 text-sm">
+            <div className="flex items-center  gap-2">
               <LanguageSwitcher />
               <ThemeSwitcher />
               {!hasEnvVars ? <EnvVarWarning /> : (
@@ -57,11 +57,10 @@ export default function Home() {
             </div>
           </div>
         </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
+        <div className="flex-1 flex flex-col gap-20 mt-20 max-w-5xl p-5 pt-16">
           <Hero />
-          
         </div>
-
+        
         <footer className="w-full flex flex-col items-center justify-center border-t mx-auto text-center text-xs gap-4 py-8">
           <p className="pt-4">
             Powered by:
@@ -169,6 +168,7 @@ export default function Home() {
               ]}
             />
           </div>
+                   
           <p className="pt-4">
             © 2025 DIAGRAM
           </p>

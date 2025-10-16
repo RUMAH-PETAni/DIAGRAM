@@ -6,13 +6,12 @@ import indonesiaMap from "./indonesia-map-data";
 import { useTheme } from "next-themes";
 import { TypeAnimation } from 'react-type-animation';
 import Link from "next/link";
-import { Trees, ThermometerSun, Network, Factory, Brain, NotebookText, MonitorSmartphone, Truck, Bot, Users, Sprout, LandPlot } from "lucide-react";
+import { Drone, MonitorCloud, Trees, ThermometerSun, Network, Cpu, Factory, Brain, NotebookText, MonitorSmartphone, Truck, Bot, Users, Sprout, LandPlot } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 
-
-
 import { Separator } from "@/components/ui/separator";
+import ServiceCard from "./ServiceCard";
 import FakeChatAgroforestry from "./FakeChatAgroforestry";
 import { useI18n } from "@/lib/i18n-context";
 import { Locale } from "@/lib/i18n";
@@ -57,12 +56,10 @@ export function Hero() {
               <p className="text-6xl md:text-7xl lg:text-8xl !leading-tight roboto-mono font-bold text-left">
                 {t('diagram')}
               </p>
-              <p className="text-sm md:text-xl lg:text-xl mt-2 roboto-mono text-muted-foreground">
+              <p className="text-sm md:text-xl lg:text-xl mt-2 text-muted-foreground">
                 {t('digitalEcosystem')}
               </p>
-                <blockquote className="text-xs italic text-muted-foreground">
-                {t('heroQuote')}
-              </blockquote>
+                
             </div>
             <div className="flex flex-col justify-between p-4 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full overflow-hidden">
               <div className="flex items-start justify-start">
@@ -87,6 +84,9 @@ export function Hero() {
             </div>
           </div>
         </div>
+        <blockquote className="text-sm italic text-muted-foreground mt-2">
+                {t('heroQuote')}
+              </blockquote>
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
         
         <h2 className="text-2xl font-bold mb-6 text-left">{t('featuresAndServices')}</h2>
@@ -116,24 +116,20 @@ export function Hero() {
           <div className="border rounded-lg p-6 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg">
             <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
               <div className="w-16 h-16 text-primary" />
-              <h3 className="font-bold text-lg">{t('agroforestryStore')}</h3>
+              <h3 className="font-bold text-lg">{t('ecommerce')}<br/>{t('agroforestry')}</h3>
             </div>
             <Separator className="my-3" />
             <p className="text-muted-foreground">
-              {t('agroforestryStoreDesc')}
+              {t('agroforestryDesc')}
             </p>
           </div>
         </div>
 
-   
-          
-          <ImageCompareSlider
-            before="/before.jpg"
-            after="/after.jpg"
-           
-          />
-    
-
+        <ImageCompareSlider
+          before="/before.jpg"
+          after="/after.jpg"
+        />
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full mt-8">
           <div className="">
             <div className="flex items-center gap-3 mb-4">
@@ -148,44 +144,58 @@ export function Hero() {
             </p>
             
             <div className="mt-12 w-full">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <Users className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('usersDashboard')}</h3>
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('usersDashboard')}</h3>
+                </div>
+                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <Network className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('communityHub')}</h3>
                 </div>
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <LandPlot className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('landMapping')}</h3>
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('landMapping')}</h3>
                 </div>
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <Sprout className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('farmMonitoring')}</h3>
-                </div>                
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('farmMonitoring')}</h3>
+                </div>
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <NotebookText className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('logActivity')}</h3>
+                  <MonitorCloud className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('landCover')}</h3>
                 </div>
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <ThermometerSun className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('soilClimateData')}</h3>
+                </div>
+                  <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <NotebookText className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('logActivity')}</h3>
+                </div>
+                  <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <Brain className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('aiRecommendation')}</h3>
                 </div>
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Factory className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('carbonFootprint')}</h3>
+                  <Drone className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('droneImagery')}</h3>
                 </div>
-              
+                  <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <Cpu className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('IoT')}</h3>
+                </div>
+                  <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+                  <Factory className="w-8 h-8 mb-2" />
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('carbonFootprint')}</h3>
+                </div>              
                 <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
                   <Truck className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('commoditySupplyChain')}</h3>
+                  <h3 className="font-bold text-[0.6rem] text-center">{t('commoditySupplyChain')}</h3>
                 </div>
-                <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Network className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('communityHub')}</h3>
-                </div>
-                <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Brain className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('aiRecommendation')}</h3>
-                </div>
+               
+              
+                
               </div>
             </div>
           </div>
@@ -251,8 +261,21 @@ export function Hero() {
                 </div>
               </div>
             </div>
-             
           </AspectRatio>
+          {/* New card with responsive aspect ratio and background image */}
+          <div 
+            className="w-full rounded-xl overflow-hidden mt-10 mb-10 aspect-[1/1] sm:aspect-[16/6]"
+          >
+            <div 
+              className="w-full h-full bg-cover bg-center flex items-center justify-end relative"
+              style={{ backgroundImage: "url('/image1.png')" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/100 dark:to-black/100"></div>
+              <div className="relative z-10 text-right p-6 sm:p-8 max-w-md w-full">
+                <h3 className="text-4xl sm:text-4xl md:text-4xl font-bold text-black dark:text-white mb-2 sm:mb-4">{t('letsJoin')}</h3>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -268,15 +291,13 @@ export function Hero() {
         {/* Left column with DIAGRAM title and subtitle */}
         <div className="grid grid-rows-2 gap-4 max-w-full">
           <div className="flex flex-col items-start justify-center row-span-1 overflow-hidden">
-            <p className="text-6xl md:text-7xl lg:text-8xl !leading-tight roboto-mono font-bold text-left">
+            <p className="text-7xl md:text-8xl lg:text-8xl  roboto-mono font-bold text-left">
               {t('diagram')}
             </p>
-            <p className="text-sm md:text-xl lg:text-xl mt-2 roboto-mono text-muted-foreground">
+            <p className="text md:text-2xl mt-2 text-muted-foreground">
               {t('digitalEcosystem')}
             </p>
-              <blockquote className="text-xs italic text-muted-foreground">
-              {t('heroQuote')}
-            </blockquote>
+              
           </div>
           <div className="flex flex-col justify-between p-4 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full overflow-hidden">
             <div className="flex items-start justify-start">
@@ -322,6 +343,9 @@ export function Hero() {
           </div>
         </div>
       </div>
+      <blockquote className="text-sm italic text-muted-foreground mt-2">
+              {t('heroQuote')}
+            </blockquote>
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
       
       <h2 className="text-2xl font-bold mb-6 text-left">{t('featuresAndServices')}</h2>
@@ -375,23 +399,19 @@ export function Hero() {
               height={64}
               className={`w-16 h-16  text-primary ${theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">{t('agroforestryStore')}</h3>
+            <h3 className="font-bold text-lg">{t('ecommerce')}<br/>{t('agroforestry')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-sm md:text text-muted-foreground">
-            {t('agroforestryStoreDesc')}
+            {t('agroforestryDesc')}
           </p>
         </div>
       </div>
 
-     
-          <ImageCompareSlider
-            before="/before.jpg"
-            after="/after.jpg"
-        
-          />
-      
-
+      <ImageCompareSlider
+        before="/before.jpg"
+        after="/after.jpg"
+      />
 
       {/* New 2-column grid layout below features cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full mt-8">
@@ -408,53 +428,60 @@ export function Hero() {
           </p>
           
           <div className="mt-10 w-full">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                <Users className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('usersDashboard')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                <LandPlot className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('landMapping')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                <Sprout className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('farmMonitoring')}</h3>
-              </div>             
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                <NotebookText className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('logActivity')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                <ThermometerSun className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('soilClimateData')}</h3>
-              </div>              
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md relative">
-                <div className="absolute top-1 right-1 z-10">
-                  <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
-                    {t('onDemandService')}
-                  </span>
-                </div>
-                <Factory className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('carbonFootprint')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md relative">
-                <div className="absolute top-1 right-1 z-10">
-                  <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
-                    {t('onDemandService')}
-                  </span>
-                </div>
-                <Truck className="w-8 h-8 mb-2" />
-                <h3 className="font-bold text-sm text-center">{t('commoditySupplyChain')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Network className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('communityHub')}</h3>
-              </div>
-              <div className="border rounded-lg p-4 hover:bg-accent hover:text-accent-foreground transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-                  <Brain className="w-8 h-8 mb-2" />
-                  <h3 className="font-bold text-sm text-center">{t('aiRecommendation')}</h3>
-              </div>
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <ServiceCard 
+                icon={Users} 
+                titleKey="usersDashboard" 
+              />
+              <ServiceCard 
+                icon={Network} 
+                titleKey="communityHub" 
+              />
+              <ServiceCard 
+                icon={LandPlot} 
+                titleKey="landMapping"
+              />
+                <ServiceCard 
+                icon={Sprout} 
+                titleKey="farmMonitoring" 
+              /> 
+              <ServiceCard 
+                icon={MonitorCloud} 
+                titleKey="landCover" 
+              />
+              <ServiceCard 
+                icon={ThermometerSun} 
+                titleKey="soilClimateData" 
+              />  
+               <ServiceCard 
+                icon={NotebookText} 
+                titleKey="logActivity" 
+              />           
+              <ServiceCard 
+                icon={Brain} 
+                titleKey="aiRecommendation" 
+              />
+               <ServiceCard 
+                icon={Drone} 
+                titleKey="droneImagery" 
+                badgeTextKey="onDemandService"               
+              />
+              <ServiceCard 
+                icon={Cpu} 
+                titleKey="IoT" 
+                badgeTextKey="onDemandService"
+                
+              />
+               <ServiceCard 
+                icon={Factory} 
+                titleKey="carbonFootprint"
+                badgeTextKey="onDemandService"
+              />
+              <ServiceCard 
+                icon={Truck} 
+                titleKey="commoditySupplyChain"
+                badgeTextKey="onDemandService"
+              />
             </div>
           </div>
         </div>
@@ -563,8 +590,22 @@ export function Hero() {
           </div>
           
         </AspectRatio>
+       
+        {/* New card with responsive aspect ratio and background image */}
+        <div 
+          className="w-full rounded-xl overflow-hidden mt-10 mb-10 aspect-[1/1] sm:aspect-[16/6]"
+        >
+          <div 
+            className="w-full h-full bg-cover bg-center flex items-center justify-end relative"
+            style={{ backgroundImage: "url('/image1.png')" }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/100 dark:to-black/100"></div>
+            <div className="relative z-10 text-right p-6 sm:p-8 max-w-md w-full">
+              <h3 className="text-4xl sm:text-4xl md:text-4xl font-bold text-black dark:text-white mb-2 sm:mb-4">{t('letsJoin')}</h3>
+            </div>
+          </div>
+        </div>
       </div>
-      
     </div>
   );
 }
