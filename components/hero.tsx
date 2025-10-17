@@ -49,17 +49,18 @@ export function Hero() {
   if (!isMounted) {
     return (
       <div className="flex flex-col gap-8 items-center w-full max-w-5xl px-4">
-        <h1 className="sr-only">DIAGRAM</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full overflow-hidden">
           <div className="grid grid-rows-2 gap-4 max-w-full">
             <div className="flex flex-col items-start justify-center row-span-1 overflow-hidden">
-              <p className="text-6xl md:text-7xl lg:text-8xl !leading-tight roboto-mono font-bold text-left">
+              <p className="text-6xl md:text-8xl lg:text-8xl !leading-tight roboto-mono font-bold text-left">
                 {t('diagram')}
               </p>
               <p className="text-sm md:text-xl lg:text-xl mt-2 text-muted-foreground">
                 {t('digitalEcosystem')}
               </p>
-                
+              <blockquote className="text-xs italic text-muted-foreground mt-2">
+                {t('heroQuote')}
+              </blockquote> 
             </div>
             <div className="flex flex-col justify-between p-4 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full overflow-hidden">
               <div className="flex items-start justify-start">
@@ -84,11 +85,7 @@ export function Hero() {
             </div>
           </div>
         </div>
-        <blockquote className="text-sm italic text-muted-foreground mt-2">
-                {t('heroQuote')}
-              </blockquote>
         <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-        
         <h2 className="text-2xl font-bold mb-6 text-left">{t('featuresAndServices')}</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
@@ -270,7 +267,7 @@ export function Hero() {
               className="w-full h-full bg-cover bg-center flex items-center justify-end relative"
               style={{ backgroundImage: "url('/image1.png')" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/100 dark:to-black/100"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/100 dark:to-background"></div>
               <div className="relative z-10 text-right p-6 sm:p-8 max-w-md w-full">
                 <h3 className="text-4xl sm:text-4xl md:text-4xl font-bold text-black dark:text-white mb-2 sm:mb-4">{t('letsJoin')}</h3>
               </div>
@@ -284,20 +281,19 @@ export function Hero() {
   // Jika sudah di-mount, render versi lengkap
   return (
     <div className="flex flex-col gap-8 items-center w-full max-w-5xl px-4">
-      <h1 className="sr-only">DIAGRAM</h1>
- 
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-full overflow-hidden">
         {/* Left column with DIAGRAM title and subtitle */}
         <div className="grid grid-rows-2 gap-4 max-w-full">
           <div className="flex flex-col items-start justify-center row-span-1 overflow-hidden">
-            <p className="text-7xl md:text-8xl lg:text-8xl  roboto-mono font-bold text-left">
+            <p className="text-6xl md:text-8xl lg:text-8xl  roboto-mono font-bold text-left">
               {t('diagram')}
             </p>
             <p className="text md:text-2xl mt-2 text-muted-foreground">
               {t('digitalEcosystem')}
             </p>
-              
+            <blockquote className="text-xs italic text-muted-foreground mt-2">
+              {t('heroQuote')}
+            </blockquote> 
           </div>
           <div className="flex flex-col justify-between p-4 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full overflow-hidden">
             <div className="flex items-start justify-start">
@@ -343,9 +339,7 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <blockquote className="text-sm italic text-muted-foreground mt-2">
-              {t('heroQuote')}
-            </blockquote>
+      
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
       
       <h2 className="text-2xl font-bold mb-6 text-left">{t('featuresAndServices')}</h2>
@@ -599,7 +593,7 @@ export function Hero() {
             className="w-full h-full bg-cover bg-center flex items-center justify-end relative"
             style={{ backgroundImage: "url('/image1.png')" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/100 dark:to-black/100"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/100 dark:to-background"></div>
             <div className="relative z-10 text-right p-6 sm:p-8 max-w-md w-full">
               <h3 className="text-4xl sm:text-4xl md:text-4xl font-bold text-black dark:text-white mb-2 sm:mb-4">{t('letsJoin')}</h3>
             </div>

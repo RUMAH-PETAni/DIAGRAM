@@ -34,9 +34,9 @@ Untuk pertanyaan atau keluhan privasi, hubungi kami di **support@rumahpetani.clo
 ---
 
 
-## 🛡️ Pengumpulan dan Perlindungan Data Pribadi Sensitif (NIK)
+## 🛡️ Pengumpulan dan Perlindungan Data Pribadi Sensitif
 
-Diagram dapat mengumpulkan informasi pribadi sensitif seperti **Nomor Induk Kependudukan (NIK)**, alamat lengkap, dan informasi kepemilikan lahan. Data ini digunakan **semata-mata untuk tujuan verifikasi identitas dan pengelolaan lahan petani**.
+Diagram dapat mengumpulkan informasi pribadi sensitif seperti **Nomor Induk Kependudukan**, alamat lengkap, dan informasi kepemilikan lahan. Data ini digunakan **semata-mata untuk tujuan verifikasi identitas dan pengelolaan lahan petani**.
 
 Kami berkomitmen untuk menjaga keamanan dan kerahasiaan data tersebut dengan cara:
 - Menyimpan data secara terenkripsi di server yang aman.

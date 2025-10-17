@@ -22,6 +22,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
+import { createBrowserClient } from '@supabase/ssr';
+import { toast } from 'sonner';
+import { fetchProfile, updateProfile } from '@/lib/profile-service';
+import { uploadAvatar, getPublicUrl } from '@/lib/supabase-storage';
+import { useRouter } from 'next/navigation';
+
 interface AddressSuggestion {
   properties: {
     name: string;
@@ -38,13 +44,87 @@ const ProfileManagement = ({
   const [avatar, setAvatar] = useState<string | null>(null); // Default to null to show icon
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [selectedRole, setSelectedRole] = useState(''); // No default role
+  const [fullName, setFullName] = useState('');
+
   const [selectedGender, setSelectedGender] = useState(''); // No default gender
+  const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [pendingAvatarFile, setPendingAvatarFile] = useState<File | null>(null);
+  const [publicAvatarUrl, setPublicAvatarUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const addressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const router = useRouter();
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  // Get public URL when avatar changes
+  useEffect(() => {
+    const getPublicAvatarUrl = async () => {
+      if (avatar && !avatar.startsWith('http') && !avatar.startsWith('data:')) {
+        try {
+          const url = await getPublicUrl(supabase, avatar);
+          setPublicAvatarUrl(url);
+        } catch (error) {
+          console.error('Error getting public avatar URL:', error);
+          setPublicAvatarUrl(null);
+        }
+      } else {
+        // For data URLs or already valid URLs, use directly
+        setPublicAvatarUrl(avatar);
+      }
+    };
+
+    getPublicAvatarUrl();
+  }, [avatar, supabase]);
+
+  // Fetch user profile data from Supabase
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const profileData = await fetchProfile(supabase);
+        if (profileData) {
+          setFullName(profileData.full_name || '');
+          setAvatar(profileData.avatar_url || null);
+         
+          setSelectedGender(profileData.gender || '');
+          setPhone(profileData.phone || '');
+          setAddress(profileData.address || '');
+          
+          // Set public URL for the loaded avatar
+          if (profileData.avatar_url) {
+            if (profileData.avatar_url.startsWith('http') || profileData.avatar_url.startsWith('data:')) {
+              setPublicAvatarUrl(profileData.avatar_url);
+            } else {
+              try {
+                const url = await getPublicUrl(supabase, profileData.avatar_url);
+                setPublicAvatarUrl(url);
+              } catch (error) {
+                console.error('Error getting public avatar URL:', error);
+                setPublicAvatarUrl(null);
+              }
+            }
+          } else {
+            setPublicAvatarUrl(null);
+          }
+        } else {
+          setPublicAvatarUrl(null);
+        }
+      } catch (error) {
+        console.error('Error loading profile:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfile();
+  }, [supabase]);
 
   // Function to handle address input changes with debouncing
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +167,9 @@ const ProfileManagement = ({
   // Hide suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!(event.target as Element).closest('#address')) {
+      const target = event.target as Element;
+      // Check if the click is outside both the input and the suggestions container
+      if (!target.closest('#address') && !target.closest('.address-suggestions')) {
         setShowSuggestions(false);
       }
     };
@@ -104,10 +186,30 @@ const ProfileManagement = ({
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file type - only allow image files
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error(t('invalidFileType'));
+        return;
+      }
+
+      // Validate file size - max 500KB
+      const maxSize = 500 * 1024; // 500KB in bytes
+      if (file.size > maxSize) {
+        toast.error(t('fileTooLarge'));
+        return;
+      }
+
+      // Set the file to be uploaded later during save
+      setPendingAvatarFile(file);
+      
+      // Create a preview URL for immediate display
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
-        setAvatar(reader.result as string); // Use the preview as the avatar
+        const previewUrl = reader.result as string;
+        setPreviewImage(previewUrl);
+        setAvatar(previewUrl); // Use the preview as the avatar temporarily
+        setPublicAvatarUrl(previewUrl); // Set the preview URL as public URL temporarily
       };
       reader.readAsDataURL(file);
     }
@@ -121,7 +223,7 @@ const ProfileManagement = ({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="w-full max-w-4xl">
         <CardHeader>
           <CardTitle className="text-2xl">{t('welcome')}</CardTitle>
           <CardDescription>{t('info')}</CardDescription>
@@ -152,6 +254,8 @@ const ProfileManagement = ({
                           onClick={() => {
                             setAvatar(avatarPath);
                             setPreviewImage(null);
+                            setPublicAvatarUrl(avatarPath); // Set public URL for default avatars
+                            setPendingAvatarFile(null); // Clear any pending file
                             setShowAvatarModal(false);
                           }}
                         >
@@ -186,9 +290,9 @@ const ProfileManagement = ({
                       height={128} 
                       className="w-full h-full object-cover"
                     />
-                  ) : avatar ? (
+                  ) : publicAvatarUrl ? (
                     <Image 
-                      src={avatar} 
+                      src={publicAvatarUrl} 
                       alt="User Avatar" 
                       width={128} 
                       height={128} 
@@ -233,17 +337,23 @@ const ProfileManagement = ({
                     type="text"
                     id="fullName"
                     placeholder={t('enterFullName')}
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    disabled={loading}
+                    className={!fullName.trim() ? 'border-red-500' : ''}
                   />
                 </div>
 
                 
+                <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
                   <div className="grid gap-2">
                     <Label>{t('gender')}</Label>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="outline"
-                          className="w-full justify-between"
+                          className={`w-full justify-between ${!selectedGender ? 'border-red-500' : ''}`}
+                          disabled={loading}
                         >
                           <span>{selectedGender || (locale === 'id' ? 'Pilih Jenis Kelamin' : 'Select Gender')}</span>
                           <ChevronDown className="h-4 w-4 opacity-50" />
@@ -263,11 +373,17 @@ const ProfileManagement = ({
                   <div className="grid gap-2">
                     <Label htmlFor="phone">{t('phone')}</Label>
                     <Input
+                      
                       type="tel"
                       id="phone"
                       placeholder={locale === 'id' ? "+62 ..." : "+62 ..."}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      disabled={loading}
+                      className={!phone.trim() ? 'border-red-500' : ''}
                     />
                   </div>
+                </div>
                
                 <div className="grid gap-2 relative">
                   <Label htmlFor="address">{t('address')}</Label>
@@ -278,9 +394,11 @@ const ProfileManagement = ({
                     value={address}
                     onChange={handleAddressChange}
                     autoComplete="off"
+                    disabled={loading}
+                    className={!address.trim() ? 'border-red-500' : ''}
                   />
                   {showSuggestions && suggestions.length > 0 && (
-                    <div className="absolute mt-1 w-full bg-popover text-popover-foreground border rounded-md shadow-lg z-10 max-h-60 overflow-y-auto overflow-x-hidden">
+                    <div className="absolute mt-1 w-full bg-popover text-popover-foreground border rounded-md shadow-lg z-10 max-h-60 overflow-y-auto overflow-x-hidden address-suggestions">
                       {suggestions.map((suggestion, index) => (
                         <div
                           key={index}
@@ -292,51 +410,99 @@ const ProfileManagement = ({
                       ))}
                     </div>
                   )}
-                </div>
+                </div>       
 
                 <div className="grid gap-2">
-                  <Label htmlFor="role">{t('role')}</Label>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        id="role"
-                        variant="outline"
-                        className="w-full justify-between"
-                      >
-                        <span>{selectedRole || (locale === 'id' ? 'Pilih Peran' : 'Select Role')}</span>
-                        <ChevronDown className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-full">
-                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Petani' : 'Farmer')}>
-                        {locale === 'id' ? 'Petani' : 'Farmer'}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Petugas Lapangan' : 'Field Officer')}>
-                        {locale === 'id' ? 'Petugas Lapangan' : 'Field Officer'}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Peneliti' : 'Researcher')}>
-                        {locale === 'id' ? 'Peneliti' : 'Researcher'}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Investor' : 'Investor')}>
-                        {locale === 'id' ? 'Investor' : 'Investor'}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Pembeli' : 'Buyer')}>
-                        {locale === 'id' ? 'Pembeli' : 'Buyer'}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => setSelectedRole(locale === 'id' ? 'Lainnya' : 'Other')}>
-                        {locale === 'id' ? 'Lainnya' : 'Other'}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                  <Button 
+                    type="button" 
+                    onClick={async () => {
+                      setSaving(true);
+                      try {
+                        // Validate required fields
+                        if (!fullName.trim()) {
+                          toast.error(t('fullNameRequired'));
+                          setSaving(false);
+                          return;
+                        }
+                        
+                        if (!selectedGender) {
+                          toast.error(t('genderRequired'));
+                          setSaving(false);
+                          return;
+                        }
+                        
+                        if (!phone.trim()) {
+                          toast.error(t('phoneRequired'));
+                          setSaving(false);
+                          return;
+                        }
+                        
+                        if (!address.trim()) {
+                          toast.error(t('addressRequired'));
+                          setSaving(false);
+                          return;
+                        }
 
-              
+                        // Get current user ID to use as folder name in storage
+                        const { data: { user } } = await supabase.auth.getUser();
+                        if (!user) {
+                          throw new Error('User not authenticated');
+                        }
 
-                
+                        let finalAvatarUrl = avatar;
 
-                <div className="grid gap-2">
-                  <Button type="button">
-                    {t('save')}
+                        // If there's a pending avatar file to upload, upload it first
+                        if (pendingAvatarFile) {
+                          console.log('Pending avatar file found, attempting upload');
+                          try {
+                            const filePath = await uploadAvatar(supabase, pendingAvatarFile, user.id);
+                            console.log('Avatar uploaded successfully with path:', filePath);
+                            finalAvatarUrl = filePath;
+                            setAvatar(filePath); // Update avatar with the storage path
+                            setPendingAvatarFile(null); // Clear pending file
+                          } catch (uploadError) {
+                            console.error('Error uploading avatar:', uploadError);
+                            // Show error but continue with profile update
+                            toast.error(t('avatarUploadFailed'));
+                            // Don't update avatar URL if upload failed
+                          }
+                        } 
+                        // If current avatar is a data URL (preview), it means user selected from the modal or preview
+                        // but we need to check if this should be uploaded. For this case, we only upload when user explicitly uploads a file
+                        else if (avatar?.startsWith('data:')) {
+                          console.log('Avatar is a data URL, not uploading to storage');
+                          // User has a preview but no file to upload, so don't save anything to storage
+                          // Keep the preview URL as is
+                        }
+
+                        await updateProfile(supabase, {
+                          full_name: fullName,
+                          phone: phone,
+                          gender: selectedGender,
+                          address: address,
+                         
+                          avatar_url: finalAvatarUrl || null
+                        });
+                        
+                        // Show success toast
+                        toast.success(t('profileUpdatedSuccessfully'));
+                        // Redirect to success page
+                        setTimeout(() => {
+                          router.push('/profile-success');
+                        }, 500); // Small delay to allow toast to be seen
+                      } catch (error) {
+                        console.error('Error updating profile:', error);
+                        // Show error toast
+                        toast.error(t('profileUpdateFailed'));
+                      } finally {
+                        setSaving(false);
+                      }
+                    }}
+                    disabled={loading || saving}
+                  >
+                    <div className="flex items-center">
+                      {t('save')}
+                    </div>
                   </Button>
                 </div>
               </div>

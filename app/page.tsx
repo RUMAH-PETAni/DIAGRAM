@@ -9,7 +9,7 @@ import { SupabaseLogo } from "@/components/supabase-logo";
 import { Button } from "@/components/ui/button";
 import OpenAILogo from "@/components/openai-logo";
 import LogoCarousel from "@/components/logo-carousel";
-
+import { useI18n } from "@/lib/i18n-context";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -17,6 +17,7 @@ import Image from "next/image";
 import { PolicyDrawer } from "@/components/policy-drawer";
 
 export default function Home() {
+  const { t } = useI18n();
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   // Handle scroll to show/hide back to top button
@@ -173,15 +174,17 @@ export default function Home() {
             © 2025 DIAGRAM
           </p>
           <div className="flex justify-center gap-4 pt-2 text-xs">
-            <PolicyDrawer policyType="privacy">
+            
+            
+            <PolicyDrawer policyType="terms">
               <button className="text-muted-foreground hover:text-foreground underline underline-offset-4">
-                Privacy Policy
+                {t('termsOfService')}
               </button>
             </PolicyDrawer>
             <span className="text-muted-foreground">|</span>
-            <PolicyDrawer policyType="terms">
+            <PolicyDrawer policyType="privacy">
               <button className="text-muted-foreground hover:text-foreground underline underline-offset-4">
-                Terms & Conditions
+                {t('privacyPolicy')}
               </button>
             </PolicyDrawer>
           </div>          

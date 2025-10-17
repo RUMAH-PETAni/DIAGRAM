@@ -34,9 +34,9 @@ For questions or privacy concerns, contact **support@rumahpetani.cloud**.
 ---
 
 
-## 🛡️ Sensitive Personal Data Collection (NIK)
+## 🛡️ Sensitive Personal Data Collection
 
-Diagram may collect sensitive personal information such as **National Identity Number (NIK)**, full address, and land ownership details. These are collected **solely for identity verification and farm management purposes**.
+Diagram may collect sensitive personal information such as **National Identity Number**, full address, and land ownership details. These are collected **solely for identity verification and farm management purposes**.
 
 We ensure the safety and confidentiality of such data by:
 - Storing all sensitive data encrypted on secure servers.

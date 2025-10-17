@@ -16,6 +16,7 @@ import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PolicyDrawer } from "@/components/policy-drawer";
 
 export function SignUpForm({
   className,
@@ -108,6 +109,7 @@ export function SignUpForm({
                 <Input
                   id="password"
                   type="password"
+                  placeholder="********"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -120,6 +122,7 @@ export function SignUpForm({
                 <Input
                   id="repeat-password"
                   type="password"
+                  placeholder="********"
                   required
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
@@ -141,6 +144,21 @@ export function SignUpForm({
           </form>
         </CardContent>
       </Card>
+      <div className="text-center text-xs text-muted-foreground mt-2">
+        {t('byClickingContinueYouAgreeToOur')}<br/>{' '}
+        <PolicyDrawer policyType="terms">
+          <button className="underline underline-offset-4 hover:text-foreground">
+            {t('termsOfService')}
+          </button>
+        </PolicyDrawer>{' '}
+        {t('and')}{' '}
+        <PolicyDrawer policyType="privacy">
+          <button className="underline underline-offset-4 hover:text-foreground">
+            {t('privacyPolicy')}
+          </button>
+        </PolicyDrawer>
+        .
+      </div>
     </div>
   );
 }

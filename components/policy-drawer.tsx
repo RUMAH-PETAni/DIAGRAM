@@ -51,14 +51,14 @@ export function PolicyDrawer({ policyType, children }: PolicyDrawerProps) {
         if (policyType === 'privacy') {
           setTitle(locale === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy');
         } else {
-          setTitle(locale === 'id' ? 'Syarat dan Ketentuan' : 'Terms & Conditions');
+          setTitle(locale === 'id' ? 'Ketentuan Layanan' : 'Terms of Service');
         }
       } catch (error) {
         console.error('Error loading policy:', error);
         setContent('Failed to load policy content.');
         setTitle(policyType === 'privacy' ? 
           (locale === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy') : 
-          (locale === 'id' ? 'Syarat dan Ketentuan' : 'Terms & Conditions'));
+          (locale === 'id' ? 'Ketentuan Layanan' : 'Terms of Service'));
       }
     };
 

@@ -57,6 +57,28 @@ export const translations = {
     continue: 'Continue',
     cancel: 'Cancel',
     save: 'Save',
+    saving: 'Saving...',
+    loading: 'Loading...',
+    byClickingContinueYouAgreeToOur: 'By clicking continue, you agree to our',
+    termsOfService: 'Terms of Service',
+    privacyPolicy: 'Privacy Policy',
+    and: 'and',
+    profileUpdatedSuccessfully: 'Profile updated successfully!',
+    profileUpdateFailed: 'Failed to update profile. Please try again.',
+    avatarUploadedSuccessfully: 'Avatar uploaded successfully!',
+    avatarUploadFailed: 'Failed to upload avatar. Please try again.',
+    invalidFileType: 'Please upload a valid image file (JPEG, JPG, PNG, GIF, or WebP).',
+    fileTooLarge: 'File size exceeds 500KB limit. Please choose a smaller file.',
+    fullNameRequired: 'Full name is required.',
+    genderRequired: 'Gender is required.',
+    phoneRequired: 'Phone number is required.',
+    addressRequired: 'Address is required.',
+    roleRequired: 'Role is required.',
+    profileSaved: 'Profile Saved!',
+    profileSavedDescription: 'Your profile has been updated successfully.',
+    savingProfile: 'Saving Profile...',
+    savingProfileDescription: 'Please wait while we save your profile information.',
+    pleaseWait: 'Please wait...',
     delete: 'Delete',
     update: 'Update',
     close: 'close',
@@ -76,8 +98,7 @@ export const translations = {
     resetPassword: 'Reset Password',
     newPassword: 'New Password',
     confirmPasswordError: 'Passwords do not match',
-    privacyPolicy: 'Privacy Policy',
-    termCondition: 'Term and Condition',
+    
     
     // Errors
     requiredField: 'This field is required',
@@ -90,7 +111,7 @@ export const translations = {
     heroButton: 'Get Started',
     
     // Hero section
-    diagram: 'DIAGRAM',
+    diagram: 'DIAGRAM:',
     digitalEcosystem: 'A Digital Ecosystem for Agroforestry Management & Monitoring',
     heroQuote: '"DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future."',
     heroAnimationTexts: [
@@ -127,7 +148,7 @@ export const translations = {
     aiRecommendationDesc: 'Get intelligent recommendations for farming practices based on AI analysis and expert knowledge.',
     landCover: 'Land Cover Data',
     droneImagery: 'Drone Imagery',
-    IoT: 'Internet of Thing',
+    IoT: 'Internet of Things',
     commoditySupplyChain: 'Commodity Supply Chain',
     commoditySupplyChainDesc: 'Track and optimize your agricultural products from farm to market through transparent supply chains.',
     communityHub: 'Community Network',
@@ -138,7 +159,7 @@ export const translations = {
     accessibleToAnyone: 'Accessible to Anyone and Everywhere',
     sustainableAgriculture: 'Sustainable Agriculture',
     sustainableAgricultureDesc: 'Our platform promotes sustainable farming practices to ensure environmental preservation and long-term agricultural productivity.',
-    letsJoin: 'Let`s Join Our Ecosystem',
+    letsJoin: 'Let\'s Join Our Ecosystem',
 
     // Login form
     enterEmailBelowToLogin: 'Enter your email below to login to your account',
@@ -164,7 +185,7 @@ export const translations = {
     resetEmailSentInfo: 'If you registered using your email and password, you will receive a password reset email.',
   
       //Profile Form Section
-    info: 'Please fill in and complete your personal data',
+    info: 'Please fill in and complete your account profile',
     userProfile: 'User Profile',
     chooseAvatar: 'Choose Avatar',
     uploadPhoto: 'Upload Photo',
@@ -196,6 +217,28 @@ export const translations = {
     signup: 'Daftar',
     theme: 'Tema',
     save: 'Simpan',
+    saving: 'Menyimpan...',
+    loading: 'Memuat...',
+    byClickingContinueYouAgreeToOur: 'Dengan mengklik lanjutkan, Anda menyetujui',
+    termsOfService: 'Ketentuan Layanan',
+    privacyPolicy: 'Kebijakan Privasi',
+    and: 'dan',
+    profileUpdatedSuccessfully: 'Profil berhasil diperbarui!',
+    profileUpdateFailed: 'Gagal memperbarui profil. Silakan coba lagi.',
+    avatarUploadedSuccessfully: 'Avatar berhasil diunggah!',
+    avatarUploadFailed: 'Gagal mengunggah avatar. Silakan coba lagi.',
+    invalidFileType: 'Silakan unggah file gambar yang valid (JPEG, JPG, PNG, GIF, atau WebP).',
+    fileTooLarge: 'Ukuran file melebihi batas 500KB. Silakan pilih file yang lebih kecil.',
+    fullNameRequired: 'Nama lengkap wajib diisi.',
+    genderRequired: 'Jenis kelamin wajib diisi.',
+    phoneRequired: 'Nomor telepon wajib diisi.',
+    addressRequired: 'Alamat wajib diisi.',
+    roleRequired: 'Peran wajib diisi.',
+    profileSaved: 'Profil Tersimpan!',
+    profileSavedDescription: 'Profil Anda telah berhasil diperbarui.',
+    savingProfile: 'Menyimpan Profil...',
+    savingProfileDescription: 'Harap tunggu sementara kami menyimpan informasi profil Anda.',
+    pleaseWait: 'Harap tunggu...',
     
     // Page content
     title: 'Diagram',
@@ -248,8 +291,7 @@ export const translations = {
     resetPassword: 'Reset Kata Sandi',
     newPassword: 'Kata Sandi Baru',
     confirmPasswordError: 'Kata sandi tidak cocok',
-    privacyPolicy: 'Kebijakan Privasi',
-    termCondition: 'Syarat dan Ketentuan',
+   
     
     // Errors
     requiredField: 'Bidang ini wajib diisi',
@@ -262,7 +304,7 @@ export const translations = {
     heroButton: 'Mulai',
     
     // Hero section
-    diagram: 'DIAGRAM',
+    diagram: 'DIAGRAM:',
     digitalEcosystem: 'Ekosistem Digital untuk Pengelolaan & Pemantauan Agroforestri',
     heroQuote: '"DIAGRAM adalah platform digital berkelanjutan yang dirancang untuk mentransformasi pertanian konvensional menjadi masa depan yang terhubung dan berbasis data."',
     heroAnimationTexts: [
@@ -276,7 +318,7 @@ export const translations = {
     farmerLandDataManagementDesc: 'Kelola informasi petani dan lahan dalam satu sistem terintegrasi. Semua disimpan secara aman dan mudah diakses untuk mendukung keputusan pertanian yang lebih cerdas',
     interactiveMonitoringMap: 'Peta Pemantauan Interaktif',
     interactiveMonitoringMapDesc: 'Pantau kondisi lapangan secara real time dengan peta interaktif. Visualisasikan data monitoring lahan dan aktivitas di lapangan melalui antarmuka yang jelas dan intuitif.',
-    eommerce: 'E-Niaga',
+    ecommerce: 'E-Niaga',
     agroforestry: 'Agroforestri',
     agroforestryDesc: 'Hubungkan petani, pembeli, dan penyedia layanan dalam ekosistem pertanian berkelanjutan. Temukan mitra tepercaya, dan bangun rantai nilai yang adil dan transparan.',
     comingSoon: 'ComingSoon',
@@ -299,7 +341,7 @@ export const translations = {
     aiRecommendationDesc: 'Dapatkan rekomendasi cerdas untuk praktik pertanian berdasarkan analisis AI dan pengetahuan ahli.',
     landCover: 'Data Tutupan Lahan',
     droneImagery: 'Citra Drone',
-    IoT: 'Internet of Thing',
+    IoT: 'Internet of Things',
     commoditySupplyChain: 'Rantai Pasok Komoditas',
     commoditySupplyChainDesc: 'Lacak dan optimalkan produk pertanian Anda dari pertanian ke pasar melalui rantai pasokan yang transparan.',
     communityHub: 'Jaringan Komunitas',
@@ -336,7 +378,7 @@ export const translations = {
     resetEmailSentInfo: 'Jika Anda mendaftar menggunakan email dan kata sandi, Anda akan menerima email reset kata sandi.',
 
     //Profile Form Section
-    info: 'Silahkan isi dan lengkapi data diri anda',
+    info: 'Silahkan isi dan lengkapi profil akun anda',
     userProfile: 'Profil Pengguna',
     chooseAvatar: 'Pilih Avatar',
     uploadPhoto: 'Unggah Foto',
