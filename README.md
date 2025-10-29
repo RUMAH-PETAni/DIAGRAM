@@ -1,8 +1,11 @@
-<a href="">
-  <h1 align="center">DIAGRAM Starter Kit</h1>
+<a href="https://demo-nextjs-with-supabase.vercel.app/">
+  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
+  <h1 align="center">Next.js and Supabase Starter Kit</h1>
 </a>
 
-
+<p align="center">
+ The fastest way to build apps with Next.js and Supabase
+</p>
 
 <p align="center">
   <a href="#features"><strong>Features</strong></a> ·
@@ -72,12 +75,16 @@ If you wish to just develop locally and not deploy to Vercel, [follow the steps 
 
 4. Rename `.env.example` to `.env.local` and update the following:
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+  ```env
+  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
+  ```
+  > [!NOTE]
+  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
+  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
+  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
 
 5. You can now run the Next.js local development server:
 
@@ -98,5 +105,47 @@ Please file feedback and issues over on the [Supabase GitHub org](https://github
 ## More Supabase examples
 
 - [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+- [Cookie-based Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+
+## Realtime Chat Component
+
+This project includes a realtime chat component using Supabase Realtime. To use the chat functionality, you need to set up the required database table:
+
+1. Go to your Supabase dashboard
+2. Navigate to the SQL Editor
+3. Run the following SQL to create the messages table:
+
+```sql
+CREATE TABLE messages (
+  id BIGSERIAL PRIMARY KEY,
+  room_id VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  user_id UUID NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create an index on room_id for better performance
+CREATE INDEX idx_messages_room_id ON messages(room_id);
+
+-- Enable Row Level Security
+ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+
+-- Create a policy to allow insert for authenticated users
+CREATE POLICY "Allow insert for authenticated users" ON messages
+  FOR INSERT TO authenticated
+  WITH CHECK (true);
+
+-- Create a policy to allow select for authenticated users in the same room
+CREATE POLICY "Allow select for users in the same room" ON messages
+  FOR SELECT TO authenticated
+  USING (true);
+```
+
+4. Enable Realtime for the `messages` table:
+   - Go to Database > Tables in your Supabase dashboard
+   - Select the `messages` table
+   - Go to the "Replication" tab
+   - Enable realtime for the table
+
+After setting up the database, you can access the chat at the `/chat` route.
