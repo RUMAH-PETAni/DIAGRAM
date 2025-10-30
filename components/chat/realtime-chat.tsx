@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRealtimeChat } from "./use-realtime-chat";
@@ -29,18 +29,45 @@ export function RealtimeChat({
   initialMessages,
 }: RealtimeChatProps) {
   const [message, setMessage] = useState("");
-  const { messages, sendMessage, isConnected } = useRealtimeChat({
+  const { messages, sendMessage: originalSendMessage, isConnected } = useRealtimeChat({
     roomId,
     currentUserId,
     currentUserDisplayName,
     initialMessages,
   });
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useChatScroll({
-    chatContainerRef: messagesEndRef as React.RefObject<HTMLDivElement>,
+    chatContainerRef: scrollContainerRef as React.RefObject<HTMLDivElement>,
     dependencies: [messages],
   });
+
+  // Wrapper to send message and ensure scroll to bottom
+  const sendMessage = async (msg: string) => {
+    const result = await originalSendMessage(msg);
+    // Ensure scroll to bottom after sending
+    setTimeout(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      }
+    }, 10);
+    return result;
+  };
+
+  // Effect to scroll to bottom on initial load
+  useEffect(() => {
+    if (messages.length > 0 && scrollContainerRef.current) {
+      // Wait a bit to ensure DOM is fully rendered
+      setTimeout(() => {
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
+      }, 100);
+    }
+  }, [messages.length]); // Run when messages change
+
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +79,7 @@ export function RealtimeChat({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4" ref={scrollContainerRef}>
         <div className="space-y-2">
           {messages.map((msg) => (
             <ChatMessageItem

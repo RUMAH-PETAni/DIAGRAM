@@ -14,7 +14,7 @@ interface Message {
   created_at: string;
 }
 
-export default function ChatPage() {
+export default function ForumDiscussion() {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -38,23 +38,21 @@ export default function ChatPage() {
         // Don't set an error state, just continue with empty messages
         // The user will still be able to send messages once the table is set up
       } else {
-        // Update message names to use display names from user metadata
+        // Update message names to use display names from profile data
         const updatedMessages = await Promise.all(
           (data || []).map(async (message) => {
-            // Fetch user details to get display name
-            const { data: userData, error: userError } = await supabase
-              .from('users') // Assuming there's a users table with user metadata
-              .select('user_metadata')
+            // Fetch profile details to get display name
+            const { data: profileData, error: profileError } = await supabase
+              .from('profiles')
+              .select('username, full_name')
               .eq('id', message.user_id)
               .single();
 
             let displayName = message.name; // fallback to existing name
             
-            if (!userError && userData?.user_metadata) {
-              displayName = userData.user_metadata.name || 
-                           userData.user_metadata.full_name || 
-                           userData.user_metadata.display_name || 
-                           message.name;
+            if (!profileError && profileData) {
+              // Use full_name if available, otherwise username
+              displayName = profileData.username || profileData.full_name || message.name;
             }
             
             return {
@@ -75,38 +73,42 @@ export default function ChatPage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <p>Loading chat...</p>
+      <div className="flex items-center justify-center py-10">
+        <p>Loading discussion...</p>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <p>Please log in to access the chat.</p>
+      <div className="flex items-center justify-center py-10">
+        <p>Please log in to access the forum.</p>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen w-full max-w-4xl mx-auto flex-col">
-      <Card className="h-full flex flex-col">
+    <div className="w-full max-w-4xl mx-auto">
+      <Card className="h-[70vh] flex flex-col">
         <CardHeader>
-          <CardTitle>Realtime Chat</CardTitle>
+          <CardTitle>Forum Discussion</CardTitle>
           <p className="text-sm text-muted-foreground">Room: general</p>
         </CardHeader>
-        <CardContent className="flex-1 p-0">
+        <CardContent className="flex-1 p-0 overflow-hidden">
           {user ? (
-            <RealtimeChat
-              roomId="general"
-              currentUserId={user.id}
-              currentUserDisplayName={user.user_metadata?.name || user.email || "Anonymous"}
-              initialMessages={initialMessages}
-            />
+            <div className="h-full flex flex-col">
+              <div className="h-full overflow-y-auto">
+                <RealtimeChat
+                  roomId="general"
+                  currentUserId={user.id}
+                  currentUserDisplayName={user.user_metadata?.name || user.email || "Anonymous"}
+                  initialMessages={initialMessages}
+                />
+              </div>
+            </div>
           ) : (
             <div className="p-4 text-center">
-              <p>You must be logged in to chat.</p>
+              <p>You must be logged in to forum.</p>
               <Button 
                 className="mt-2"
                 onClick={() => {

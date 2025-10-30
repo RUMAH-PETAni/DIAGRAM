@@ -358,7 +358,6 @@ export function ProfileForm({
                   </div>
                 )}
               </div>
-              {isEditing && (
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                 <Button 
                   variant="outline" 
@@ -369,7 +368,6 @@ export function ProfileForm({
                   Change
                 </Button>
               </div>
-              )}
             </div>
             <div className="mt-0">
               <FieldLabel htmlFor="email">Email</FieldLabel>
