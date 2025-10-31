@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { TypeAnimation } from 'react-type-animation';
+import { useTheme } from "next-themes";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -24,6 +25,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import {
   Field,
   FieldDescription,
@@ -49,8 +56,10 @@ export function Hero({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showTermsSheet, setShowTermsSheet] = useState(false);
   const [showPrivacySheet, setShowPrivacySheet] = useState(false);
+  const [showExploreModal, setShowExploreModal] = useState(false);
   const [termsContent, setTermsContent] = useState("");
   const [privacyContent, setPrivacyContent] = useState("");
+  const { theme } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -117,9 +126,9 @@ export function Hero({
 
   const handleExplore = (e: React.FormEvent) => {
     e.preventDefault();
-    // Only navigate to explore page if user is authenticated
+    // Only show the explore modal if user is authenticated
     if (isAuthenticated) {
-      router.push("/features");
+      setShowExploreModal(true);
     }
     // If not authenticated, do nothing - tooltip will show the message
   };
@@ -194,7 +203,9 @@ export function Hero({
                 </div>
               )}
               <FieldDescription className="text-right">
-                Version 0.0.1
+                <Link href="/about" className="text-primary hover:underline cursor-pointer">
+                  About
+                </Link>
               </FieldDescription>
             </FieldGroup>
           </form>
@@ -275,6 +286,81 @@ export function Hero({
         </div>
       </SheetContent>
     </Sheet>
+    
+    {/* Explore Modal */}
+    <Dialog open={showExploreModal} onOpenChange={setShowExploreModal}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Explore</DialogTitle>
+        </DialogHeader>
+        
+        <div className="grid grid-cols-1 gap-4 mt-4">
+          {/* Features & Tools Button */}
+          <button
+            className="flex items-center gap-4 p-4 border rounded-lg hover:bg-accent transition-colors"
+            onClick={() => {
+              router.push("/features");
+              setShowExploreModal(false);
+            }}
+          >
+            <div className="bg-muted rounded-lg p-3 flex items-center justify-center">
+              <img 
+                src="/features.svg" 
+                alt="Features" 
+                className={`w-10 h-10 ${theme === 'dark' ? 'invert' : ''}`}
+              />
+            </div>
+            <div className="text-left">
+              <div className="font-medium">Features and Tools</div>
+              <div className="text-sm text-muted-foreground">Smart tools to map, monitor, and manage your farm efficiently.</div>
+            </div>
+          </button>
+          
+          {/* On Demand Services Button */}
+          <button
+            className="flex items-center gap-4 p-4 border rounded-lg hover:bg-accent transition-colors"
+            onClick={() => {
+              router.push("/services");
+              setShowExploreModal(false);
+            }}
+          >
+            <div className="bg-muted rounded-lg p-3 flex items-center justify-center">
+              <img 
+                src="/services.svg" 
+                alt="Services" 
+                className={`w-10 h-10 ${theme === 'dark' ? 'invert' : ''}`}
+              />
+            </div>
+             <div className="text-left">
+              <div className="font-medium">On Demand Services</div>
+              <div className="text-sm text-muted-foreground">Instant access to expert support and digital farming solutions.</div>
+            </div>
+          </button>
+
+          {/* Data Library Button */}
+          <button
+            className="flex items-center gap-4 p-4 border rounded-lg hover:bg-accent transition-colors"
+            onClick={() => {
+              router.push("/library");
+              setShowExploreModal(false);
+            }}
+          >
+            <div className="bg-muted rounded-lg p-3 flex items-center justify-center">
+              <img 
+                src="/datalib.svg" 
+                alt="datalib" 
+                className={`w-10 h-10 ${theme === 'dark' ? 'invert' : ''}`}
+              />
+            </div>
+            <div className="text-left">
+              <div className="font-medium">Data Library</div>
+              <div className="text-sm text-muted-foreground">Reliable agricultural data and insights at your fingertips.</div>
+            </div>
+          </button>
+        </div>
+      </DialogContent>
+    </Dialog>
+    
     </div>
   )
 }

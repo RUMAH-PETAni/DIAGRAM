@@ -9,7 +9,7 @@ You agree to use this service only for lawful purposes and in compliance with ap
 - We reserve the right to suspend accounts engaged in suspicious activity.
 
 ### **3. Ownership of Content**
-All materials in the application (source code, design, logo, and system data) belong to **RUMAHPETAni team**. Reproduction or modification without written permission is prohibited.
+All materials in the platform (source code, design, logo, and system data) belong to **RUMAHPETAni team**. Reproduction or modification without written permission is prohibited.
 
 ### **4. Limitation of Liability**
 We are not liable for any damages resulting from data use or system errors beyond our control.

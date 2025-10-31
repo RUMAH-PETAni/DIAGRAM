@@ -19,18 +19,15 @@ export default function SignupPage() {
             </div>
           </main>
           <footer className="bg-background/50 w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-6 backdrop-blur-sm">
-            <p>
-              © 2025 |{" "}
-              <a
-                href="https://rumahpetani.cloud/"
-                target="_blank"
-                className="font-bold hover:underline"
-                rel="noreferrer"
-              >
-                RUMAHPETAni
-              </a>
-            </p>
-          
+           <p>
+            © 2025 |{" "}
+            <a
+              href="/about"
+              className="font-bold hover:underline"
+            >
+              RUMAHPETAni
+            </a>
+          </p>
           </footer>
         </div>
       );

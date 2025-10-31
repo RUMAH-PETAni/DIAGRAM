@@ -48,20 +48,16 @@ export default function FeaturesPage() {
         </TooltipProvider>
       </ChatSheet>
       <footer className="bg-background/50 w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-6 backdrop-blur-sm">
-        <p>
+       <p>
           © 2025 |{" "}
           <a
-            href="https://rumahpetani.cloud/"
-            target="_blank"
+            href="/about"
             className="font-bold hover:underline"
-            rel="noreferrer"
           >
             RUMAHPETAni
           </a>
         </p>
-      
       </footer>
-    
     </div>
   );
 }

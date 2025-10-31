@@ -79,9 +79,9 @@ export function Features({
   return (
     <div className={cn("flex flex-col", className)} {...props}>
       {/* Existing features cards section */}
-      <h3 className="font-bold text-lg my-2">Features:</h3> 
+      <h3 className="font-bold text-lg ml-4 my-2">Features:</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
-        <div className="bg-background border rounded-lg p-6 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg">
+        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
           <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2" >
           
             <Image 
@@ -94,10 +94,10 @@ export function Features({
             <h3 className="font-bold text-lg">Farmer & Land Data Management</h3>
           </div>
           <Separator className="my-3" />
-          <p className="text-sm md:text text-muted-foreground">
+          <p className="text-xs  text-muted-foreground grow">
             Manage farmer and land information in one integrated system. Everything is securely stored and easily accessible to support smarter agricultural decisions.
           </p>
-          <div className="mt-4 flex"> 
+          <div className="mt-auto pt-4 flex"> 
           <Button 
             type="button" 
             onClick={handleFeature1} 
@@ -107,7 +107,7 @@ export function Features({
           </Button>
           </div>
         </div>
-        <div className="bg-background border rounded-lg p-6 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg">
+        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
           <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
             <Image 
               src="/feature2.svg" 
@@ -119,10 +119,10 @@ export function Features({
             <h3 className="font-bold text-lg">Interactive Monitoring Map</h3>
           </div>
           <Separator className="my-3" />
-          <p className="text-sm md:text text-muted-foreground">
+          <p className="text-xs text-muted-foreground grow">
           Monitor field conditions in real time with interactive maps. Visualize land monitoring data and field activities through a clear and intuitive interface.
           </p>
-          <div className="mt-4 flex"> 
+          <div className="mt-auto pt-4 flex"> 
           <Button 
             type="button" 
             onClick={handleFeature2} 
@@ -132,9 +132,9 @@ export function Features({
           </Button>
           </div>
         </div>
-        <div className="bg-background border rounded-lg p-6 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative">
+        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative flex flex-col h-full">
           <div className="absolute top-2 right-2 z-10">
-            <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full">
+            <span className="bg-primary text-primary-foreground text-[0.6rem] px-1.5 py-0.5 rounded-full">
               Coming Soon
             </span>
           </div>
@@ -149,10 +149,10 @@ export function Features({
             <h3 className="font-bold text-lg">Agroforestry Market</h3>
           </div>
           <Separator className="my-3" />
-          <p className="text-sm md:text text-muted-foreground">
+          <p className="text-xs text-muted-foreground grow">
            Connect farmers, buyers, and service providers in a sustainable agricultural ecosystem. Find trusted partners and build a fair and transparent value chain.
           </p>
-            <div className="mt-4 flex text-muted"> 
+            <div className="mt-auto pt-4 flex text-muted"> 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild> 
@@ -174,7 +174,7 @@ export function Features({
       {/* Existing tools cards section */}
       <div className="grid grid-cols-1 gap-8 w-full max-w-full my-6">    
         <div className="w-full">
-          <h3 className="font-bold text-lg my-2">Tools:</h3> 
+          <h3 className="font-bold text-lg ml-4 my-2">Tools:</h3> 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <MapPinned className="w-8 h-8 mb-2" />

@@ -22,15 +22,12 @@ export default function UpdatePasswordPage() {
             <p>
               © 2025 |{" "}
               <a
-                href="https://rumahpetani.cloud/"
-                target="_blank"
+                href="/about"
                 className="font-bold hover:underline"
-                rel="noreferrer"
               >
                 RUMAHPETAni
               </a>
             </p>
-          
           </footer>
         </div>
       );

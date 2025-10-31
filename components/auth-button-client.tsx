@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { LogIn, UserCircle, LogOut, House, Blocks } from "lucide-react";
+import { LogIn, UserCircle, LogOut, House, Blocks, Handshake, DatabaseZap } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -148,6 +148,18 @@ export function AuthButtonClient() {
               <Link href="/features" className="flex items-center">
                 <Blocks className="mr-2 h-4 w-4" />
                 <span>Features</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/services" className="flex items-center">
+                <Handshake className="mr-2 h-4 w-4" />
+                <span>Services</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/library" className="flex items-center">
+                <DatabaseZap className="mr-2 h-4 w-4" />
+                <span>Library</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleLogoutClick} className="flex items-center">
