@@ -1,5 +1,5 @@
 import { AuthButton } from "@/components/auth-button";
-import { Features } from "@/components/features"
+import { Services } from "@/components/services"
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { ChatSheet } from "@/components/chat-sheet";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export default function ServicesPage() {
       <main className="flex flex-col items-center flex-1">
         <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
           <div className="w-full max-w-sm md:max-w-4xl">
-            <Features />
+            <Services />
           </div>
         </div>
       </main>
