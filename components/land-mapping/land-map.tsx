@@ -16,6 +16,7 @@ import {
   CloudSun
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import LocationTracker from '@/components/LocationTracker';
 
 // Fix for default marker icons in react-leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -106,6 +107,9 @@ const LandMap: React.FC<LandMapProps> = ({
         
         {/* Custom zoom control component */}
         <MapZoomControl />
+        
+        {/* Location tracker */}
+        <LocationTracker />
       </MapContainer>
       
       {/* Weather toggle */}
@@ -197,6 +201,25 @@ const SearchControl = () => {
   const [showResults, setShowResults] = React.useState(false);
   const [isExpanded, setIsExpanded] = React.useState(false);
 
+  // Directly control map interactions based on search state
+  React.useEffect(() => {
+    const shouldDisableInteractions = isExpanded && (showResults || (searchResults.length > 0));
+    
+    if (map) {
+      if (shouldDisableInteractions) {
+        map.dragging.disable();
+        map.scrollWheelZoom.disable();
+        map.touchZoom.disable();
+        map.doubleClickZoom.disable();
+      } else {
+        map.dragging.enable();
+        map.scrollWheelZoom.enable();
+        map.touchZoom.enable();
+        map.doubleClickZoom.enable();
+      }
+    }
+  }, [isExpanded, showResults, searchResults.length, map]);
+
   const performSearch = async () => {
     if (!searchQuery.trim()) return;
     
@@ -246,7 +269,7 @@ const SearchControl = () => {
 
   return (
     <div className="absolute top-4 left-4 z-1000">
-      <div className="flex gap-1">
+      <div className="relative flex gap-1">
         {isExpanded ? (
           <form onSubmit={handleSearch} className="flex gap-1">
             <Button 
@@ -269,7 +292,7 @@ const SearchControl = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search location..."
-              className="bg-background/80 backdrop-blur pl-3 pr-3 py-2 h-8 w-64"
+              className="bg-background/80 backdrop-blur pl-3 pr-3 py-2 h-8 w-40 sm:w-64"
               autoFocus
               onBlur={() => {
                 // Close the search after a delay to allow for result clicks
@@ -310,12 +333,34 @@ const SearchControl = () => {
       </div>
       
       {showResults && searchResults.length > 0 && isExpanded && (
-        <div className="absolute top-full mt-1 w-64 bg-background/90 backdrop-blur border rounded-md shadow-lg z-1001 max-h-60 overflow-y-auto">
+        <div 
+          className="absolute top-full mt-1 left-9 w-64 bg-background/90 backdrop-blur border rounded-md shadow-lg z-1001 max-h-60 overflow-y-auto overscroll-contain"
+          onMouseDown={(e) => e.stopPropagation()}
+          onMouseUp={(e) => e.stopPropagation()}
+          onWheel={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
+          onPointerUp={(e) => e.stopPropagation()}
+          onPointerMove={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
           {searchResults.map((result, index) => (
             <div 
               key={index} 
               className="p-2 hover:bg-accent cursor-pointer text-sm border-b last:border-b-0"
-              onClick={() => handleResultClick(result)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleResultClick(result);
+              }}
             >
               <div className="font-medium">{result.display_name}</div>
               <div className="text-xs text-muted-foreground truncate">
@@ -327,7 +372,26 @@ const SearchControl = () => {
       )}
       
       {showResults && searchResults.length === 0 && searchQuery && !isSearching && isExpanded && (
-        <div className="absolute top-full mt-1 w-64 bg-background/90 backdrop-blur border rounded-md shadow-lg z-1001 p-2 text-sm">
+        <div 
+          className="absolute top-full mt-1 left-10 w-64 bg-background/90 backdrop-blur border rounded-md shadow-lg z-1001 p-2 text-sm"
+          onMouseDown={(e) => e.stopPropagation()}
+          onMouseUp={(e) => e.stopPropagation()}
+          onWheel={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
+          onPointerUp={(e) => e.stopPropagation()}
+          onPointerMove={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
           No results found
         </div>
       )}
