@@ -58,7 +58,7 @@ export function Features({
     e.preventDefault();
     // Only navigate to explore page if user is authenticated
     if (isAuthenticated) {
-      router.push("/dashboard");
+      router.push("/features/dashboard");
     }
     // If not authenticated, do nothing - tooltip will show the message
   };
@@ -67,7 +67,17 @@ export function Features({
     e.preventDefault();
     // Only navigate to explore page if user is authenticated
     if (isAuthenticated) {
-      router.push("/feature");
+      router.push("/features");
+    }
+    // If not authenticated, do nothing - tooltip will show the message
+  };
+
+  
+    const handleLandMapping = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Only navigate to explore page if user is authenticated
+    if (isAuthenticated) {
+      router.push("/features/tools/land-mapping");
     }
     // If not authenticated, do nothing - tooltip will show the message
   };
@@ -97,9 +107,10 @@ export function Features({
           <p className="text-xs  text-muted-foreground grow">
             Manage farmer and land information in one integrated system. Everything is securely stored and easily accessible to support smarter agricultural decisions.
           </p>
-          <div className="mt-auto pt-4 flex"> 
+          <div className="mt-auto pt-4"> 
           <Button 
             type="button" 
+            className="w-full"
             onClick={handleFeature1} 
             disabled={isLoading}
             >
@@ -122,9 +133,10 @@ export function Features({
           <p className="text-xs text-muted-foreground grow">
           Monitor field conditions in real time with interactive maps. Visualize land monitoring data and field activities through a clear and intuitive interface.
           </p>
-          <div className="mt-auto pt-4 flex"> 
+          <div className="mt-auto pt-4"> 
           <Button 
             type="button" 
+            className="w-full"
             onClick={handleFeature2} 
             disabled={isLoading}
             >
@@ -152,13 +164,14 @@ export function Features({
           <p className="text-xs text-muted-foreground grow">
            Connect farmers, buyers, and service providers in a sustainable agricultural ecosystem. Find trusted partners and build a fair and transparent value chain.
           </p>
-            <div className="mt-auto pt-4 flex text-muted"> 
+            <div className="mt-auto pt-4 text-muted"> 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild> 
                     <Button 
                       variant="outline"
                       type="button" 
+                      className="w-full"
                       >
                       Open
                     </Button>
@@ -184,6 +197,7 @@ export function Features({
                 disabled={isLoading}
                 size="xs"
                 className="w-full"
+                onClick={handleLandMapping}
                 >
                 {isLoading ? "Opening..." : "Land Mapping"}
               </Button>
@@ -222,7 +236,7 @@ export function Features({
                 className="w-full"
                 onClick={handleExtrasClick}
                 >
-                {isLoading ? "Opening..." : "Extras..."}
+                {isLoading ? "Opening..." : "Extra Tools"}
               </Button>
             </div>
           </div>
@@ -233,7 +247,7 @@ export function Features({
       <Dialog open={extrasModalOpen} onOpenChange={setExtrasModalOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Extras</DialogTitle>
+            <DialogTitle>Extra Tools</DialogTitle>
           </DialogHeader>
           
           <div className="grid grid-cols-2 gap-4 mt-4">
@@ -266,7 +280,7 @@ export function Features({
                 className="w-full"
                 onClick={() => {
                   // Navigate to the discuss page
-                  router.push("/discuss");
+                  router.push("/features/tools/discuss");
                   setExtrasModalOpen(false);
                 }}
               >
@@ -306,52 +320,6 @@ export function Features({
                 }}
               >
                 {isLoading ? "Opening..." : "Carbon Calculator"}
-              </Button>
-            </div>
-
-            {/* SWApeta Card */}
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md relative">
-              <div className="absolute top-1 right-1 z-10">
-                <span className="bg-primary text-primary-foreground und text-[0.6rem] px-1.5 py-0.5 rounded-full">
-                  Restricted
-                </span>
-              </div>
-              <LandPlot className="w-8 h-8 mb-2" />
-              <Button
-                variant="secondary"
-                type="button" 
-                disabled={isLoading}
-                size="xs"
-                className="w-full"
-                onClick={() => {
-                  // TODO: Implement SWApeta functionality
-                  setExtrasModalOpen(false);
-                }}
-              >
-                {isLoading ? "Opening..." : "SWApeta Map"}
-              </Button>
-            </div>
-            
-            {/* Deep Analytics Card */}
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md relative">
-              <div className="absolute top-1 right-1 z-10">
-                <span className="bg-primary text-primary-foreground  text-[0.6rem] px-1.5 py-0.5 rounded-full">
-                  Restricted
-                </span>
-              </div>
-              <Zap className="w-8 h-8 mb-2" />
-              <Button
-                variant="secondary"
-                type="button" 
-                disabled={isLoading}
-                size="xs"
-                className="w-full"
-                onClick={() => {
-                  // TODO: Implement deep analytics functionality
-                  setExtrasModalOpen(false);
-                }}
-              >
-                {isLoading ? "Opening..." : "Deep Analytics"}
               </Button>
             </div>
           </div>

@@ -210,7 +210,8 @@ export function ChatSheet({ children }: ChatSheetProps) {
               </Button>
             </form>
             <p className="text-xs text-muted-foreground mt-2 text-center">
-              Powered by OpenAI GPT-4o-mini
+              AI can make mistakes, please provide specific questions to get the best answers
+              <br/>Powered by OpenAI GPT-4o-mini
             </p>
           </div>
         </SheetContent>

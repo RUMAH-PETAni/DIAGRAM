@@ -25,6 +25,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { toast } from "sonner";
+import { createServiceRequest } from "@/lib/services/requests";
 
 
 export function Services({
@@ -57,32 +58,13 @@ export function Services({
     setMounted(true);
   }, []);
   
-  const handleFeature1 = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Only navigate to explore page if user is authenticated
-    if (isAuthenticated) {
-      router.push("/dashboard");
-    }
-    // If not authenticated, do nothing - tooltip will show the message
-  };
-
-    const handleFeature2 = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Only navigate to explore page if user is authenticated
-    if (isAuthenticated) {
-      router.push("/feature");
-    }
-    // If not authenticated, do nothing - tooltip will show the message
-  };
-
-  // Services list for request modal
+    // Services list for request modal
   const servicesList = [
     { title: "SWApeta (Social Forestry)" },
     { title: "Aerial Photo Mapping" },
     { title: "Tree Planting & Monitoring" },
     { title: "Land Carbon Accounting" },
-    { title: "Risk Assessment (EUDR)" },
-    { title: "Research and Development" },
+    { title: "Research & Development" },
   ];
   
   const toggleService = (index: number) => {
@@ -93,21 +75,34 @@ export function Services({
     );
   };
   
-  const handleRequestRequest = () => {
-    // TODO: Implement request submission
-    console.log("Requested services:", selectedServices.map(i => servicesList[i].title));
-    
-    // Show success toast notification
-    // NOTE: To make toast work, add the Toaster component to your root layout
-    // Import Toaster from "@/components/ui/sonner" and add <Toaster /> to app/layout.tsx
-    toast.success("Your request has been successfully sent, our team will contact you via email soon");
-    
-    setRequestModalOpen(false);
-    setSelectedServices([]);
-  };
-
-  const handleExtrasClick = () => {
-    setExtrasModalOpen(true);
+  const handleRequestRequest = async () => {
+    try {
+      // Get selected service titles
+      const selectedServiceTitles = selectedServices.map(i => servicesList[i].title);
+      
+      // Submit the request to the database
+      const result = await createServiceRequest({
+        serviceTitles: selectedServiceTitles,
+        additionalNotes: "" // You can add an input for additional notes if needed
+      });
+      
+      if (result.success) {
+        // Show success toast notification
+        // NOTE: To make toast work, add the Toaster component to your root layout
+        // Import Toaster from "@/components/ui/sonner" and add <Toaster /> to app/layout.tsx
+        toast.success("Your request has been successfully sent, our team will contact you via email soon");
+      } else {
+        toast.error("Failed to submit request. Please try again.");
+        console.error("Error submitting service request:", result.error);
+      }
+    } catch (error) {
+      toast.error("An error occurred while submitting your request. Please try again.");
+      console.error("Error submitting service request:", error);
+    } finally {
+      // Close modal and reset selections regardless of success/failure
+      setRequestModalOpen(false);
+      setSelectedServices([]);
+    }
   };
 
   return (
@@ -179,23 +174,7 @@ export function Services({
           Measure and analyze land-based carbon stocks to support climate action initiatives.
           </p>
         </div>
-      
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
-            <Image 
-              src="/services5.svg" 
-              alt="Services 5 Icon" 
-              width={64}
-              height={64}
-              className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
-            />
-            <h3 className="font-bold text-lg">Risk Assesment <br/>&#40;EUDR&#41;</h3>
-          </div>
-          <Separator className="my-3" />
-          <p className="text-xs text-muted-foreground grow">
-          Evaluate and ensure supply chain compliance with sustainability and deforestation regulations.
-          </p>
-        </div>
+
         <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative flex flex-col h-full">
           <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
             <Image 
@@ -205,27 +184,33 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Research and Development</h3>
+            <h3 className="font-bold text-lg">Research & Development</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
            Advancing sustainable agriculture through data analysis, innovation, and field research.
           </p>
         </div>
-      </div>
       
-      <div className="mt-8 flex justify-center">
-        <Button 
-          variant="default" 
-          size="lg"
-          className="px-8 py-6 text-lg"
-          onClick={() => {
-            setRequestModalOpen(true);
-          }}
-        >
-          Request Services
-        </Button>
+        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
+          <p className="text-sm  text-foreground grow">
+            Select your service request, and our dedicated team will review your needs and contact you via email for further discussion.
+          </p>
+          <div className="mt-auto w-full pt-4"> 
+            <Button 
+              type="button" 
+              className="w-full"
+              onClick={() => {
+              setRequestModalOpen(true);
+              }}
+              disabled={isLoading}
+              >
+              {isLoading ? "Requesting..." : "Request Services"}
+            </Button>
+          </div>
+        </div>
       </div>
+      <p className="font-bold text-sm text-center my-6">We provide comprehensive sustainability consulting services designed to support your environmental and operational goals.</p>
       
       {/* Request Services Dialog */}
       <Dialog open={requestModalOpen} onOpenChange={setRequestModalOpen}>

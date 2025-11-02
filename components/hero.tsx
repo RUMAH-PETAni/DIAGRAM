@@ -303,11 +303,11 @@ export function Hero({
               setShowExploreModal(false);
             }}
           >
-            <div className="bg-muted rounded-lg p-3 flex items-center justify-center">
+            <div className=" w-16 flex items-center justify-center">
               <img 
                 src="/features.svg" 
                 alt="Features" 
-                className={`w-10 h-10 ${theme === 'dark' ? 'invert' : ''}`}
+                className={`w-16 ${theme === 'dark' ? 'invert' : ''}`}
               />
             </div>
             <div className="text-left">
@@ -324,11 +324,11 @@ export function Hero({
               setShowExploreModal(false);
             }}
           >
-            <div className="bg-muted rounded-lg p-3 flex items-center justify-center">
+            <div className=" w-16 flex items-center justify-center">
               <img 
                 src="/services.svg" 
                 alt="Services" 
-                className={`w-10 h-10 ${theme === 'dark' ? 'invert' : ''}`}
+                className={`w-16 ${theme === 'dark' ? 'invert' : ''}`}
               />
             </div>
              <div className="text-left">
@@ -345,14 +345,14 @@ export function Hero({
               setShowExploreModal(false);
             }}
           >
-            <div className="bg-muted rounded-lg p-3 flex items-center justify-center">
+            <div className=" w-16 flex items-center justify-center">
               <img 
                 src="/datalib.svg" 
-                alt="datalib" 
-                className={`w-10 h-10 ${theme === 'dark' ? 'invert' : ''}`}
+                alt="Datalib" 
+                className={`w-16 ${theme === 'dark' ? 'invert' : ''}`}
               />
             </div>
-            <div className="text-left">
+             <div className="text-left">
               <div className="font-medium">Data Library</div>
               <div className="text-sm text-muted-foreground">Reliable agricultural data and insights at your fingertips.</div>
             </div>

@@ -7,6 +7,32 @@ body {
   --header-height: calc(var(--spacing) * 12 + 1px);
 }
 
+/* Leaflet Map Styles */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  width: 25px !important;
+  height: 41px !important;
+}
+
+.leaflet-draw-toolbar {
+  z-index: 500 !important;
+}
+
+.leaflet-draw-actions {
+  z-index: 500 !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  border-radius: 0.5rem;
+}
+
 .theme-scaled {
   @media (min-width: 1024px) {
     --radius: 0.6rem;

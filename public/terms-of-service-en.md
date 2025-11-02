@@ -1,4 +1,4 @@
-By using this application, you agree to the following Terms of Service.
+By using this platform, you agree to the following Terms of Service.
 
 ### **1. Use of Service**
 You agree to use this service only for lawful purposes and in compliance with applicable laws.

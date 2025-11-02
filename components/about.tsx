@@ -96,7 +96,7 @@ export function About({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden md:block overflow-hidden cursor-pointer">
+          <div className="bg-muted relative overflow-hidden cursor-pointer">
             <div className="absolute inset-0 transition-opacity duration-500 hover:opacity-0">
               <img
                 src="/farmer.png"
