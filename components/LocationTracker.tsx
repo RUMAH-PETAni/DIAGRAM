@@ -120,18 +120,31 @@ export default function LocationTracker() {
       return;
     }
 
-    const watchId = navigator.geolocation.watchPosition(
+    // Get initial position only once
+    navigator.geolocation.getCurrentPosition(
       (pos) => {
         const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
         setPosition(coords);
-        map.flyTo(coords, 14);
+        // Only set the initial position, don't continuously update the map view
+        // map.flyTo(coords, 14); // Commented out to prevent auto-centering
       },
       (err) => console.error(err),
-      { enableHighAccuracy: true }
+      { enableHighAccuracy: true, timeout: 10000 }
     );
+    
+    // If you want to show the marker but not auto-center, keep the watch but don't update map view
+    // const watchId = navigator.geolocation.watchPosition(
+    //   (pos) => {
+    //     const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+    //     setPosition(coords);
+    //     // Don't update map view here to allow manual navigation
+    //   },
+    //   (err) => console.error(err),
+    //   { enableHighAccuracy: true }
+    // );
 
-    return () => navigator.geolocation.clearWatch(watchId);
-  }, [map]);
+    // return () => navigator.geolocation.clearWatch(watchId);
+  }, []);
 
   if (!position) return null;
 
