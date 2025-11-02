@@ -114,10 +114,11 @@ const LandMap: React.FC<LandMapProps> = ({
         
         {/* Location tracker toggle button */}
         <LocationButton />
+        <CoordinateDisplay />
       </MapContainer>
       
       {/* Weather toggle */}
-      <div className="absolute top-4 right-[60px] z-1000">
+      <div className="absolute top-4 right-[60px] z-50">
         <Button
           variant={showWeather ? "default" : "outline"}
           size="sm"
@@ -130,7 +131,7 @@ const LandMap: React.FC<LandMapProps> = ({
       </div>
       
       {/* Layer control using shadcn dropdown */}
-      <div className="absolute top-4 right-4 z-1000">
+      <div className="absolute top-4 right-4 z-50">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -252,11 +253,11 @@ const LocationButton = () => {
   };
   
   return (
-    <div className="leaflet-bottom leaflet-left" style={{ position: 'absolute', bottom: '16px', left: '16px', zIndex: 1000 }}>
+    <div className="absolute top-[178px] left-4 z-1000">
       <Button
         variant="outline"
         size="sm"
-        className="bg-background/80 backdrop-blur w-8 h-8 p-0 leaflet-control"
+        className="bg-background/80 backdrop-blur w-8 h-8 p-0"
         onClick={handleClick}
         title="Locate me"
         disabled={isLoading}
@@ -270,6 +271,137 @@ const LocationButton = () => {
           <Locate className="w-4 h-4" />
         )}
       </Button>
+    </div>
+  );
+};
+
+// Component for coordinate display
+const CoordinateDisplay = () => {
+  const map = useMap();
+  const [coordinates, setCoordinates] = React.useState<{ lat: number; lng: number } | null>(null);
+  const [altitude, setAltitude] = React.useState<number | null>(null);
+  const [isLoadingAltitude, setIsLoadingAltitude] = React.useState(false);
+  const [debounceTimer, setDebounceTimer] = React.useState<NodeJS.Timeout | null>(null);
+
+  // Get altitude from Open-Elevation API
+  const getAltitude = async (lat: number, lng: number) => {
+    if (!lat || !lng) return null;
+    
+    setIsLoadingAltitude(true);
+    try {
+      // Add timeout to prevent hanging requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      
+      const response = await fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lng}`, {
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      setIsLoadingAltitude(false);
+      return data.results[0]?.elevation || null;
+    } catch (error) {
+      console.error("Error fetching altitude:", error);
+      setIsLoadingAltitude(false);
+      
+      // Return null to indicate failure
+      return null;
+    }
+  };
+
+  // Update coordinates on mouse move with debouncing
+  React.useEffect(() => {
+    const handleMouseMove = (e: L.LeafletMouseEvent) => {
+      const { lat, lng } = e.latlng;
+      
+      // Clear previous timer
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+      
+      // Set new timer to debounce altitude requests
+      const timer = setTimeout(() => {
+        setCoordinates({ lat, lng });
+      }, 100); // 100ms debounce
+      
+      setDebounceTimer(timer);
+    };
+
+    const handleMouseOut = () => {
+      // Clear debounce timer
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+        setDebounceTimer(null);
+      }
+      
+      setCoordinates(null);
+      setAltitude(null);
+    };
+
+    map.on('mousemove', handleMouseMove);
+    map.on('mouseout', handleMouseOut);
+
+    return () => {
+      map.off('mousemove', handleMouseMove);
+      map.off('mouseout', handleMouseOut);
+      
+      // Clear timer on unmount
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+    };
+  }, [map, debounceTimer]);
+
+  // Fetch altitude when coordinates change (debounced)
+  React.useEffect(() => {
+    if (coordinates) {
+      getAltitude(coordinates.lat, coordinates.lng).then(setAltitude);
+    }
+  }, [coordinates]);
+
+  // Format coordinate display
+  const formatCoordinate = (coord: number) => {
+    return coord.toFixed(6);
+  };
+
+  // Format altitude display
+  const formatAltitude = (alt: number | null) => {
+    if (alt === null) return '--';
+    return `${Math.round(alt)} m`;
+  };
+
+  return (
+    <div className="leaflet-bottom leaflet-left" style={{ position: 'absolute', bottom: '16px', left: '16px', zIndex: 1000 }}>
+      <div className="bg-background/80 backdrop-blur border rounded-md shadow-lg p-2 text-xs">
+        {coordinates ? (
+          <div className="flex flex-col space-y-1">
+            <div>
+              <span className="font-medium">Lat:</span> {formatCoordinate(coordinates.lat)}
+            </div>
+            <div>
+              <span className="font-medium">Lng:</span> {formatCoordinate(coordinates.lng)}
+            </div>
+            <div>
+              <span className="font-medium">Alt:</span> 
+              {isLoadingAltitude ? (
+                <span className="ml-1 inline-block h-3 w-3 animate-spin rounded-full border border-current border-t-transparent align-middle"></span>
+              ) : (
+                <span className="ml-1">{formatAltitude(altitude)}</span>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="text-muted-foreground">
+            Move cursor over map
+          </div>
+        )}
+      </div>
     </div>
   );
 };
