@@ -374,8 +374,10 @@ const SearchControl = () => {
       }, 5000);
     }
     
+    // Close the search panel after selecting a result
     setShowResults(false);
     setSearchQuery('');
+    setIsExpanded(false); // Collapse the search input
   };
 
   return (
@@ -484,7 +486,7 @@ const SearchControl = () => {
       
       {showResults && searchResults.length === 0 && searchQuery && !isSearching && isExpanded && (
         <div 
-          className="absolute top-full mt-1 left-10 w-64 bg-background/90 backdrop-blur border rounded-md shadow-lg z-1001 p-2 text-sm"
+          className="absolute top-full mt-1 left-10 w-64 bg-background/90 backdrop-blur border rounded-md shadow-lg z-1001 p-2 text-sm cursor-pointer"
           onMouseDown={(e) => e.stopPropagation()}
           onMouseUp={(e) => e.stopPropagation()}
           onWheel={(e) => {
@@ -501,6 +503,12 @@ const SearchControl = () => {
           onPointerMove={(e) => {
             e.stopPropagation();
             e.preventDefault();
+          }}
+          onClick={() => {
+            // Close the search panel when clicking on "No results found"
+            setIsExpanded(false);
+            setShowResults(false);
+            setSearchQuery('');
           }}
         >
           No results found

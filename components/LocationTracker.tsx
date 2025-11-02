@@ -112,39 +112,51 @@ export default function LocationTracker() {
     loadAvatar();
   }, []);
 
-  const map = useMap();
-
   useEffect(() => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser");
       return;
     }
 
-    // Get initial position only once
+    // Get initial position with appropriate settings for desktop vs mobile
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
         setPosition(coords);
-        // Only set the initial position, don't continuously update the map view
-        // map.flyTo(coords, 14); // Commented out to prevent auto-centering
+        // Note: We're not automatically centering the map anymore to prevent interference with manual navigation
+        console.log("Location accuracy:", pos.coords.accuracy, "meters");
+        console.log("Device type detected:", isMobile ? "Mobile" : "Desktop");
       },
-      (err) => console.error(err),
-      { enableHighAccuracy: true, timeout: 10000 }
+      (err) => {
+        console.error("Geolocation error:", err);
+        // Try again with less strict settings for desktop
+        if (!isMobile) {
+          navigator.geolocation.getCurrentPosition(
+            (pos2) => {
+              const coords: [number, number] = [pos2.coords.latitude, pos2.coords.longitude];
+              setPosition(coords);
+              console.log("Secondary location accuracy:", pos2.coords.accuracy, "meters");
+            },
+            (err2) => console.error("Secondary geolocation error:", err2),
+            { 
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0
+            }
+          );
+        }
+      },
+      { 
+        enableHighAccuracy: true, 
+        timeout: 10000,
+        maximumAge: 0 // Force fresh location data
+      }
     );
-    
-    // If you want to show the marker but not auto-center, keep the watch but don't update map view
-    // const watchId = navigator.geolocation.watchPosition(
-    //   (pos) => {
-    //     const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
-    //     setPosition(coords);
-    //     // Don't update map view here to allow manual navigation
-    //   },
-    //   (err) => console.error(err),
-    //   { enableHighAccuracy: true }
-    // );
-
-    // return () => navigator.geolocation.clearWatch(watchId);
   }, []);
+
+
 
   if (!position) return null;
 
