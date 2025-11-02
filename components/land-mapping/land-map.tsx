@@ -13,7 +13,8 @@ import {
   Info,
   House,
   Search,
-  CloudSun
+  CloudSun,
+  Locate
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import LocationTracker from '@/components/LocationTracker';
@@ -110,6 +111,9 @@ const LandMap: React.FC<LandMapProps> = ({
         
         {/* Location tracker */}
         <LocationTracker />
+        
+        {/* Location tracker toggle button */}
+        <LocationButton />
       </MapContainer>
       
       {/* Weather toggle */}
@@ -159,6 +163,113 @@ const LandMap: React.FC<LandMapProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+    </div>
+  );
+};
+
+
+
+// Component for location tracker button
+const LocationButton = () => {
+  const map = useMap();
+  const [isLoading, setIsLoading] = React.useState(false);
+  
+  const handleClick = () => {
+    console.log("Location button clicked"); // Debug log
+    setIsLoading(true);
+    
+    if (!navigator.geolocation) {
+      console.log("Geolocation not supported by browser");
+      alert("Geolocation is not supported by your browser");
+      setIsLoading(false);
+      return;
+    }
+    
+    console.log("Getting geolocation..."); // Debug log
+    
+    // Try with high accuracy first
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log("Got position:", latitude, longitude); // Debug log
+        map.setView([latitude, longitude], 14);
+        setIsLoading(false);
+      },
+      (error) => {
+        console.log("First error object:", error);
+        console.log("Error properties:", Object.keys(error || {}));
+        console.log("Error code:", error?.code);
+        console.log("Error message:", error?.message);
+        
+        // If high accuracy fails, try with lower accuracy
+        if (!error || error.code === 3 || error.code === 1 || error.code === 2) { // Timeout, permission denied, or position unavailable
+          console.log("Trying with lower accuracy...");
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              console.log("Got low accuracy position:", latitude, longitude);
+              map.setView([latitude, longitude], 14);
+              setIsLoading(false);
+            },
+            (error2) => {
+              console.log("Second error object:", error2);
+              console.log("Error2 properties:", Object.keys(error2 || {}));
+              console.log("Error2 code:", error2?.code);
+              console.log("Error2 message:", error2?.message);
+              setIsLoading(false);
+              
+              // Check common issues
+              if (!error2) {
+                alert("Unable to get your location. Geolocation may be blocked by your browser or firewall.");
+              } else if (error2.code === 1) {
+                alert("Permission denied. Please allow location access and try again.");
+              } else if (error2.code === 2) {
+                alert("Position unavailable. Please check your location settings.");
+              } else if (error2.code === 3) {
+                alert("Location request timed out. Please try again or check your location settings.");
+              } else {
+                alert("Unable to get your location. Please check your location settings and try again.");
+              }
+            },
+            {
+              enableHighAccuracy: false, // Disable high accuracy
+              timeout: 15000, // Increase timeout
+              maximumAge: 60000 // Allow cached position up to 1 minute old
+            }
+          );
+        } else {
+          console.log("Other error:", error.message);
+          alert("Unable to get your location: " + error.message);
+          setIsLoading(false);
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  };
+  
+  return (
+    <div className="leaflet-bottom leaflet-left" style={{ position: 'absolute', bottom: '16px', left: '16px', zIndex: 1000 }}>
+      <Button
+        variant="outline"
+        size="sm"
+        className="bg-background/80 backdrop-blur w-8 h-8 p-0 leaflet-control"
+        onClick={handleClick}
+        title="Locate me"
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        ) : (
+          <Locate className="w-4 h-4" />
+        )}
+      </Button>
     </div>
   );
 };
