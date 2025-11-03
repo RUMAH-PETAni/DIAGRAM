@@ -85,6 +85,7 @@ const LandMap: React.FC<LandMapProps> = ({
   const [selectedBoundary, setSelectedBoundary] = React.useState<LandBoundary | null>(null);
   const [mapLayer, setMapLayer] = React.useState<MapLayerState['type']>('osm'); // Default to OpenStreetMap
   const [showWeather, setShowWeather] = React.useState<boolean>(false); // Weather overlay state
+  const [selectedMappingMode, setSelectedMappingMode] = React.useState<string | null>(null); // Track the selected mapping mode
 
 
   return (
@@ -130,32 +131,39 @@ const LandMap: React.FC<LandMapProps> = ({
         <LocationButton />
         <CoordinateDisplay />
         <MeasurementTool />
-        <StartMappingButton />
+        <StartMappingButton 
+          selectedMappingMode={selectedMappingMode} 
+          setSelectedMappingMode={setSelectedMappingMode} 
+        />
 
 
       </MapContainer>
       
-      {/* Footprints button in bottom-left corner, above the MapPinPlus button */}
-      <div className="absolute bottom-16 left-4 z-50">
-        <Button
-          variant="outline"
-          size="sm"
-          className="bg-background/80 backdrop-blur w-8 h-8 p-0"
-        >
-          <Footprints className="w-4 h-4" />
-        </Button>
-      </div>
+      {/* Footprints button in bottom-right corner, above the MapPinPlus button - only show when Record Path is selected */}
+      {selectedMappingMode === 'Record Path' && (
+        <div className="absolute bottom-16 right-4 z-50">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+          >
+            <Footprints className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
       
-      {/* Point button in bottom-left corner with MapPinPlus icon */}
-      <div className="absolute bottom-6 left-4 z-50">
-        <Button
-          variant="outline"
-          size="sm"
-          className="bg-background/80 backdrop-blur w-8 h-8 p-0"
-        >
-          <MapPinPlus className="w-4 h-4" />
-        </Button>
-      </div>
+      {/* Point button in bottom-right corner with MapPinPlus icon - only show when Point to Point is selected */}
+      {selectedMappingMode === 'Point to Point' && (
+        <div className="absolute bottom-6 right-4 z-50">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+          >
+            <MapPinPlus className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
       
       {/* Weather toggle */}
       <div className="absolute top-4 right-[60px] z-50">
@@ -979,25 +987,29 @@ const MeasurementTool: React.FC<MeasurementToolProps> = () => {
 };
 
 // Component for Start Mapping button positioned at center-bottom of the map
-const StartMappingButton: React.FC = () => {
+interface StartMappingButtonProps {
+  selectedMappingMode: string | null;
+  setSelectedMappingMode: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const StartMappingButton: React.FC<StartMappingButtonProps> = ({ selectedMappingMode, setSelectedMappingMode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedMode, setSelectedMode] = React.useState<string | null>(null);
   const map = useMap();
   
   const handleSelectMode = (mode: string) => {
     console.log(`${mode} selected`);
-    setSelectedMode(mode);
+    setSelectedMappingMode(mode);
     setIsOpen(false);
   };
 
   const handleFinishMapping = () => {
     console.log('Finish mapping clicked');
-    setSelectedMode(null);
+    setSelectedMappingMode(null);
   };
 
   return (
-    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-1000">
-      {selectedMode ? (
+    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-1000">
+      {selectedMappingMode ? (
         <Button
           variant="outline"
           size="sm"
@@ -1023,8 +1035,8 @@ const StartMappingButton: React.FC = () => {
             <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Point to Point')}>
               Point to Point
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Record Track')}>
-              Record Track
+            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Record Path')}>
+              Record Path
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
