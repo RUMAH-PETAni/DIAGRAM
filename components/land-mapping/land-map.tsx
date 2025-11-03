@@ -21,11 +21,22 @@ import {
   Search,
   CloudSun,
   Locate,
-  Ruler
+  Ruler,
+  Play,
+  Square,
+  SquaresUnite,
+  MapPlus,
+  MapPinPlus,
+  Footprints,
+  X,
+  Minus,
+  Plus
 } from 'lucide-react';
 
 // Other components
 import LocationTracker from '@/components/LocationTracker';
+
+
 
 // Fix for default marker icons in react-leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -75,6 +86,7 @@ const LandMap: React.FC<LandMapProps> = ({
   const [mapLayer, setMapLayer] = React.useState<MapLayerState['type']>('osm'); // Default to OpenStreetMap
   const [showWeather, setShowWeather] = React.useState<boolean>(false); // Weather overlay state
 
+
   return (
     <div className={`w-full h-full ${className} relative overflow-hidden flex flex-col`}>
       <MapContainer 
@@ -118,7 +130,32 @@ const LandMap: React.FC<LandMapProps> = ({
         <LocationButton />
         <CoordinateDisplay />
         <MeasurementTool />
+        <StartMappingButton />
+
+
       </MapContainer>
+      
+      {/* Footprints button in bottom-left corner, above the MapPinPlus button */}
+      <div className="absolute bottom-16 left-4 z-50">
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+        >
+          <Footprints className="w-4 h-4" />
+        </Button>
+      </div>
+      
+      {/* Point button in bottom-left corner with MapPinPlus icon */}
+      <div className="absolute bottom-6 left-4 z-50">
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+        >
+          <MapPinPlus className="w-4 h-4" />
+        </Button>
+      </div>
       
       {/* Weather toggle */}
       <div className="absolute top-4 right-[60px] z-50">
@@ -573,10 +610,7 @@ const SearchControl: React.FC<SearchControlProps> = () => {
                 setShowResults(false);
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+              <X className="w-4 h-4" />
             </Button>
           </form>
         ) : (
@@ -689,10 +723,7 @@ const MapZoomControl: React.FC<MapZoomControlProps> = () => {
         onClick={() => map.zoomIn()}
         title="Zoom in"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+       <Plus className="w-4 h-4" />
       </Button>
       <Button
         variant="outline"
@@ -701,13 +732,13 @@ const MapZoomControl: React.FC<MapZoomControlProps> = () => {
         onClick={() => map.zoomOut()}
         title="Zoom out"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+        <Minus className="w-4 h-4" />
       </Button>
     </div>
   );
 };
+
+
 
 // Component for measurement tools
 const MeasurementTool: React.FC<MeasurementToolProps> = () => {
@@ -930,9 +961,7 @@ const MeasurementTool: React.FC<MeasurementToolProps> = () => {
         onClick={() => toggleMode('area')}
         title="Measure area"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-          <rect x="2" y="2" width="20" height="20" rx="2" ry="2"/>
-        </svg>
+       <SquaresUnite className="w-4 h-4" />
       </Button>
       {measurementState.mode && (
         <Button
@@ -942,11 +971,63 @@ const MeasurementTool: React.FC<MeasurementToolProps> = () => {
           onClick={clearMeasurements}
           title="Clear measurements"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+        <X className="w-4 h-4" />
         </Button>
+      )}
+    </div>
+  );
+};
+
+// Component for Start Mapping button positioned at center-bottom of the map
+const StartMappingButton: React.FC = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [selectedMode, setSelectedMode] = React.useState<string | null>(null);
+  const map = useMap();
+  
+  const handleSelectMode = (mode: string) => {
+    console.log(`${mode} selected`);
+    setSelectedMode(mode);
+    setIsOpen(false);
+  };
+
+  const handleFinishMapping = () => {
+    console.log('Finish mapping clicked');
+    setSelectedMode(null);
+  };
+
+  return (
+    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-1000">
+      {selectedMode ? (
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-background/80 backdrop-blur"
+          onClick={handleFinishMapping}
+        >
+          <Square className="w-4 h-4 mr-2" />
+          Finish Mapping
+        </Button>
+      ) : (
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-background/80 backdrop-blur"
+            >
+              <Play className="w-4 h-4 mr-2" />
+              Start Mapping
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center" className="w-[--radix-dropdown-menu-trigger-width]">
+            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Point to Point')}>
+              Point to Point
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Record Track')}>
+              Record Track
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
     </div>
   );

@@ -22,6 +22,7 @@ import {
   IconUsers,
 } from "@tabler/icons-react"
 
+
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -55,11 +56,12 @@ import {
 import { MapPinned, Plus, Layers, Download, Upload, Ruler, CloudUpload, MapPlus, FileUser } from "lucide-react"
 
 
+
 export function LandMapSidebarClient({ user, ...props }: { 
   user: { name: string; email: string; avatar: string }; 
   [key: string]: any;
 }) {
-;
+
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -79,20 +81,16 @@ export function LandMapSidebarClient({ user, ...props }: {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        
         <SidebarGroup>
-          <SidebarGroupLabel>Start Mapping</SidebarGroupLabel>
-          <div className="grid w-full gap-2">
-          <Button size="sm" variant="outline">
-              <MapPlus className="w-4 h-4 mr-2" />
-              Add New Land
-            </Button>
-          </div>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Land Information</SidebarGroupLabel>
-          <div className=" border rounded-lg bg-card max-h-60 overflow-y-auto">
+          <SidebarGroupLabel>Land Information :</SidebarGroupLabel>
+          <div className=" border rounded-lg bg-card max-h-70 overflow-y-auto">
             <div className="p-2">
               <FieldGroup >
+                <Field>
+                  <FieldLabel className="text-sm">Plot</FieldLabel>
+                  <Input placeholder="Enter plot name" className="text-sm" />
+                </Field>
                 <Field>
                   <FieldLabel className="text-sm">Land Owner</FieldLabel>
                   <Input placeholder="Enter land owner name" className="text-sm" />
@@ -100,14 +98,6 @@ export function LandMapSidebarClient({ user, ...props }: {
                 <Field>
                   <FieldLabel className="text-sm">National ID</FieldLabel>
                   <Input placeholder="Enter national ID" className="text-sm" />
-                </Field>
-                <Field>
-                  <FieldLabel className="text-sm">Land</FieldLabel>
-                  <Input placeholder="Enter land name" className="text-sm" />
-                </Field>
-                <Field>
-                  <FieldLabel className="text-sm">Area (ha)</FieldLabel>
-                  <Input placeholder="Area in hectares" type="number" className="text-sm" />
                 </Field>
                 <Field>
                   <FieldLabel className="text-sm">Land Type</FieldLabel>
@@ -136,12 +126,18 @@ export function LandMapSidebarClient({ user, ...props }: {
                     </SelectContent>
                   </Select>
                 </Field>
+                <Field>
+                <FieldLabel className="text-sm">Area (ha)</FieldLabel>
+                  <Input placeholder="Area in hectares" type="number" className="text-sm" />
+                </Field>
+                
               </FieldGroup>
             </div>
           </div>
         </SidebarGroup>
+       
         <SidebarGroup>
-          <SidebarGroupLabel>Import or Export File</SidebarGroupLabel>
+          <SidebarGroupLabel>Import or Export Polygon</SidebarGroupLabel>
           <div className="grid grid-cols-2 gap-2">
              <Button size="sm" variant="outline">
               <Upload className="w-4 h-4 mr-2" />
@@ -156,7 +152,7 @@ export function LandMapSidebarClient({ user, ...props }: {
           
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Finalizing</SidebarGroupLabel>
+          <SidebarGroupLabel>Submit Data</SidebarGroupLabel>
           <div className="grid w-full gap-2">
           <Button size="sm" variant="outline">
               <CloudUpload className="w-4 h-4 mr-2" />

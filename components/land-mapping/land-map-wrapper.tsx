@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { LandMapProps } from './land-map';
 import { Loader2 } from 'lucide-react';
 
+
 // Dynamically import the LandMap component to avoid SSR issues with Leaflet
 const LandMap = dynamic(
   () => import('./land-map').then((mod) => mod.LandMap),
@@ -17,6 +18,8 @@ const LandMap = dynamic(
   }
 );
 
-export default function LandMapWrapper(props: LandMapProps) {
+export default function LandMapWrapper(props: Omit<LandMapProps, 'showStartButton'>) {
+ 
+  
   return <LandMap {...props} />;
 }
