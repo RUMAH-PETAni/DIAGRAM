@@ -1,11 +1,17 @@
 'use client';
 
+// External libraries
 import * as React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, FeatureGroup, Polygon, LayersControl } from 'react-leaflet';
 import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+// UI components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+// Icons
 import { 
   Layers, 
   FileText, 
@@ -14,9 +20,11 @@ import {
   House,
   Search,
   CloudSun,
-  Locate
+  Locate,
+  Ruler
 } from 'lucide-react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+// Other components
 import LocationTracker from '@/components/LocationTracker';
 
 // Fix for default marker icons in react-leaflet
@@ -27,6 +35,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
+// Turf.js for measurements
+import * as turf from '@turf/turf';
+
+// Type definitions
 export type LandBoundary = {
   id: string;
   name: string;
@@ -60,8 +72,8 @@ const LandMap: React.FC<LandMapProps> = ({
 }) => {
   const [mapBoundaries, setMapBoundaries] = React.useState<LandBoundary[]>(boundaries);
   const [selectedBoundary, setSelectedBoundary] = React.useState<LandBoundary | null>(null);
-  const [mapLayer, setMapLayer] = React.useState<'osm' | 'satellite' | 'topography' | 'weather'>('osm'); // Default to OpenStreetMap
-  const [showWeather, setShowWeather] = React.useState(false); // Weather overlay state
+  const [mapLayer, setMapLayer] = React.useState<MapLayerState['type']>('osm'); // Default to OpenStreetMap
+  const [showWeather, setShowWeather] = React.useState<boolean>(false); // Weather overlay state
 
   return (
     <div className={`w-full h-full ${className} relative overflow-hidden flex flex-col`}>
@@ -75,20 +87,12 @@ const LandMap: React.FC<LandMapProps> = ({
         {/* Conditionally render the appropriate tile layer based on state */}
         {mapLayer === 'osm' && (
           <TileLayer
-            attribution="&copy; OpenStreetMap"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         )}
         {mapLayer === 'satellite' && (
           <TileLayer
             url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-            attribution="&copy; Google Maps"
-          />
-        )}
-        {mapLayer === 'topography' && (
-         <TileLayer
-            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-            attribution="&copy; OpenTopoMap"
           />
         )}
         
@@ -96,8 +100,6 @@ const LandMap: React.FC<LandMapProps> = ({
         {showWeather && (
           <TileLayer
             url={`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${process.env.NEXT_PUBLIC_OWM_API_KEY}`}
-            attribution="OpenWeatherMap"
-            opacity={1}
           />
         )}
         
@@ -115,6 +117,7 @@ const LandMap: React.FC<LandMapProps> = ({
         {/* Location tracker toggle button */}
         <LocationButton />
         <CoordinateDisplay />
+        <MeasurementTool />
       </MapContainer>
       
       {/* Weather toggle */}
@@ -155,12 +158,6 @@ const LandMap: React.FC<LandMapProps> = ({
             >
               Satellite
             </DropdownMenuItem>
-             <DropdownMenuItem 
-              onClick={() => setMapLayer('topography')}
-              className={`text-xs ${mapLayer === 'topography' ? 'font-medium' : ''}`}
-            >
-              Topography
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -170,10 +167,33 @@ const LandMap: React.FC<LandMapProps> = ({
 
 
 
+// Type definitions
+interface LocationButtonProps {}
+
+interface CoordinateDisplayProps {}
+
+interface MapResizeHandlerProps {}
+
+interface SearchControlProps {}
+
+interface MapZoomControlProps {}
+
+interface MapLayerState {
+  type: 'osm' | 'satellite' | 'weather';
+  showWeather: boolean;
+}
+
+interface MeasurementState {
+  mode: 'distance' | 'area' | null;
+  points: L.LatLngLiteral[];
+}
+
+interface MeasurementToolProps {}
+
 // Component for location tracker button
-const LocationButton = () => {
+const LocationButton: React.FC<LocationButtonProps> = () => {
   const map = useMap();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   
   const handleClick = () => {
     console.log("Location button clicked"); // Debug log
@@ -231,11 +251,6 @@ const LocationButton = () => {
               } else {
                 alert("Unable to get your location. Please check your location settings and try again.");
               }
-            },
-            {
-              enableHighAccuracy: false, // Disable high accuracy
-              timeout: 15000, // Increase timeout
-              maximumAge: 60000 // Allow cached position up to 1 minute old
             }
           );
         } else {
@@ -276,15 +291,15 @@ const LocationButton = () => {
 };
 
 // Component for coordinate display
-const CoordinateDisplay = () => {
+const CoordinateDisplay: React.FC<CoordinateDisplayProps> = () => {
   const map = useMap();
   const [coordinates, setCoordinates] = React.useState<{ lat: number; lng: number } | null>(null);
   const [altitude, setAltitude] = React.useState<number | null>(null);
-  const [isLoadingAltitude, setIsLoadingAltitude] = React.useState(false);
+  const [isLoadingAltitude, setIsLoadingAltitude] = React.useState<boolean>(false);
   const [debounceTimer, setDebounceTimer] = React.useState<NodeJS.Timeout | null>(null);
 
   // Get altitude from Open-Elevation API
-  const getAltitude = async (lat: number, lng: number) => {
+  const getAltitude = async (lat: number, lng: number): Promise<number | null> => {
     if (!lat || !lng) return null;
     
     setIsLoadingAltitude(true);
@@ -307,6 +322,13 @@ const CoordinateDisplay = () => {
       setIsLoadingAltitude(false);
       return data.results[0]?.elevation || null;
     } catch (error) {
+      // Check if it's an AbortError (user moved cursor or component unmounted)
+      if (error instanceof Error && error.name === 'AbortError') {
+        // Don't log abort errors as they are expected when requests are cancelled
+        setIsLoadingAltitude(false);
+        return null;
+      }
+      
       console.error("Error fetching altitude:", error);
       setIsLoadingAltitude(false);
       
@@ -366,48 +388,40 @@ const CoordinateDisplay = () => {
   }, [coordinates]);
 
   // Format coordinate display
-  const formatCoordinate = (coord: number) => {
+  const formatCoordinate = (coord: number): string => {
     return coord.toFixed(6);
   };
 
   // Format altitude display
-  const formatAltitude = (alt: number | null) => {
+  const formatAltitude = (alt: number | null): string => {
     if (alt === null) return '--';
     return `${Math.round(alt)} m`;
   };
 
   return (
-    <div className="leaflet-bottom leaflet-left" style={{ position: 'absolute', bottom: '16px', left: '16px', zIndex: 1000 }}>
-      <div className="bg-background/80 backdrop-blur border rounded-md shadow-lg p-2 text-xs">
-        {coordinates ? (
-          <div className="flex flex-col space-y-1">
-            <div>
-              <span className="font-medium">Lat:</span> {formatCoordinate(coordinates.lat)}
-            </div>
-            <div>
-              <span className="font-medium">Lng:</span> {formatCoordinate(coordinates.lng)}
-            </div>
-            <div>
-              <span className="font-medium">Alt:</span> 
-              {isLoadingAltitude ? (
-                <span className="ml-1 inline-block h-3 w-3 animate-spin rounded-full border border-current border-t-transparent align-middle"></span>
-              ) : (
-                <span className="ml-1">{formatAltitude(altitude)}</span>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="text-muted-foreground">
-            Move cursor over map
-          </div>
-        )}
-      </div>
+    <div className="absolute bottom-1 left-1 z-1000 text-[10px]">
+      {coordinates ? (
+        <div className="flex items-center space-x-1">
+          <span className="font-medium">Lat:</span> <span>{formatCoordinate(coordinates.lat)}</span>
+          <span className="font-medium">Lng:</span> <span>{formatCoordinate(coordinates.lng)}</span>
+          <span className="font-medium">Alt:</span> 
+          {isLoadingAltitude ? (
+            <span className="inline-block h-2 w-2 animate-spin rounded-full border border-current border-t-transparent align-middle"></span>
+          ) : (
+            <span>{formatAltitude(altitude)}</span>
+          )}
+        </div>
+      ) : (
+        <div className="text-muted-foreground">
+          Move cursor over map
+        </div>
+      )}
     </div>
   );
 };
 
 // Component to handle map invalidation when container size changes
-const MapResizeHandler = () => {
+const MapResizeHandler: React.FC<MapResizeHandlerProps> = () => {
   const map = useMap();
 
   React.useEffect(() => {
@@ -436,13 +450,13 @@ const MapResizeHandler = () => {
 };
 
 // Component for search functionality
-const SearchControl = () => {
+const SearchControl: React.FC<SearchControlProps> = () => {
   const map = useMap();
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [isSearching, setIsSearching] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const [isSearching, setIsSearching] = React.useState<boolean>(false);
   const [searchResults, setSearchResults] = React.useState<any[]>([]);
-  const [showResults, setShowResults] = React.useState(false);
-  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [showResults, setShowResults] = React.useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
 
   // Directly control map interactions based on search state
   React.useEffect(() => {
@@ -463,7 +477,7 @@ const SearchControl = () => {
     }
   }, [isExpanded, showResults, searchResults.length, map]);
 
-  const performSearch = async () => {
+  const performSearch = async (): Promise<void> => {
     if (!searchQuery.trim()) return;
     
     setIsSearching(true);
@@ -651,7 +665,7 @@ const SearchControl = () => {
 };
 
 // Component for custom zoom control styled like the layer toggle
-const MapZoomControl = () => {
+const MapZoomControl: React.FC<MapZoomControlProps> = () => {
   const map = useMap();
   
   return (
@@ -691,6 +705,249 @@ const MapZoomControl = () => {
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
+    </div>
+  );
+};
+
+// Component for measurement tools
+const MeasurementTool: React.FC<MeasurementToolProps> = () => {
+  const map = useMap();
+  const [measurementState, setMeasurementState] = React.useState<MeasurementState>({ 
+    mode: null, 
+    points: [] 
+  });
+  const [measurementLayer, setMeasurementLayer] = React.useState<L.LayerGroup | null>(null);
+
+  // Initialize the layer group for measurements
+  React.useEffect(() => {
+    const layerGroup = new L.LayerGroup();
+    map.addLayer(layerGroup);
+    setMeasurementLayer(layerGroup);
+
+    return () => {
+      if (measurementLayer) {
+        map.removeLayer(measurementLayer);
+      }
+    };
+  }, [map]);
+
+  // Handle map clicks for measurements
+  React.useEffect(() => {
+    if (!measurementState.mode || !measurementLayer) return;
+
+    const handleClick = (e: L.LeafletEvent) => {
+      const latlng = (e as L.LeafletMouseEvent).latlng;
+      const newPoints = [...measurementState.points, latlng];
+      
+      setMeasurementState(prev => ({
+        ...prev,
+        points: newPoints
+      }));
+
+      // Add marker for the clicked point
+      const marker = L.circleMarker([latlng.lat, latlng.lng], {
+        radius: 5,
+        color: '#3b82f6',
+        fillColor: '#93c5fd',
+        fillOpacity: 0.8
+      }).addTo(measurementLayer);
+      
+      // Update measurement if we have at least 2 points for distance or 3 for area
+      if (newPoints.length >= 2 && measurementState.mode) {
+        updateMeasurement(newPoints, measurementState.mode as 'distance' | 'area', measurementLayer);
+      }
+    };
+
+    map.on('click', handleClick);
+    return () => {
+      map.off('click', handleClick);
+    };
+  }, [measurementState.mode, measurementState.points, measurementLayer, map]);
+
+  // Calculate and display distance
+  const calculateDistance = (points: L.LatLngExpression[]): number => {
+    if (points.length < 2) return 0;
+
+    let totalDistance = 0;
+    for (let i = 1; i < points.length; i++) {
+      const start = points[i - 1];
+      const end = points[i];
+      
+      // Create points for Turf.js
+      const startLat = typeof start === 'object' && 'lat' in start ? start.lat : (Array.isArray(start) ? start[0] : 0);
+      const startLng = typeof start === 'object' && 'lng' in start ? start.lng : (Array.isArray(start) ? start[1] : 0);
+      const endLat = typeof end === 'object' && 'lat' in end ? end.lat : (Array.isArray(end) ? end[0] : 0);
+      const endLng = typeof end === 'object' && 'lng' in end ? end.lng : (Array.isArray(end) ? end[1] : 0);
+      
+      const startPoint = turf.point([startLng, startLat]);
+      const endPoint = turf.point([endLng, endLat]);
+      
+      // Calculate distance using Turf.js
+      const distance = turf.distance(startPoint, endPoint, { units: 'kilometers' });
+      totalDistance += distance;
+    }
+
+    return totalDistance;
+  };
+
+  // Calculate and display area
+  const calculateArea = (points: L.LatLngExpression[]): number => {
+    if (points.length < 3) return 0;
+
+    // Create a polygon with Turf.js
+    const coordinates = points.map(point => {
+      const lat = typeof point === 'object' && 'lat' in point ? point.lat : (Array.isArray(point) ? point[0] : 0);
+      const lng = typeof point === 'object' && 'lng' in point ? point.lng : (Array.isArray(point) ? point[1] : 0);
+      return [lng, lat];
+    });
+    // Close the polygon by adding the first point at the end
+    if (points.length > 0) {
+      const firstPoint = points[0];
+      const firstLat = typeof firstPoint === 'object' && 'lat' in firstPoint ? firstPoint.lat : (Array.isArray(firstPoint) ? firstPoint[0] : 0);
+      const firstLng = typeof firstPoint === 'object' && 'lng' in firstPoint ? firstPoint.lng : (Array.isArray(firstPoint) ? firstPoint[1] : 0);
+      coordinates.push([firstLng, firstLat]);
+    }
+    
+    const polygon = turf.polygon([coordinates]);
+    const area = turf.area(polygon); // in square meters
+    
+    return area;
+  };
+
+  // Update the measurement display
+  const updateMeasurement = (
+    points: L.LatLngExpression[], 
+    mode: 'distance' | 'area', 
+    layer: L.LayerGroup
+  ) => {
+    // Clear previous measurement results
+    layer.eachLayer(layer => {
+      if (layer instanceof L.Polyline || layer instanceof L.Polygon || layer instanceof L.Marker) {
+        // Check if the layer is not a measurement marker by checking a custom property
+        const isMeasurementMarker = (layer.options as any).isMeasurementMarker;
+        if (!isMeasurementMarker) {
+          layer.remove();
+        }
+      }
+    });
+
+    if (mode === 'distance' && points.length >= 2) {
+      const distance = calculateDistance(points);
+      const distanceInKm = distance.toFixed(2);
+      
+      // Draw the line
+      const line = L.polyline(points, { color: '#3b82f6', weight: 3 }).addTo(layer);
+      
+      // Add distance label at midpoint
+      const midIndex = Math.floor(points.length / 2);
+      if (midIndex > 0 && midIndex < points.length) {
+        const point1 = points[midIndex - 1];
+        const point2 = points[midIndex];
+        
+        // Handle both LatLngLiteral and LatLngTuple types
+        const lat1 = typeof point1 === 'object' && 'lat' in point1 ? point1.lat : (Array.isArray(point1) ? point1[0] : 0);
+        const lng1 = typeof point1 === 'object' && 'lng' in point1 ? point1.lng : (Array.isArray(point1) ? point1[1] : 0);
+        const lat2 = typeof point2 === 'object' && 'lat' in point2 ? point2.lat : (Array.isArray(point2) ? point2[0] : 0);
+        const lng2 = typeof point2 === 'object' && 'lng' in point2 ? point2.lng : (Array.isArray(point2) ? point2[1] : 0);
+        
+        const midPoint = L.latLng(
+          (lat1 + lat2) / 2,
+          (lng1 + lng2) / 2
+        );
+        
+        L.marker(midPoint, {
+          icon: L.divIcon({
+            className: 'measurement-label',
+            html: `<div class="bg-blue-500 text-white text-xs px-2 py-1 rounded shadow">Distance: ${distanceInKm} km</div>`,
+            iconSize: undefined
+          })
+        }).addTo(layer);
+      }
+    } 
+    else if (mode === 'area' && points.length >= 3) {
+      const area = calculateArea(points);
+      const areaInHectares = (area / 10000).toFixed(2); // Convert to hectares
+      
+      // Draw the polygon
+      const polygon = L.polygon(points, { 
+        color: '#3b82f6', 
+        weight: 2,
+        fillOpacity: 0.2
+      }).addTo(layer);
+      
+      // Add area label at centroid
+      const centroidLat = points.reduce((sum, point) => {
+        const lat = typeof point === 'object' && 'lat' in point ? point.lat : (Array.isArray(point) ? point[0] : 0);
+        return sum + lat;
+      }, 0) / points.length;
+      const centroidLng = points.reduce((sum, point) => {
+        const lng = typeof point === 'object' && 'lng' in point ? point.lng : (Array.isArray(point) ? point[1] : 0);
+        return sum + lng;
+      }, 0) / points.length;
+      
+      L.marker([centroidLat, centroidLng], {
+        icon: L.divIcon({
+          className: 'measurement-label',
+          html: `<div class="bg-blue-500 text-white text-xs px-2 py-1 rounded shadow">Area: ${areaInHectares} ha</div>`,
+          iconSize: undefined
+        })
+      }).addTo(layer);
+    }
+  };
+
+  // Clear measurements
+  const clearMeasurements = () => {
+    if (measurementLayer) {
+      measurementLayer.clearLayers();
+    }
+    setMeasurementState({ mode: null, points: [] });
+  };
+
+  // Toggle measurement mode
+  const toggleMode = (mode: 'distance' | 'area') => {
+    if (measurementState.mode === mode) {
+      clearMeasurements();
+    } else {
+      setMeasurementState({ mode, points: [] });
+    }
+  };
+
+  return (
+    <div className="absolute top-[230px] left-4 z-1000 flex flex-col gap-1">
+      <Button
+        variant={measurementState.mode === 'distance' ? "default" : "outline"}
+        size="sm"
+        className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+        onClick={() => toggleMode('distance')}
+        title="Measure distance"
+      >
+        <Ruler className="w-4 h-4" />
+      </Button>
+      <Button
+        variant={measurementState.mode === 'area' ? "default" : "outline"}
+        size="sm"
+        className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+        onClick={() => toggleMode('area')}
+        title="Measure area"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+          <rect x="2" y="2" width="20" height="20" rx="2" ry="2"/>
+        </svg>
+      </Button>
+      {measurementState.mode && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+          onClick={clearMeasurements}
+          title="Clear measurements"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </Button>
+      )}
     </div>
   );
 };

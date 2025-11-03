@@ -37,7 +37,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { MapPinned, Plus, Layers, Download, Upload, Ruler } from "lucide-react"
+import { MapPinned, Plus, Layers, Download, Upload, Ruler, CloudUpload, MapPlus } from "lucide-react"
 
 
 export function LandMapSidebarClient({ user, ...props }: { 
@@ -71,21 +71,20 @@ export function LandMapSidebarClient({ user, ...props }: {
         <SidebarGroup>
           <SidebarGroupLabel>Tools</SidebarGroupLabel>
           <div className="grid grid-cols-2 gap-2">
-            <Button size="sm" variant="outline">
-              <Plus className="w-4 h-4 mr-2" />
-              New
+             <Button size="sm" variant="outline">
+              <Upload className="w-4 h-4 mr-2" />
+              Import
             </Button>
             <Button size="sm" variant="outline">
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
-            <Button size="sm" variant="outline">
-              <Upload className="w-4 h-4 mr-2" />
-              Import
-            </Button>
-            <Button size="sm" variant="outline">
-              <Layers className="w-4 h-4 mr-2" />
-              Layers
+            
+          </div>
+          <div className="grid w-full gap-2 mt-2">
+          <Button size="sm" variant="outline">
+              <CloudUpload className="w-4 h-4 mr-2" />
+              Upload
             </Button>
           </div>
         </SidebarGroup>
