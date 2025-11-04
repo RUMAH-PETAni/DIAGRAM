@@ -30,7 +30,8 @@ import {
   Footprints,
   X,
   Minus,
-  Plus
+  Plus,
+  SquareDashedMousePointer
 } from 'lucide-react';
 
 // Other components
@@ -86,6 +87,7 @@ const LandMap: React.FC<LandMapProps> = ({
   const [mapLayer, setMapLayer] = React.useState<MapLayerState['type']>('osm'); // Default to OpenStreetMap
   const [showWeather, setShowWeather] = React.useState<boolean>(false); // Weather overlay state
   const [selectedMappingMode, setSelectedMappingMode] = React.useState<string | null>(null); // Track the selected mapping mode
+  const [isDrawingPolygon, setIsDrawingPolygon] = React.useState<boolean>(false); // Track if polygon drawing is active
 
 
   return (
@@ -135,13 +137,23 @@ const LandMap: React.FC<LandMapProps> = ({
           selectedMappingMode={selectedMappingMode} 
           setSelectedMappingMode={setSelectedMappingMode} 
         />
-
-
+        
+        {/* Polygon drawing functionality when isDrawingPolygon is active */}
+        {isDrawingPolygon && (
+          <PolygonDrawing 
+            isActive={isDrawingPolygon} 
+            onPolygonComplete={(coordinates) => {
+              console.log('Polygon completed:', coordinates);
+              // Add logic here to save the polygon if needed
+            }} 
+            setIsDrawingActive={setIsDrawingPolygon}
+          />
+        )}
       </MapContainer>
       
       {/* Footprints button in bottom-right corner, above the MapPinPlus button - only show when Record Path is selected */}
-      {selectedMappingMode === 'Record Path' && (
-        <div className="absolute bottom-16 right-4 z-50">
+      {selectedMappingMode === 'Record a Track' && (
+        <div className="absolute bottom-6 right-4 z-50">
           <Button
             variant="outline"
             size="sm"
@@ -159,8 +171,22 @@ const LandMap: React.FC<LandMapProps> = ({
             variant="outline"
             size="sm"
             className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+            
           >
             <MapPinPlus className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
+      {/* Live draw button in bottom-right corner with SquareDashedMousePointer icon - only show when Live Drawing is selected */}
+      {selectedMappingMode === 'Live Drawing' && (
+        <div className="absolute bottom-6 right-4 z-50">
+          <Button
+            variant={isDrawingPolygon ? "default" : "outline"}
+            size="sm"
+            className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+            onClick={() => setIsDrawingPolygon(!isDrawingPolygon)}
+          >
+            <SquareDashedMousePointer className="w-4 h-4" />
           </Button>
         </div>
       )}
@@ -1032,17 +1058,133 @@ const StartMappingButton: React.FC<StartMappingButtonProps> = ({ selectedMapping
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center" className="w-[--radix-dropdown-menu-trigger-width]">
+            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Live Drawing')}>
+              Live Drawing
+            </DropdownMenuItem>
             <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Point to Point')}>
               Point to Point
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Record Path')}>
-              Record Path
+            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Record a Track')}>
+              Record a Track
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )}
     </div>
   );
+};
+
+// Component for polygon drawing functionality
+interface PolygonDrawingProps {
+  isActive: boolean;
+  onPolygonComplete: (coordinates: LatLngExpression[][]) => void;
+  setIsDrawingActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PolygonDrawing: React.FC<PolygonDrawingProps> = ({ isActive, onPolygonComplete, setIsDrawingActive }) => {
+  const map = useMap();
+  const [polygonPoints, setPolygonPoints] = React.useState<LatLngExpression[]>([]);
+  const [polygonLayer, setPolygonLayer] = React.useState<L.Polygon | null>(null);
+
+  // Initialize the polygon drawing functionality when activated
+  React.useEffect(() => {
+    if (!isActive) {
+      // If not active, clear any existing polygon drawing
+      if (polygonLayer) {
+        map.removeLayer(polygonLayer);
+        setPolygonLayer(null);
+      }
+      setPolygonPoints([]);
+      return;
+    }
+
+    // Add click handler to capture polygon points when active
+    const handleClick = (e: L.LeafletMouseEvent) => {
+      const newPoint: LatLngExpression = [e.latlng.lat, e.latlng.lng];
+      const updatedPoints = [...polygonPoints, newPoint];
+      setPolygonPoints(updatedPoints);
+
+      // Draw or update the polygon
+      if (polygonLayer) {
+        map.removeLayer(polygonLayer);
+      }
+
+      const newPolygon = L.polygon(updatedPoints, {
+        color: '#3b82f6',
+        weight: 2,
+        fillOpacity: 0.2
+      });
+
+      newPolygon.addTo(map);
+      setPolygonLayer(newPolygon);
+    };
+
+    // Add mouse move handler to show preview line
+    const handleMouseMove = (e: L.LeafletMouseEvent) => {
+      if (polygonPoints.length === 0 || !isActive) return;
+
+      // Remove any existing preview
+      map.eachLayer(layer => {
+        // Use a custom property to identify preview layers
+        const layerOptions = layer.options as any;
+        if (layer instanceof L.Polyline && layerOptions.isPreviewLayer) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Draw preview line from last point to current mouse position
+      const lastPoint = polygonPoints[polygonPoints.length - 1];
+      const previewLine = L.polyline([lastPoint, [e.latlng.lat, e.latlng.lng]], {
+        color: '#93c5fd',
+        weight: 2,
+        dashArray: '5, 5'
+      });
+      
+      // Add custom property to identify preview layer
+      (previewLine.options as any).isPreviewLayer = true;
+      previewLine.addTo(map);
+    };
+
+    // Add double click handler to finish drawing
+    const handleDoubleClick = () => {
+      if (polygonPoints.length >= 3) {
+        // Complete the polygon by closing it (first and last points are the same)
+        const completedPolygon: LatLngExpression[][] = [polygonPoints];
+        onPolygonComplete(completedPolygon);
+        
+        // Clean up
+        if (polygonLayer) {
+          map.removeLayer(polygonLayer);
+        }
+        setPolygonPoints([]);
+        setIsDrawingActive(false); // Reset the drawing state
+      }
+    };
+
+    if (isActive) {
+      map.on('click', handleClick);
+      map.on('mousemove', handleMouseMove);
+      map.on('dblclick', handleDoubleClick);
+    }
+
+    // Cleanup event listeners
+    return () => {
+      map.off('click', handleClick);
+      map.off('mousemove', handleMouseMove);
+      map.off('dblclick', handleDoubleClick);
+
+      // Clean up any preview layers
+      map.eachLayer(layer => {
+        // Use a custom property to identify preview layers
+        const layerOptions = layer.options as any;
+        if (layerOptions.isPreviewLayer) {
+          map.removeLayer(layer);
+        }
+      });
+    };
+  }, [isActive, polygonPoints, polygonLayer, map, onPolygonComplete, setIsDrawingActive]);
+
+  return null;
 };
 
 export { LandMap };
