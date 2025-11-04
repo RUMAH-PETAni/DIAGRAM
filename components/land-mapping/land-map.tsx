@@ -3,13 +3,16 @@
 // External libraries
 import * as React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, FeatureGroup, Polygon, LayersControl } from 'react-leaflet';
+import { EditControl } from 'react-leaflet-draw';
 import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-draw/dist/leaflet.draw.css';
 
 // UI components
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 // Icons
 import { 
@@ -30,8 +33,7 @@ import {
   Footprints,
   X,
   Minus,
-  Plus,
-  SquareDashedMousePointer
+  Plus
 } from 'lucide-react';
 
 // Other components
@@ -56,6 +58,7 @@ export type LandBoundary = {
   name: string;
   coordinates: LatLngExpression[][];
   area?: number;
+  centroid?: [number, number]; // Latitude and longitude of the centroid
   description?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -87,7 +90,10 @@ const LandMap: React.FC<LandMapProps> = ({
   const [mapLayer, setMapLayer] = React.useState<MapLayerState['type']>('osm'); // Default to OpenStreetMap
   const [showWeather, setShowWeather] = React.useState<boolean>(false); // Weather overlay state
   const [selectedMappingMode, setSelectedMappingMode] = React.useState<string | null>(null); // Track the selected mapping mode
-  const [isDrawingPolygon, setIsDrawingPolygon] = React.useState<boolean>(false); // Track if polygon drawing is active
+  const [latestDrawnPolygon, setLatestDrawnPolygon] = React.useState<LandBoundary | null>(null); // Track the latest drawn polygon
+  const [currentCoordinates, setCurrentCoordinates] = React.useState<{ lat: number; lng: number } | null>(null);
+  const [currentAltitude, setCurrentAltitude] = React.useState<number | null>(null);
+
 
 
   return (
@@ -130,69 +136,147 @@ const LandMap: React.FC<LandMapProps> = ({
         <LocationTracker />
         
         {/* Location tracker toggle button */}
-        <LocationButton />
-        <CoordinateDisplay />
+        <LocationButton 
+          setCoordinates={setCurrentCoordinates} 
+          setAltitude={setCurrentAltitude} 
+        />
+        <CoordinateDisplay 
+          coordinates={currentCoordinates} 
+          altitude={currentAltitude} 
+          setCoordinates={setCurrentCoordinates} 
+          setAltitude={setCurrentAltitude} 
+        />
         <MeasurementTool />
         <StartMappingButton 
           selectedMappingMode={selectedMappingMode} 
           setSelectedMappingMode={setSelectedMappingMode} 
+          latestDrawnPolygon={latestDrawnPolygon}
+          setMapBoundaries={setMapBoundaries}
+          onBoundaryCreated={onBoundaryCreated}
         />
         
-        {/* Polygon drawing functionality when isDrawingPolygon is active */}
-        {isDrawingPolygon && (
-          <PolygonDrawing 
-            isActive={isDrawingPolygon} 
-            onPolygonComplete={(coordinates) => {
-              console.log('Polygon completed:', coordinates);
-              // Add logic here to save the polygon if needed
-            }} 
-            setIsDrawingActive={setIsDrawingPolygon}
-          />
+        {/* Draw controls - only show when Live Drawing is selected */}
+        {selectedMappingMode === 'Live Drawing' && (
+          <FeatureGroup>
+            <EditControl
+              position="bottomright"
+              onEdited={(e) => {
+                console.log('Drawn items edited', e);
+                // Handle editing of drawn features
+              }}
+              onCreated={(e) => {
+                console.log('Drawn item created', e);
+                
+                // Extract the drawn shape and calculate its area
+                const layer = e.layer;
+                const layerType = e.layerType;
+                
+                if (layerType === 'polygon' || layerType === 'rectangle' || layerType === 'circle') {
+                  // Get the coordinates of the drawn shape
+                  let latLngs: L.LatLngTuple[] = [];
+                  
+                  if (layerType === 'polygon' && 'getLatLngs' in layer) {
+                    // For polygons, get the lat/lngs
+                    const polygonLatLngs = (layer as L.Polygon).getLatLngs();
+                    // getLatLngs() returns LatLng[][], so we need to access the first element which should be LatLng[]
+                    if (polygonLatLngs && polygonLatLngs.length > 0 && Array.isArray(polygonLatLngs[0])) {
+                      latLngs = (polygonLatLngs[0] as L.LatLng[]).map(latLng => [latLng.lat, latLng.lng] as L.LatLngTuple);
+                    }
+                  } else if (layerType === 'rectangle' && 'getBounds' in layer) {
+                    // Get the bounds of the rectangle and convert to polygon coordinates
+                    const bounds = (layer as L.Rectangle).getBounds();
+                    latLngs = [
+                      [bounds.getNorthWest().lat, bounds.getNorthWest().lng] as L.LatLngTuple,
+                      [bounds.getNorthEast().lat, bounds.getNorthEast().lng] as L.LatLngTuple,
+                      [bounds.getSouthEast().lat, bounds.getSouthEast().lng] as L.LatLngTuple,
+                      [bounds.getSouthWest().lat, bounds.getSouthWest().lng] as L.LatLngTuple,
+                      [bounds.getNorthWest().lat, bounds.getNorthWest().lng] as L.LatLngTuple // Close the polygon
+                    ];
+                  } else if (layerType === 'circle' && 'getBounds' in layer) {
+                    // Convert circle to polygon by getting its bounds
+                    const bounds = (layer as L.Circle).getBounds();
+                    latLngs = [
+                      [bounds.getNorthWest().lat, bounds.getNorthWest().lng] as L.LatLngTuple,
+                      [bounds.getNorthEast().lat, bounds.getNorthEast().lng] as L.LatLngTuple,
+                      [bounds.getSouthEast().lat, bounds.getSouthEast().lng] as L.LatLngTuple,
+                      [bounds.getSouthWest().lat, bounds.getSouthWest().lng] as L.LatLngTuple,
+                      [bounds.getNorthWest().lat, bounds.getNorthWest().lng] as L.LatLngTuple // Close the polygon
+                    ];
+                  }
+                  
+                  // Only process if we have valid coordinates
+                  if (latLngs.length > 0) {
+                    // Convert LatLngTuple [lat, lng] to [lng, lat] format required by turf.js
+                    const turfCoords = latLngs.map(([lat, lng]) => [lng, lat]);
+                    
+                    // Calculate area using turf.js
+                    const polygon = turf.polygon([turfCoords]);
+                    const area = turf.area(polygon); // in square meters
+                    const areaInHectares = area / 10000; // Convert to hectares
+                    
+                    // Calculate centroid using turf.js
+                    const centroid = turf.centroid(polygon);
+                    const centroidCoords: [number, number] = [centroid.geometry.coordinates[1], centroid.geometry.coordinates[0]]; // [lat, lng]
+                    
+                    // Create a new LandBoundary with the drawn polygon
+                    const newBoundary: LandBoundary = {
+                      id: `boundary-${Date.now()}`,
+                      name: `Drawing ${mapBoundaries.length + 1}`,
+                      coordinates: [latLngs],
+                      area: areaInHectares,
+                      centroid: centroidCoords,
+                      createdAt: new Date(),
+                      updatedAt: new Date(),
+                    };
+                    
+                    // Update the latest drawn polygon state
+                    setLatestDrawnPolygon(newBoundary);
+                    
+                    console.log('New boundary created:', newBoundary);
+                  }
+                }
+              }}
+              draw={{
+                rectangle: false,
+                circle: false,
+                polygon: true,
+                polyline: false, // Disable polyline drawing
+                marker: true,
+                circlemarker: false
+              }}
+            />
+          </FeatureGroup>
         )}
+        
+
       </MapContainer>
       
       {/* Footprints button in bottom-right corner, above the MapPinPlus button - only show when Record Path is selected */}
       {selectedMappingMode === 'Record a Track' && (
-        <div className="absolute bottom-6 right-4 z-50">
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-background/80 backdrop-blur w-8 h-8 p-0"
-          >
-            <Footprints className="w-4 h-4" />
-          </Button>
+        <div className="absolute bottom-6 right-2 z-50">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-background/80 backdrop-blur w-8 h-8 p-0"
+                >
+                  <Footprints className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Feature not available yet</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       )}
       
-      {/* Point button in bottom-right corner with MapPinPlus icon - only show when Point to Point is selected */}
-      {selectedMappingMode === 'Point to Point' && (
-        <div className="absolute bottom-6 right-4 z-50">
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-background/80 backdrop-blur w-8 h-8 p-0"
-            
-          >
-            <MapPinPlus className="w-4 h-4" />
-          </Button>
-        </div>
-      )}
-      {/* Live draw button in bottom-right corner with SquareDashedMousePointer icon - only show when Live Drawing is selected */}
-      {selectedMappingMode === 'Live Drawing' && (
-        <div className="absolute bottom-6 right-4 z-50">
-          <Button
-            variant={isDrawingPolygon ? "default" : "outline"}
-            size="sm"
-            className="bg-background/80 backdrop-blur w-8 h-8 p-0"
-            onClick={() => setIsDrawingPolygon(!isDrawingPolygon)}
-          >
-            <SquareDashedMousePointer className="w-4 h-4" />
-          </Button>
-        </div>
-      )}
+
       
       {/* Weather toggle */}
-      <div className="absolute top-4 right-[60px] z-50">
+      <div className="absolute top-2 right-12 z-50">
         <Button
           variant={showWeather ? "default" : "outline"}
           size="sm"
@@ -205,7 +289,7 @@ const LandMap: React.FC<LandMapProps> = ({
       </div>
       
       {/* Layer control using shadcn dropdown */}
-      <div className="absolute top-4 right-4 z-50">
+      <div className="absolute top-2 right-2 z-50">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -239,9 +323,17 @@ const LandMap: React.FC<LandMapProps> = ({
 
 
 // Type definitions
-interface LocationButtonProps {}
+interface LocationButtonProps {
+  setCoordinates: React.Dispatch<React.SetStateAction<{ lat: number; lng: number } | null>>;
+  setAltitude: React.Dispatch<React.SetStateAction<number | null>>;
+}
 
-interface CoordinateDisplayProps {}
+interface CoordinateDisplayProps {
+  coordinates: { lat: number; lng: number } | null;
+  altitude: number | null;
+  setCoordinates: React.Dispatch<React.SetStateAction<{ lat: number; lng: number } | null>>;
+  setAltitude: React.Dispatch<React.SetStateAction<number | null>>;
+}
 
 interface MapResizeHandlerProps {}
 
@@ -262,9 +354,28 @@ interface MeasurementState {
 interface MeasurementToolProps {}
 
 // Component for location tracker button
-const LocationButton: React.FC<LocationButtonProps> = () => {
+const LocationButton: React.FC<LocationButtonProps> = ({ setCoordinates, setAltitude }) => {
   const map = useMap();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  // Get altitude from Open-Elevation API
+  const getAltitude = async (lat: number, lng: number): Promise<number | null> => {
+    if (!lat || !lng) return null;
+    
+    try {
+      const response = await fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lng}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.results[0]?.elevation || null;
+    } catch (error) {
+      console.error("Error fetching altitude:", error);
+      return null;
+    }
+  };
   
   const handleClick = () => {
     console.log("Location button clicked"); // Debug log
@@ -281,10 +392,18 @@ const LocationButton: React.FC<LocationButtonProps> = () => {
     
     // Try with high accuracy first
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         const { latitude, longitude } = position.coords;
         console.log("Got position:", latitude, longitude); // Debug log
-        map.setView([latitude, longitude], 14);
+        
+        // Update the coordinate display with the current location
+        setCoordinates({ lat: latitude, lng: longitude });
+        
+        // Fetch and update altitude for the current location
+        const altitude = await getAltitude(latitude, longitude);
+        setAltitude(altitude);
+        
+        map.setView([latitude, longitude], 18);
         setIsLoading(false);
       },
       (error) => {
@@ -297,10 +416,17 @@ const LocationButton: React.FC<LocationButtonProps> = () => {
         if (!error || error.code === 3 || error.code === 1 || error.code === 2) { // Timeout, permission denied, or position unavailable
           console.log("Trying with lower accuracy...");
           navigator.geolocation.getCurrentPosition(
-            (position) => {
+            async (position) => {
               const { latitude, longitude } = position.coords;
               console.log("Got low accuracy position:", latitude, longitude);
-              map.setView([latitude, longitude], 14);
+              
+              // Update the coordinate display with the current location
+              setCoordinates({ lat: latitude, lng: longitude });
+              
+              // Fetch and update altitude for the current location
+              getAltitude(latitude, longitude).then(setAltitude);
+              
+              map.setView([latitude, longitude], 18);
               setIsLoading(false);
             },
             (error2) => {
@@ -339,7 +465,7 @@ const LocationButton: React.FC<LocationButtonProps> = () => {
   };
   
   return (
-    <div className="absolute top-[178px] left-4 z-1000">
+    <div className="absolute bottom-6 left-2 z-1000">
       <Button
         variant="outline"
         size="sm"
@@ -362,12 +488,15 @@ const LocationButton: React.FC<LocationButtonProps> = () => {
 };
 
 // Component for coordinate display
-const CoordinateDisplay: React.FC<CoordinateDisplayProps> = () => {
+const CoordinateDisplay: React.FC<CoordinateDisplayProps> = ({ 
+  coordinates, 
+  altitude,
+  setCoordinates,
+  setAltitude
+}) => {
   const map = useMap();
-  const [coordinates, setCoordinates] = React.useState<{ lat: number; lng: number } | null>(null);
-  const [altitude, setAltitude] = React.useState<number | null>(null);
   const [isLoadingAltitude, setIsLoadingAltitude] = React.useState<boolean>(false);
-  const [debounceTimer, setDebounceTimer] = React.useState<NodeJS.Timeout | null>(null);
+  const [clickMarker, setClickMarker] = React.useState<L.Layer | null>(null);
 
   // Get altitude from Open-Elevation API
   const getAltitude = async (lat: number, lng: number): Promise<number | null> => {
@@ -393,7 +522,7 @@ const CoordinateDisplay: React.FC<CoordinateDisplayProps> = () => {
       setIsLoadingAltitude(false);
       return data.results[0]?.elevation || null;
     } catch (error) {
-      // Check if it's an AbortError (user moved cursor or component unmounted)
+      // Check if it's an AbortError (user clicked somewhere else or component unmounted)
       if (error instanceof Error && error.name === 'AbortError') {
         // Don't log abort errors as they are expected when requests are cancelled
         setIsLoadingAltitude(false);
@@ -408,55 +537,54 @@ const CoordinateDisplay: React.FC<CoordinateDisplayProps> = () => {
     }
   };
 
-  // Update coordinates on mouse move with debouncing
+  // Update coordinates on click/tap only and show flash marker
   React.useEffect(() => {
-    const handleMouseMove = (e: L.LeafletMouseEvent) => {
+    const handleClick = (e: L.LeafletMouseEvent) => {
       const { lat, lng } = e.latlng;
+      setCoordinates({ lat, lng });
       
-      // Clear previous timer
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
+      // Remove any existing click marker
+      if (clickMarker) {
+        map.removeLayer(clickMarker);
+        setClickMarker(null);
       }
       
-      // Set new timer to debounce altitude requests
-      const timer = setTimeout(() => {
-        setCoordinates({ lat, lng });
-      }, 100); // 100ms debounce
+      // Create a temporary plus sign marker at the clicked location
+      const marker = L.marker([lat, lng], {
+        icon: L.divIcon({
+          className: 'plus-marker',
+          html: '<div style="width: 20px; height: 20px; position: relative; display: flex; align-items: center; justify-content: center;"><div style="width: 2px; height: 14px; background: #808080; position: absolute; box-shadow: 0 0 2px rgba(0,0,0,0.5);"></div><div style="width: 14px; height: 2px; background: #3b82f6; position: absolute; box-shadow: 0 0 2px rgba(0,0,0,0.5);"></div></div>',
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        })
+      }).addTo(map);
       
-      setDebounceTimer(timer);
+      // Keep reference to the marker
+      setClickMarker(marker);
+      
+      // Fetch altitude for the clicked coordinates
+      getAltitude(lat, lng).then(setAltitude);
+      
+      // Remove the marker after 1.5 seconds
+      setTimeout(() => {
+        if (map.hasLayer(marker)) {
+          map.removeLayer(marker);
+          setClickMarker(null);
+        }
+      }, 1500);
     };
 
-    const handleMouseOut = () => {
-      // Clear debounce timer
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
-        setDebounceTimer(null);
-      }
-      
-      setCoordinates(null);
-      setAltitude(null);
-    };
-
-    map.on('mousemove', handleMouseMove);
-    map.on('mouseout', handleMouseOut);
+    map.on('click', handleClick);
 
     return () => {
-      map.off('mousemove', handleMouseMove);
-      map.off('mouseout', handleMouseOut);
+      map.off('click', handleClick);
       
-      // Clear timer on unmount
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
+      // Clean up any existing marker when component unmounts
+      if (clickMarker) {
+        map.removeLayer(clickMarker);
       }
     };
-  }, [map, debounceTimer]);
-
-  // Fetch altitude when coordinates change (debounced)
-  React.useEffect(() => {
-    if (coordinates) {
-      getAltitude(coordinates.lat, coordinates.lng).then(setAltitude);
-    }
-  }, [coordinates]);
+  }, [map, setCoordinates, setAltitude, clickMarker]);
 
   // Format coordinate display
   const formatCoordinate = (coord: number): string => {
@@ -484,7 +612,7 @@ const CoordinateDisplay: React.FC<CoordinateDisplayProps> = () => {
         </div>
       ) : (
         <div className="text-muted-foreground">
-          Move cursor over map
+          Click or tap on map
         </div>
       )}
     </div>
@@ -598,7 +726,7 @@ const SearchControl: React.FC<SearchControlProps> = () => {
   };
 
   return (
-    <div className="absolute top-4 left-4 z-1000">
+    <div className="absolute top-2 left-2 z-1000">
       <div className="relative flex gap-1">
         {isExpanded ? (
           <form onSubmit={handleSearch} className="flex gap-1">
@@ -737,7 +865,7 @@ const MapZoomControl: React.FC<MapZoomControlProps> = () => {
   const map = useMap();
   
   return (
-    <div className="absolute top-[70px] left-4 z-1000 flex flex-col gap-1">
+    <div className="absolute top-12 left-2 z-1000 flex flex-col gap-1">
       <Button
         variant="outline"
         size="sm"
@@ -978,7 +1106,7 @@ const MeasurementTool: React.FC<MeasurementToolProps> = () => {
   };
 
   return (
-    <div className="absolute top-[230px] left-4 z-1000 flex flex-col gap-1">
+    <div className="absolute top-1/2 transform -translate-y-1/2 left-2 z-1000 flex flex-col gap-1">
       <Button
         variant={measurementState.mode === 'distance' ? "default" : "outline"}
         size="sm"
@@ -1016,13 +1144,30 @@ const MeasurementTool: React.FC<MeasurementToolProps> = () => {
 interface StartMappingButtonProps {
   selectedMappingMode: string | null;
   setSelectedMappingMode: React.Dispatch<React.SetStateAction<string | null>>;
+  latestDrawnPolygon: LandBoundary | null;
+  setMapBoundaries: React.Dispatch<React.SetStateAction<LandBoundary[]>>;
+  onBoundaryCreated?: (boundary: LandBoundary) => void;
 }
 
-const StartMappingButton: React.FC<StartMappingButtonProps> = ({ selectedMappingMode, setSelectedMappingMode }) => {
+const StartMappingButton: React.FC<StartMappingButtonProps> = ({ 
+  selectedMappingMode, 
+  setSelectedMappingMode, 
+  latestDrawnPolygon,
+  setMapBoundaries,
+  onBoundaryCreated
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [showTooltip, setShowTooltip] = React.useState(false);
   const map = useMap();
   
   const handleSelectMode = (mode: string) => {
+    if (mode === 'Record a Track') {
+      // Show tooltip for "Record a Track" option
+      setShowTooltip(true);
+      setTimeout(() => setShowTooltip(false), 3000); // Hide tooltip after 3 seconds
+      return;
+    }
+    
     console.log(`${mode} selected`);
     setSelectedMappingMode(mode);
     setIsOpen(false);
@@ -1030,11 +1175,25 @@ const StartMappingButton: React.FC<StartMappingButtonProps> = ({ selectedMapping
 
   const handleFinishMapping = () => {
     console.log('Finish mapping clicked');
+    
+    // If there's a latest drawn polygon, save it to the boundaries
+    if (latestDrawnPolygon) {
+      // Add the polygon to the map boundaries 
+      setMapBoundaries(prev => [...prev, latestDrawnPolygon]);
+      
+      // Call the onBoundaryCreated callback if provided
+      if (onBoundaryCreated) {
+        onBoundaryCreated(latestDrawnPolygon);
+      }
+      
+      console.log('Polygon saved:', latestDrawnPolygon);
+    }
+    
     setSelectedMappingMode(null);
   };
 
   return (
-    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-1000">
+    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-1000">
       {selectedMappingMode ? (
         <Button
           variant="outline"
@@ -1061,12 +1220,21 @@ const StartMappingButton: React.FC<StartMappingButtonProps> = ({ selectedMapping
             <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Live Drawing')}>
               Live Drawing
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Point to Point')}>
-              Point to Point
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs" onClick={() => handleSelectMode('Record a Track')}>
-              Record a Track
-            </DropdownMenuItem>
+            <TooltipProvider>
+              <Tooltip open={showTooltip}>
+                <TooltipTrigger asChild>
+                  <DropdownMenuItem 
+                    className="text-xs" 
+                    onClick={() => handleSelectMode('Record a Track')}
+                  >
+                    Record a Track
+                  </DropdownMenuItem>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Feature not available yet</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </DropdownMenuContent>
         </DropdownMenu>
       )}
@@ -1074,117 +1242,6 @@ const StartMappingButton: React.FC<StartMappingButtonProps> = ({ selectedMapping
   );
 };
 
-// Component for polygon drawing functionality
-interface PolygonDrawingProps {
-  isActive: boolean;
-  onPolygonComplete: (coordinates: LatLngExpression[][]) => void;
-  setIsDrawingActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const PolygonDrawing: React.FC<PolygonDrawingProps> = ({ isActive, onPolygonComplete, setIsDrawingActive }) => {
-  const map = useMap();
-  const [polygonPoints, setPolygonPoints] = React.useState<LatLngExpression[]>([]);
-  const [polygonLayer, setPolygonLayer] = React.useState<L.Polygon | null>(null);
-
-  // Initialize the polygon drawing functionality when activated
-  React.useEffect(() => {
-    if (!isActive) {
-      // If not active, clear any existing polygon drawing
-      if (polygonLayer) {
-        map.removeLayer(polygonLayer);
-        setPolygonLayer(null);
-      }
-      setPolygonPoints([]);
-      return;
-    }
-
-    // Add click handler to capture polygon points when active
-    const handleClick = (e: L.LeafletMouseEvent) => {
-      const newPoint: LatLngExpression = [e.latlng.lat, e.latlng.lng];
-      const updatedPoints = [...polygonPoints, newPoint];
-      setPolygonPoints(updatedPoints);
-
-      // Draw or update the polygon
-      if (polygonLayer) {
-        map.removeLayer(polygonLayer);
-      }
-
-      const newPolygon = L.polygon(updatedPoints, {
-        color: '#3b82f6',
-        weight: 2,
-        fillOpacity: 0.2
-      });
-
-      newPolygon.addTo(map);
-      setPolygonLayer(newPolygon);
-    };
-
-    // Add mouse move handler to show preview line
-    const handleMouseMove = (e: L.LeafletMouseEvent) => {
-      if (polygonPoints.length === 0 || !isActive) return;
-
-      // Remove any existing preview
-      map.eachLayer(layer => {
-        // Use a custom property to identify preview layers
-        const layerOptions = layer.options as any;
-        if (layer instanceof L.Polyline && layerOptions.isPreviewLayer) {
-          map.removeLayer(layer);
-        }
-      });
-
-      // Draw preview line from last point to current mouse position
-      const lastPoint = polygonPoints[polygonPoints.length - 1];
-      const previewLine = L.polyline([lastPoint, [e.latlng.lat, e.latlng.lng]], {
-        color: '#93c5fd',
-        weight: 2,
-        dashArray: '5, 5'
-      });
-      
-      // Add custom property to identify preview layer
-      (previewLine.options as any).isPreviewLayer = true;
-      previewLine.addTo(map);
-    };
-
-    // Add double click handler to finish drawing
-    const handleDoubleClick = () => {
-      if (polygonPoints.length >= 3) {
-        // Complete the polygon by closing it (first and last points are the same)
-        const completedPolygon: LatLngExpression[][] = [polygonPoints];
-        onPolygonComplete(completedPolygon);
-        
-        // Clean up
-        if (polygonLayer) {
-          map.removeLayer(polygonLayer);
-        }
-        setPolygonPoints([]);
-        setIsDrawingActive(false); // Reset the drawing state
-      }
-    };
-
-    if (isActive) {
-      map.on('click', handleClick);
-      map.on('mousemove', handleMouseMove);
-      map.on('dblclick', handleDoubleClick);
-    }
-
-    // Cleanup event listeners
-    return () => {
-      map.off('click', handleClick);
-      map.off('mousemove', handleMouseMove);
-      map.off('dblclick', handleDoubleClick);
-
-      // Clean up any preview layers
-      map.eachLayer(layer => {
-        // Use a custom property to identify preview layers
-        const layerOptions = layer.options as any;
-        if (layerOptions.isPreviewLayer) {
-          map.removeLayer(layer);
-        }
-      });
-    };
-  }, [isActive, polygonPoints, polygonLayer, map, onPolygonComplete, setIsDrawingActive]);
-
-  return null;
-};
 
 export { LandMap };
