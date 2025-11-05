@@ -115,6 +115,22 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
+.maplibregl-ctrl label {
+  display: block;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+ 
+.maplibregl-ctrl label:has(input) {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+}
+ 
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
