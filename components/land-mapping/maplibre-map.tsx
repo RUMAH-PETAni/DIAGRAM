@@ -197,7 +197,7 @@ const MapLibreMap: React.FC<MapLibreMapProps> = ({
             />
           )}
           <RFullscreenControl position="top-left" />
-          <RNavigationControl position="top-left" showCompass={false} showZoom={true} />
+          <RNavigationControl position="top-left" showCompass={true} showZoom={true} />
           <RGeolocateControl
             showUserLocation={true}
             showAccuracyCircle={true}
