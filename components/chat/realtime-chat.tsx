@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/retroui/InputCustom";
+import { Button } from "@/components/retroui/ButtonCustom";
 import { useRealtimeChat } from "./use-realtime-chat";
 import { useChatScroll } from "./use-chat-scroll";
 import { ChatMessageItem } from "./chat-message";

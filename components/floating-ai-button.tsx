@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { ChatSheet } from "@/components/chat-sheet";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/retroui/ButtonCustom";
 import { Bot } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/retroui/Tooltip";
 
 export function FloatingAIButton() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,15 +36,15 @@ export function FloatingAIButton() {
   return (
     <ChatSheet>
       <TooltipProvider>
-        <div className="fixed bottom-20 right-6 z-40">
+        <div className="fixed bottom-6 right-6 z-40">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="default"
-                className="rounded-full shadow-lg flex items-center justify-center h-12 w-12 p-0 opacity-50 hover:opacity-100 transition-opacity"
+                className="flex items-center justify-center h-10 w-10 p-0 opacity-50 hover:opacity-100 transition-opacity"
                 aria-label="AI Agronomist"
               >
-                <Bot className="h-10 w-10" />
+                <Bot/>
               </Button>
             </TooltipTrigger>
             <TooltipContent>

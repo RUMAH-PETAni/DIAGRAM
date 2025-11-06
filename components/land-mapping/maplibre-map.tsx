@@ -115,33 +115,12 @@ const MapLibreMap: React.FC<MapLibreMapProps> = ({
     if (flashingPoint) {
       setShowFlashingPoint(true);
       
-      // Create animation loop for pulsing effect
-      let animationFrame: number;
-      const startTime = Date.now();
-      const duration = 500; // 0.5 seconds total duration
-      
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        if (elapsed < duration) {
-          // Calculate animation step (0 to 1) for the pulsing effect
-          const progress = (elapsed % 1000) / 1000; // 1 second cycle
-          setAnimationStep(progress);
-          animationFrame = requestAnimationFrame(animate);
-        } else {
-          setShowFlashingPoint(false);
-          setAnimationStep(0);
-        }
-      };
-      
-      animationFrame = requestAnimationFrame(animate);
-      
-      // Hide the point after 0.2 seconds
+      // Hide the point after 2 seconds
       const timer = setTimeout(() => {
         setShowFlashingPoint(false);
-      }, 500);
+      }, 2000);
       
       return () => {
-        cancelAnimationFrame(animationFrame);
         clearTimeout(timer);
       };
     }
@@ -159,9 +138,10 @@ const MapLibreMap: React.FC<MapLibreMapProps> = ({
           onClick={handleMapClick}
           initialAttributionControl={false}
         >
-          {/* Source for the flashing point */}
+          {/* Source for the flashing point - using key to force update */}
           {flashingPoint && showFlashingPoint && (
             <RSource 
+              key={`flashing-point-source-${Date.now()}`}
               id="flashing-point-source"
               type="geojson"
               data={{
@@ -181,17 +161,18 @@ const MapLibreMap: React.FC<MapLibreMapProps> = ({
               }}
             />
           )}
-          {/* Layer for the flashing point */}
+          {/* Main point layer */}
           {flashingPoint && showFlashingPoint && (
             <RLayer
+              key={`flashing-point-layer-${Date.now()}`}
               id="flashing-point-layer"
               source="flashing-point-source"
               type="circle"
               paint={{
-                'circle-radius': 2,
+                'circle-radius': 8,
                 'circle-color': '#ef4444', // Tailwind red-500
                 'circle-opacity': 0.8,
-                'circle-stroke-width': 1,
+                'circle-stroke-width': 2,
                 'circle-stroke-color': '#ffffff',
               }}
             />

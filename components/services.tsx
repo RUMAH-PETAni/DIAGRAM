@@ -2,8 +2,8 @@
 
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/retroui/ButtonCustom"
+import { Card, CardContent } from "@/components/retroui/CardCustom"
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react"
@@ -21,11 +21,11 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/retroui/DialogCustom"
 import { toast } from "sonner";
 import { createServiceRequest } from "@/lib/services/requests";
+import { Input } from "./retroui/InputCustom"
+import { Label } from "./retroui/Label"
 
 
 export function Services({
@@ -110,8 +110,8 @@ export function Services({
       {/* Existing features cards section */}
       <h3 className="font-bold text-lg ml-4 my-2">On Demand Services:</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2" >
+        <Card className="p-4">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
             <Image 
               src="/services1.svg" 
               alt="service 1 Icon" 
@@ -125,9 +125,9 @@ export function Services({
           <p className="text-xs  text-muted-foreground grow">
             Empowering community forest management through digital mapping and data-driven insights.
           </p>
-        </div>
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
+        </Card>
+        <Card className="p-4">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/services2.svg" 
               alt="Services 2 Icon" 
@@ -141,9 +141,9 @@ export function Services({
           <p className="text-xs text-muted-foreground grow">
         High-resolution aerial imagery for precise land mapping and environmental monitoring.
           </p>
-        </div>
-          <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2" >
+        </Card>
+          <Card className="p-4">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
             <Image 
               src="/services4.svg" 
               alt="service 4 Icon" 
@@ -157,9 +157,9 @@ export function Services({
           <p className="text-xs  text-muted-foreground grow">
             Plan, track, and verify tree planting activities with real-time digital monitoring tools.
           </p>
-        </div>
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
+        </Card>
+        <Card className="p-4">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/services3.svg" 
               alt="services 3 Icon" 
@@ -173,10 +173,10 @@ export function Services({
           <p className="text-xs text-muted-foreground grow">
           Measure and analyze land-based carbon stocks to support climate action initiatives.
           </p>
-        </div>
+        </Card>
 
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
+        <Card className="p-4">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/services6.svg" 
               alt="services 6 Icon" 
@@ -190,16 +190,16 @@ export function Services({
           <p className="text-xs text-muted-foreground grow">
            Advancing sustainable agriculture through data analysis, innovation, and field research.
           </p>
-        </div>
+        </Card>
       
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
+        <Card className="p-4">
           <p className="text-sm  text-foreground grow">
             Select your service request, and our dedicated team will review your needs and contact you via email for further discussion.
           </p>
           <div className="mt-auto w-full pt-4"> 
             <Button 
               type="button" 
-              className="w-full"
+              className="w-full flex items-center justify-center"
               onClick={() => {
               setRequestModalOpen(true);
               }}
@@ -208,22 +208,18 @@ export function Services({
               {isLoading ? "Requesting..." : "Request Services"}
             </Button>
           </div>
-        </div>
+        </Card>
       </div>
       <p className="font-bold text-sm text-center my-6">We provide comprehensive sustainability consulting services designed to support your environmental and operational goals.</p>
       
       {/* Request Services Dialog */}
       <Dialog open={requestModalOpen} onOpenChange={setRequestModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Request Services</DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-3 py-4">
+        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">          
+          <div className="space-y-3">
             {servicesList.map((service, index) => (
-              <div 
+              <Card 
                 key={index} 
-                className="border rounded-lg p-4 hover:bg-accent transition-colors cursor-pointer"
+                className="p-4 w-full"
                 onClick={() => toggleService(index)}
               >
                 <div className="flex items-center space-x-3">
@@ -234,17 +230,17 @@ export function Services({
                     checked={selectedServices.includes(index)}
                     onChange={() => toggleService(index)}
                   />
-                  <label 
+                  <Label 
                     htmlFor={`service-${index}`} 
                     className="flex-1 text-sm font-medium cursor-pointer">
                     {service.title}
-                  </label>
+                  </Label>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
           
-          <div className="flex justify-end space-x-2 pt-4">
+          <div className = "grid grid-cols-2 gap-4 mt-8">  
             <Button 
               variant="outline" 
               onClick={() => setRequestModalOpen(false)}

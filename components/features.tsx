@@ -2,12 +2,13 @@
 
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/retroui/ButtonCustom"
+import { Badge } from "@/components/retroui/BadgeCustom"
+import { Card, CardContent } from "@/components/retroui/CardCustom"
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react"
-import { MonitorCog, Trees, ThermometerSun, Network, Cpu, Factory, Brain, NotebookText, MonitorSmartphone, Truck, Bot, Users, Sprout, LandPlot, Wrench, ShieldPlus, MessageSquareText, MessagesSquare, Zap, Calculator, MapPinned } from "lucide-react";
+import { MonitorCog, Trees, ThermometerSun, Network, Cpu, Factory, Brain, NotebookText, MonitorSmartphone, Truck, Bot, Users, Sprout, LandPlot, Wrench, ShieldPlus, MessageSquareText, MessagesSquare, Zap, Calculator, MapPinned, BrainCircuit } from "lucide-react";
 
 import Link from "next/link"
 import { useTheme } from "next-themes";
@@ -17,13 +18,11 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/retroui/Tooltip"
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/retroui/DialogCustom"
 
 
 export function Features({
@@ -91,8 +90,8 @@ export function Features({
       {/* Existing features cards section */}
       <h3 className="font-bold text-lg ml-4 my-2">Features:</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2" >
+        <Card className="p-4 ">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
           
             <Image 
               src="/feature1.svg" 
@@ -101,7 +100,7 @@ export function Features({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Farmer & Land Data Management</h3>
+            <h3 className="font-bold text-lg">Data Management</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs  text-muted-foreground grow">
@@ -110,16 +109,16 @@ export function Features({
           <div className="mt-auto pt-4"> 
           <Button 
             type="button" 
-            className="w-full"
+            className="w-full flex items-center justify-center"
             onClick={handleFeature1} 
             disabled={isLoading}
             >
             {isLoading ? "Opening..." : "Open"}
           </Button>
           </div>
-        </div>
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
+        </Card>
+        <Card className="p-4 ">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/feature2.svg" 
               alt="Feature 2 Icon" 
@@ -127,7 +126,7 @@ export function Features({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Interactive Monitoring Map</h3>
+            <h3 className="font-bold text-lg">Interactive Map</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
@@ -136,21 +135,16 @@ export function Features({
           <div className="mt-auto pt-4"> 
           <Button 
             type="button" 
-            className="w-full"
+            className="w-full flex items-center justify-center"
             onClick={handleFeature2} 
             disabled={isLoading}
             >
             {isLoading ? "Opening..." : "Open"}
           </Button>
           </div>
-        </div>
-        <div className="bg-background border rounded-lg p-4 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg relative flex flex-col h-full">
-          <div className="absolute top-2 right-2 z-10">
-            <span className="bg-primary text-primary-foreground text-[0.6rem] px-1.5 py-0.5 rounded-full">
-              Coming Soon
-            </span>
-          </div>
-          <div className="flex rounded-lg bg-primary/10 items-center gap-3 mb-2">
+        </Card>
+        <Card className="p-4">
+          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/feature3.svg" 
               alt="Feature 3 Icon" 
@@ -171,7 +165,7 @@ export function Features({
                     <Button 
                       variant="outline"
                       type="button" 
-                      className="w-full"
+                      className="w-full flex items-center justify-center"
                       >
                       Open
                     </Button>
@@ -182,121 +176,136 @@ export function Features({
                 </Tooltip>
               </TooltipProvider>
             </div>
-        </div>
+        </Card>
       </div>
       {/* Existing tools cards section */}
       <div className="grid grid-cols-1 gap-8 w-full max-w-full my-6">    
         <div className="w-full">
           <h3 className="font-bold text-lg ml-4 my-2">Tools:</h3> 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <MapPinned className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
                 onClick={handleLandMapping}
                 >
                 {isLoading ? "Opening..." : "Land Mapping"}
               </Button>
-            </div>
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            </Card>
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <Sprout className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
                 >
                 {isLoading ? "Opening..." : "Farm Monitoring"}
               </Button>
-            </div>
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            </Card>
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <NotebookText className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
                 >
-                {isLoading ? "Opening..." : "Activity Records"}
+                {isLoading ? "Opening..." : "Log Activity"}
                </Button>
-            </div>
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            </Card>
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <ShieldPlus className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
                 onClick={handleExtrasClick}
                 >
                 {isLoading ? "Opening..." : "Extra Tools"}
               </Button>
-            </div>
+            </Card>
           </div>
         </div>
       </div>  
       
       {/* Extras Modal */}
       <Dialog open={extrasModalOpen} onOpenChange={setExtrasModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Extra Tools</DialogTitle>
-          </DialogHeader>
-          
-          <div className="grid grid-cols-2 gap-4 mt-4">
-             {/* AI Recommendation Card */}
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-              <Brain className="w-8 h-8 mb-2" />
+        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">
+             
+          <div className="grid grid-cols-2 gap-4">
+             {/* AI Insight Card */}
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+              <BrainCircuit className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
                 onClick={() => {
-                  // TODO: Implement AI recommendation functionality
+                  // TODO: Implement AI Insight functionality
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "AI Recommendation"}
+                {isLoading ? "Opening..." : "AI Insight"}
               </Button>
-            </div>
+            </Card>
 
             {/* Discussion Card */}
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <MessagesSquare className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
                 onClick={() => {
                   // Navigate to the discuss page
-                  router.push("/features/tools/discuss");
+                  router.push("/features/tools/realtime-chat");
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "Forum Discussion"}
+                {isLoading ? "Opening..." : "Chat Room"}
               </Button>
-            </div>
+            </Card>
             
+            
+            {/* Carbon Tools Card */}
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+              <Calculator className="w-8 h-8 mb-2" />
+              <Button
+                variant="secondary"
+                type="button" 
+                disabled={isLoading}
+                size="sm"
+                className="w-full flex text-xs items-center justify-center"
+                onClick={() => {
+                  // TODO: Implement Carbon tools functionality
+                  setExtrasModalOpen(false);
+                }}
+              >
+                {isLoading ? "Opening..." : "Carbon Calc"}
+              </Button>
+            </Card>
             {/* WHISP Tools Card */}
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
               <Trees className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
-                size="xs"
-                className="w-full"
+                size="sm"
+                className="w-full flex items-center justify-center"
                 onClick={() => {
                   // TODO: Implement WHISP tools functionality
                   setExtrasModalOpen(false);
@@ -304,24 +313,7 @@ export function Features({
               >
                 {isLoading ? "Opening..." : "WHISP Tools"}
               </Button>
-            </div>
-            {/* Carbon Tools Card */}
-            <div className="border rounded-lg p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
-              <Calculator className="w-8 h-8 mb-2" />
-              <Button
-                variant="secondary"
-                type="button" 
-                disabled={isLoading}
-                size="xs"
-                className="w-full"
-                onClick={() => {
-                  // TODO: Implement Carbon tools functionality
-                  setExtrasModalOpen(false);
-                }}
-              >
-                {isLoading ? "Opening..." : "Carbon Calculator"}
-              </Button>
-            </div>
+            </Card>
           </div>
         </DialogContent>
       </Dialog>

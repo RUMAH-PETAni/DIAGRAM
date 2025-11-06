@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Archivo_Black, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/retroui/Sonner";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -14,10 +14,18 @@ export const metadata: Metadata = {
   description: "A Digital Ecosystem for Agroforestry Management",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
+const archivoBlack = Archivo_Black({
   subsets: ["latin"],
+  weight: "400",
+  variable: "--font-head",
+  display: "swap",
+});
+ 
+const space = Space_Grotesk({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-sans",
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -27,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className={`${archivoBlack.variable} ${space.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

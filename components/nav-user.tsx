@@ -32,7 +32,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { LogoutModal } from "@/components/logout-modal";
-import { ProfileModal } from "@/components/profile-modal";
 
 export function NavUser({ user, avatarUrl }: { 
   user: { name: string; email: string; avatar: string }; 
@@ -52,7 +51,7 @@ export function NavUser({ user, avatarUrl }: {
   };
 
   const handleProfileClick = () => {
-    setShowProfileModal(true);
+    router.push('/profile');
   };
 
   return (
@@ -124,14 +123,6 @@ export function NavUser({ user, avatarUrl }: {
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
-      <LogoutModal 
-        isOpen={showLogoutModal} 
-        onClose={() => setShowLogoutModal(false)} 
-      />
-      <ProfileModal 
-        isOpen={showProfileModal} 
-        onClose={() => setShowProfileModal(false)} 
-      />
     </SidebarMenu>
   )
 }

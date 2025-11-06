@@ -2,26 +2,32 @@
 
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/retroui/ButtonCustom"
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/signup/field"
+
+import { Input } from "@/components/retroui/InputCustom"
+import Link from "next/link"
+import { toast } from "sonner";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/retroui/CardCustom";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet"
-import { Input } from "@/components/ui/input"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import ReactMarkdown from 'react-markdown'
+} from "@/components/ui/sheet";
+import { useState } from "react";
+import ReactMarkdown from 'react-markdown';
 
 export function SignupForm({
   className,
@@ -33,11 +39,7 @@ export function SignupForm({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [showTermsSheet, setShowTermsSheet] = useState(false);
-  const [showPrivacySheet, setShowPrivacySheet] = useState(false);
-  const [termsContent, setTermsContent] = useState("");
-  const [privacyContent, setPrivacyContent] = useState("");
-  const router = useRouter();
+  const [hasConsented, setHasConsented] = useState(false);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +49,12 @@ export function SignupForm({
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!hasConsented) {
+      setError("You must agree to the Terms of Service and Privacy Policy to create an account.");
       setIsLoading(false);
       return;
     }
@@ -63,7 +71,17 @@ export function SignupForm({
         },
       });
       if (error) throw error;
-      router.push("/auth/sign-up-success");
+      
+      // Show success toast instead of modal
+      toast.success("Registration Successful!", {
+        description: `Please check your email to verify your account. Confirmation email has been sent to: ${email}`,
+      });
+      
+      // Reset form fields after successful registration
+      setEmail("");
+      setUsername("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -71,7 +89,12 @@ export function SignupForm({
     }
   };
 
-  const fetchTermsOfService = async () => {
+  const [showTermsSheet, setShowTermsSheet] = useState(false);
+  const [showPrivacySheet, setShowPrivacySheet] = useState(false);
+  const [termsContent, setTermsContent] = useState("");
+  const [privacyContent, setPrivacyContent] = useState("");
+
+   const fetchTermsOfService = async () => {
     try {
       const response = await fetch('/terms-of-service-en.md');
       const text = await response.text();
@@ -96,17 +119,12 @@ export function SignupForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
+        <CardContent>
           <form className="p-6 md:p-8" onSubmit={handleSignUp}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Create your account</h1>
-                <p className="text-muted-foreground text-sm text-balance">
-                  Enter your email below to create your account
-                </p>
               </div>
-              <Field>
-                <Field className="grid grid-cols-2 gap-4">
                   <Field>
                     <FieldLabel htmlFor="email">Email</FieldLabel>
                     <Input
@@ -123,15 +141,13 @@ export function SignupForm({
                     <Input
                       id="username"
                       type="text"
-                      
+                      placeholder="username" 
                       required
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </Field>
-                </Field>
-              </Field>
-              <Field>
+            
                 <Field className="grid grid-cols-2 gap-4">
                   <Field>
                     <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -158,9 +174,43 @@ export function SignupForm({
                     />
                   </Field>
                 </Field>
-              </Field>
+              
+              <label className="flex items-center space-x-2 text-xs">
+                <input 
+                  type="checkbox" 
+                  checked={hasConsented}
+                  onChange={(e) => setHasConsented(e.target.checked)}
+                  className="cursor-pointer"
+                  required
+                />
+                <span className="text-muted-foreground cursor-pointer">
+                  I have read and agree to the&nbsp;
+                  <button
+                    type="button"
+                    className="underline cursor-pointer hover:text-foreground transition-colors"
+                    onClick={async () => {
+                      await fetchTermsOfService();
+                      setShowTermsSheet(true);
+                    }}
+                  >
+                    Terms of Service
+                  </button>
+                  &nbsp;and&nbsp; 
+                  <button
+                    type="button"
+                    className="underline cursor-pointer hover:text-foreground transition-colors"
+                    onClick={async () => {
+                      await fetchPrivacyPolicy();
+                      setShowPrivacySheet(true);
+                    }}
+                  >
+                    Privacy Policy
+                  </button>
+                </span>
+              </label>
+              
               <Field>
-                <Button type="submit" disabled={isLoading}>
+                <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
                   {isLoading ? "Creating account..." : "Create Account"}
                 </Button>
               </Field>
@@ -169,77 +219,47 @@ export function SignupForm({
                   {error}
                 </div>
               )}
-              <FieldDescription className="text-center">
+              <div className = "flex justify-between">
+              <FieldDescription className="text-left">
                 Already have an account?{" "}
-                <Link href="/auth/login" className="underline hover:text-blue-600 transition-colors">
+                <Link href="/auth/login">
                   Sign in
                 </Link>
               </FieldDescription>
+              <FieldDescription className="text-right">
+                <Link href="/" className="text-primary font-bold cursor-pointer">
+                  Home
+                </Link>
+              </FieldDescription>
+              </div>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden md:block overflow-hidden cursor-pointer">
-            <div className="absolute inset-0 transition-opacity duration-500 hover:opacity-0">
-              <img
-                src="/blossom.png"
-                alt="Image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-500 hover:opacity-100">
-              <img
-                src="/blossom1.png"
-                alt="Hover Image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
+          
         </CardContent>
       </Card>
-      <FieldDescription className="px-6 text-center">
-              By clicking continue, you agree to our{" "}
-              <button
-                type="button"
-                className="underline cursor-pointer hover:text-foreground transition-colors"
-                onClick={async () => {
-                  await fetchTermsOfService();
-                  setShowTermsSheet(true);
-                }}
-              >
-                Terms of Service
-              </button>{" "}
-              and{" "}
-              <button
-                type="button"
-                className="underline cursor-pointer hover:text-foreground transition-colors"
-                onClick={async () => {
-                  await fetchPrivacyPolicy();
-                  setShowPrivacySheet(true);
-                }}
-              >
-                Privacy Policy
-              </button>.
-            </FieldDescription>
+       {/* Terms of Service Sheet */}
             <Sheet open={showTermsSheet} onOpenChange={setShowTermsSheet}>
-                  <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
-                    <SheetHeader>
-                      <SheetTitle className="text-center text-base">Terms of Service</SheetTitle>
-                    </SheetHeader>
-                    <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
-                      <ReactMarkdown>{termsContent}</ReactMarkdown>
-                    </div>
-                  </SheetContent>
-                </Sheet>
-                
-                <Sheet open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
-                  <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
-                    <SheetHeader>
-                      <SheetTitle className="text-center text-base">Privacy Policy</SheetTitle>
-                    </SheetHeader>
-                    <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
-                      <ReactMarkdown>{privacyContent}</ReactMarkdown>
-                    </div>
-                  </SheetContent>
-                </Sheet>
+              <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
+                <SheetHeader>
+                  <SheetTitle className="text-center text-base">Terms of Service</SheetTitle>
+                </SheetHeader>
+                <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
+                  <ReactMarkdown>{termsContent}</ReactMarkdown>
+                </div>
+              </SheetContent>
+            </Sheet>
+            
+            {/* Privacy Policy Sheet */}
+            <Sheet open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
+              <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
+                <SheetHeader>
+                  <SheetTitle className="text-center text-base">Privacy Policy</SheetTitle>
+                </SheetHeader>
+                <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
+                  <ReactMarkdown>{privacyContent}</ReactMarkdown>
+                </div>
+              </SheetContent>
+            </Sheet>
     </div>
   )
 }

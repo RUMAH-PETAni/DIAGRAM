@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "./retroui/ButtonCustom";
 import { createClient } from "@/lib/supabase/server";
 import { LogIn } from "lucide-react";
 import {
@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/retroui/Tooltip"
 import { AuthButtonClient } from "./auth-button-client";
 
 export async function AuthButton() {
@@ -28,9 +28,9 @@ export async function AuthButton() {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <Button asChild size="sm" variant="default">
+            <Button asChild>
               <Link href="/auth/login">
-                <LogIn className="h-4 w-4" />
+                <LogIn/>
               </Link>
             </Button>
           </TooltipTrigger>

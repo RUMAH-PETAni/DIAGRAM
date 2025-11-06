@@ -1,35 +1,28 @@
 'use client';
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { UserRoundPen } from "lucide-react";
+import { Button } from "@/components/retroui/ButtonCustom"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/retroui/CardCustom"
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import { Label } from "@/components/retroui/Label"
+import { Input } from "@/components/retroui/InputCustom"
 import { 
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/retroui/SelectCustom"
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/retroui/DialogCustom"
+import { toast } from "sonner"
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
@@ -60,7 +53,6 @@ export function NewProfileForm({
   const [publicAvatars, setPublicAvatars] = useState<any[]>([]);
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
 
-  const [hasConsented, setHasConsented] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -259,15 +251,12 @@ export function NewProfileForm({
       // Close the modal
       setIsModalOpen(false);
       
-      alert('Avatar updated successfully!');
-    } catch (error) {
-      console.error('Error updating avatar:', error);
-      setError('Failed to update avatar. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
+  
   const openAvatarModal = async () => {
     if (profile) {
       await fetchUserAvatars();
@@ -278,11 +267,6 @@ export function NewProfileForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if user has given consent
-    if (!hasConsented) {
-      setError('You must agree to the profile consent to save your profile.');
-      return;
-    }
 
     // Validate that all required fields are filled
     if (!formData.full_name || !formData.phone || !formData.gender || !formData.address) {
@@ -311,9 +295,14 @@ export function NewProfileForm({
 
       // Update the profile state with the new data
       setProfile(prev => prev ? { ...prev, ...formData } as Profile : null);
+
+      // Show success toast
+      toast("Profile Updated", {
+        description: "Your profile has been updated successfully.",
+      });
       
       // Navigate to home page after successful save
-      router.push('/explore');
+      router.push('/');
     } catch (error) {
       console.error('Error updating profile:', error);
       setError('Failed to update profile. Please try again.');
@@ -330,31 +319,14 @@ export function NewProfileForm({
     );
   }
 
-
- 
-
-  const SHORT_PROFILE_CONSENT = `
-  I agree to the collection and use of my personal data for account management and service personalization.
-  `;
-
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="p-6 md:p-8  ">
-            <div className="text-center mb-6">
-              <div className="flex items-center justify-center gap-2">
-                <h1 className="text-2xl font-bold flex items-center gap-2">
-                  Setup account profile 
-                </h1>
-              </div>
-              <p className="text-muted-foreground text-sm text-balance">
-                Please fill in and complete your profile
-              </p>
-            </div>
-            
-            <div className="relative flex flex-col items-center">
-              <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-primary/10">
+            <div className="relative flex flex-col items-center justify-center">
+              <h1 className="text-2xl font-bold mb-4">Complete Your Profile</h1>
+              <div className="w-55 h-55 rounded-full overflow-hidden border-2 border-black">
                 {profile?.avatar_url ? (
                   <img 
                     src={`https://sqbogrsoqrgnfkxmmhmf.supabase.co/storage/v1/object/public/profile_picture/${profile.avatar_url}`} 
@@ -371,9 +343,7 @@ export function NewProfileForm({
               </div>
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                 <Button 
-                  variant="outline" 
                   size="sm" 
-                  className="rounded-full"
                   onClick={openAvatarModal}
                 >
                   Change
@@ -381,41 +351,40 @@ export function NewProfileForm({
               </div>
             </div>
             
-            <div className="mt-5">
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Field>
+              <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
                   name="email"
                   value={profile?.email || ''}
                   disabled
-                  className="mt-1 bg-muted"
-                />
-              </div>
+                  className="bg-muted"
+                  />
+            </Field>
           </div>
           
           <div className="p-6 md:p-8">
             <FieldGroup>
-              <div>
+              <Field>
                 <FieldLabel htmlFor="full_name">Full Name</FieldLabel>
                 <Input
                   id="full_name"
                   name="full_name"
                   value={formData.full_name || ''}
                   onChange={handleChange}
-                  className="mt-1"
                   placeholder="Enter full name"
                 />
-              </div>
+              </Field>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="w-full">
+              <Field className="grid grid-cols-2 gap-4">
+                <Field>
                   <FieldLabel htmlFor="gender">Gender</FieldLabel>
                   <Select 
                     name="gender" 
                     value={formData.gender || ''} 
                     onValueChange={(value) => handleSelectChange('gender', value)}
                   >
-                    <SelectTrigger className="mt-1 w-full">
+                    <SelectTrigger>
                       <SelectValue placeholder="Select gender" />
                     </SelectTrigger>
                     <SelectContent>
@@ -423,41 +392,35 @@ export function NewProfileForm({
                       <SelectItem value="Female">Female</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </Field>
                 
-                <div className="w-full">
+                <Field>
                   <FieldLabel htmlFor="phone">Phone</FieldLabel>
                   <Input
                     id="phone"
                     name="phone"
                     value={formData.phone || ''}
                     onChange={handleChange}
-                    className="mt-1 w-full"
                     placeholder="Enter phone number"
                   />
-                </div>
-              </div>
-              
-              <div>
+                </Field>
+              </Field>
+              <Field>
                 <FieldLabel htmlFor="address">Address</FieldLabel>
                 <Input
                   id="address"
                   name="address"
                   value={formData.address || ''}
                   onChange={handleChange}
-                  className="mt-1"
                   placeholder="Enter address"
                 />
-              </div>
-              
-              
-              
+              </Field>
               <Field>
                 <Button 
-                  type="button" 
+                  type="button"
                   onClick={handleSubmit} 
                   disabled={isSaving || !formData.full_name || !formData.phone || !formData.gender || !formData.address}
-                  className="w-full"
+                  className="w-full flex items-center justify-center"
                 >
                   {isSaving ? "Saving profile..." : "Save profile"}
                 </Button>
@@ -474,18 +437,11 @@ export function NewProfileForm({
       </Card>
       
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Choose Avatar</DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-6">
-            
-            
-            {/* Public avatars */}
-            <div>
-              <h3 className="text-sm font-medium mb-2">Public Avatars</h3>
-              <div className="grid grid-cols-3 gap-4 max-h-40 overflow-y-auto">
+        <DialogContent className="max-w-full w-full sm:max-w-md px-4 item-center justify-center">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Choose Your Avatar</CardTitle>       
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto">
                 {publicAvatars.map((avatar) => (
                   <div 
                     key={avatar.id} 
@@ -501,48 +457,38 @@ export function NewProfileForm({
                 ))}
               </div>
             </div>
-          </div>
-          
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium">Upload New Avatar</label>
-            <input
-              type="file"
-              accept="image/*"
-              className="w-full"
-              onChange={handleAvatarUpload}
-            />
-          </div>
-          
-          <div className="flex justify-end space-x-2">
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={() => setIsModalOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button 
-              type="button" 
-              onClick={() => selectedAvatar && handleAvatarSelect(selectedAvatar)}
-              disabled={!selectedAvatar}
-            >
-              Select Avatar
-            </Button>
-          </div>
+            
+            <div className="grid grid-cols-2 gap-4 my-4">
+              <Button 
+                type="button"
+                className="flex items-center justify-center"  
+                variant="outline" 
+                onClick={() => setIsModalOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button 
+                type="button" 
+                className="flex items-center justify-center" 
+                onClick={() => selectedAvatar && handleAvatarSelect(selectedAvatar)}
+                disabled={!selectedAvatar}
+              >
+                Select Avatar
+              </Button>
+            </div>
+
+            <div className="flex flex-col my-2 gap-2">
+              <Label>or you can upload image from your devices</Label>
+              <Input
+                type="file"
+                accept="image/*"
+                className="w-full underline text-center cursor-pointer hover:text-foreground transition-colors"
+                onChange={handleAvatarUpload}
+              />
+            </div>
+          </CardHeader>
         </DialogContent>
       </Dialog>
-      
-      <label className="flex items-center text-center justify-center space-x-2 px-6">
-        <input 
-          type="checkbox" 
-          checked={hasConsented}
-          onChange={(e) => setHasConsented(e.target.checked)}
-          className="cursor-pointer"
-        />
-        <span className="text-sm text-muted-foreground cursor-pointer">
-          {SHORT_PROFILE_CONSENT}
-        </span>
-      </label>
     </div>
   )
 }

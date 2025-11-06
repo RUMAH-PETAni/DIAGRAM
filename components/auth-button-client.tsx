@@ -1,30 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "./retroui/ButtonCustom";
 import { createClient } from "@/lib/supabase/client";
 import { LogIn, UserCircle, LogOut, House, Blocks, Handshake, DatabaseZap } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu } from "@/components/retroui/MenuCustom";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/retroui/Tooltip";
 import { useEffect, useState } from "react";
-import { ProfileModal } from "@/components/profile-modal";
+
 import { LogoutModal } from "@/components/logout-modal";
 
 export function AuthButtonClient() {
   const [userData, setUserData] = useState<any>(null);
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
-  const [showProfileModal, setShowProfileModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -88,10 +82,6 @@ export function AuthButtonClient() {
     };
   }, []);
 
-  const handleProfileClick = () => {
-    setShowProfileModal(true);
-  };
-
   const handleLogoutClick = () => {
     setShowLogoutModal(true);
   };
@@ -107,18 +97,11 @@ export function AuthButtonClient() {
                        'User';
 
     return (
-      <div className="flex items-center gap-4">
-        <span className="hidden md:inline-block">
-          Hello, {displayName}!
-        </span>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="relative h-8 w-8 rounded-full transition-transform duration-200 hover:scale-110"
-            >
-              <Avatar className="h-8 w-8 transition-transform duration-200 hover:scale-110">
+      <div className="flex items-center gap-2">
+        
+        <Menu>
+          <Menu.Trigger asChild>
+            <Avatar className=" h-12 w-12 shadow-md hover:shadow active:shadow-none bg-primary text-primary-foreground border-2 border-black transition hover:translate-y-1 active:translate-y-2 active:translate-x-1 hover:bg-primary-hover">
                 <AvatarImage
                   src={userAvatar || "/avatar/default.png"}
                   alt="User avatar"
@@ -130,54 +113,31 @@ export function AuthButtonClient() {
                     "U"}
                 </AvatarFallback>
               </Avatar>
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent className="w-content" align="end" forceMount>
-            <DropdownMenuItem asChild>
-              <Link href="/" className="flex items-center">
-                <House className="mr-2 h-4 w-4" />
-                <span>Home</span>
+     
+          </Menu.Trigger>
+          <Menu.Content className="min-w-36">
+            <Menu.Item asChild>
+              <Link href="/profile" className="flex items-center">
+                <UserCircle className="mr-2 h-4 w-4" />
+                <span>Account</span>
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleProfileClick} className="flex items-center">
-              <UserCircle className="mr-2 h-4 w-4" />
-              <span>Account</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/features" className="flex items-center">
-                <Blocks className="mr-2 h-4 w-4" />
-                <span>Features</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/services" className="flex items-center">
-                <Handshake className="mr-2 h-4 w-4" />
-                <span>Services</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/library" className="flex items-center">
-                <DatabaseZap className="mr-2 h-4 w-4" />
-                <span>Library</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogoutClick} className="flex items-center">
+            </Menu.Item>
+            <Menu.Item onClick={handleLogoutClick}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Logout</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              </Menu.Item>
+          </Menu.Content>
+        </Menu>
         
-        <ProfileModal 
-          isOpen={showProfileModal} 
-          onClose={() => setShowProfileModal(false)} 
-        />
+
         
         <LogoutModal 
           isOpen={showLogoutModal} 
           onClose={() => setShowLogoutModal(false)} 
         />
+      <span className="md:inline-block text-xl font-medium">
+          Hello, {displayName}!
+      </span>
       </div>
     );
   }
@@ -188,9 +148,9 @@ export function AuthButtonClient() {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <Button asChild size="sm" variant="default">
+            <Button>
               <Link href="/auth/login">
-                <LogIn className="h-4 w-4" />
+                <LogIn/>
               </Link>
             </Button>
           </TooltipTrigger>
