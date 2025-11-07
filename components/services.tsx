@@ -58,7 +58,7 @@ export function Services({
   
     // Services list for request modal
   const servicesList = [
-    { title: "SWApeta | Social Forestry)" },
+    { title: "SWApeta | Social Forestry" },
     { title: "Aerial Survey & Mapping" },
     { title: "Planting & Monitoring" },
     { title: "Land Carbon Accounting" },

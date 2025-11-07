@@ -284,7 +284,7 @@ export function Features({
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "Chat Room"}
+                {isLoading ? "Opening..." : "Chat Forum"}
               </Button>
             </Card>
             

@@ -6,6 +6,7 @@ import { Button } from "@/components/retroui/ButtonCustom";
 import { useRealtimeChat } from "./use-realtime-chat";
 import { useChatScroll } from "./use-chat-scroll";
 import { ChatMessageItem } from "./chat-message";
+import { Send } from "lucide-react";
 
 interface Message {
   id: string;
@@ -100,7 +101,7 @@ export function RealtimeChat({
             disabled={!isConnected}
           />
           <Button type="submit" disabled={!isConnected || message.trim() === ""}>
-            Send
+          <Send className="w-4 h-4" />
           </Button>
         </form>
         <p className="mt-2 text-center text-sm text-muted-foreground">

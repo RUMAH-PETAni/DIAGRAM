@@ -8,7 +8,7 @@ import { Input } from "@/components/retroui/InputCustom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "next-themes";
-import { Send, Bot, User } from "lucide-react";
+import { Send, Bot, User, XIcon } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 
@@ -16,7 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetClose
-} from "@/components/ui/sheet";
+} from "@/components/retroui/SheetCustom";
 
 interface Message {
   id: string;
@@ -124,9 +124,16 @@ export function ChatSheet({ children }: ChatSheetProps) {
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="right" className="flex flex-col w-full sm:max-w-lg p-0">
           <SheetHeader className="p-4 border-b">
-            <div className="flex items-center gap-2">
-              <Bot className="w-5 h-5 text-primary" />
-              <SheetTitle className="text-lg">AI-Gronomist</SheetTitle>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Bot className="w-5 h-5 text-primary" />
+                <SheetTitle className="text-lg">AI-Gronomist</SheetTitle>
+              </div>
+              <SheetClose asChild>
+        
+                  <XIcon className="size-6" />
+    
+              </SheetClose>
             </div>
           </SheetHeader>
 

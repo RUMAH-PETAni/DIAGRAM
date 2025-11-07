@@ -91,7 +91,7 @@ export default function ChatRoom() {
     <div className="w-full max-w-4xl mx-auto">
       <Card className="h-[70vh] flex flex-col">
         <CardHeader>
-          <CardTitle>Forum Discussion</CardTitle>
+          <CardTitle>Chat Forum</CardTitle>
           <p className="text-sm text-muted-foreground">Room: general</p>
         </CardHeader>
         <CardContent className="flex-1 p-0 overflow-hidden">
