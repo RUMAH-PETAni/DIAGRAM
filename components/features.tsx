@@ -89,7 +89,7 @@ export function Features({
       <h3 className="font-bold text-lg ml-4 my-2">Features:</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
         <Card className="p-4 ">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
+          <div className="flex bg-primary/50 items-center gap-3 mb-2" >
           
             <Image 
               src="/feature1.svg" 
@@ -104,19 +104,21 @@ export function Features({
           <p className="text-xs  text-muted-foreground grow">
             Manage farmer and land information in one integrated system. Everything is securely stored and easily accessible to support smarter agricultural decisions.
           </p>
-          <div className="mt-auto pt-4"> 
+          <div className="mt-auto pt-4">
+           <section className="flex w-full justify-end">
           <Button 
             type="button" 
-            className="w-full flex items-center justify-center"
+            className="flex items-center justify-center"
             onClick={handleFeature1} 
             disabled={isLoading}
             >
             {isLoading ? "Opening..." : "Open"}
           </Button>
+          </section>  
           </div>
         </Card>
         <Card className="p-4 ">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
+          <div className="flex bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/feature2.svg" 
               alt="Feature 2 Icon" 
@@ -131,18 +133,21 @@ export function Features({
           Monitor field conditions in real time with interactive maps. Visualize land monitoring data and field activities through a clear and intuitive interface.
           </p>
           <div className="mt-auto pt-4"> 
+            <section className="flex w-full justify-end">
           <Button 
             type="button" 
-            className="w-full flex items-center justify-center"
+            className="flex items-center justify-center"
             onClick={handleFeature2} 
             disabled={isLoading}
             >
             {isLoading ? "Opening..." : "Open"}
           </Button>
+          </section>
           </div>
         </Card>
-        <Card className="p-4">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
+        <Card className="p-4 relative">
+          <Badge variant="solid" size="sm" className="absolute top-2 right-2">Coming soon</Badge>
+          <div className="flex bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/feature3.svg" 
               alt="Feature 3 Icon" 
@@ -160,14 +165,16 @@ export function Features({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild> 
+                    <section className="flex w-full justify-end">
                     <Button 
                       variant="outline"
                       type="button" 
-                      className="w-full flex items-center justify-center"
+                      className="flex items-center justify-center"
                       disabled={isLoading}
                       >
                       {isLoading ? "Opening..." : "Open"}                      
                     </Button>
+                    </section>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Feature not avalaible yet</p>

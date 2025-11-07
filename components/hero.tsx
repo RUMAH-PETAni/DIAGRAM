@@ -92,10 +92,10 @@ export function Hero({
     // If not authenticated, do nothing - tooltip will show the message
   };
 
-   const [progress, setProgress] = React.useState(13);
+   const [progress, setProgress] = React.useState(20);
  
   React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500);
+    const timer = setTimeout(() => setProgress(20), 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -140,6 +140,9 @@ export function Hero({
                       </div>
                     </Field>
                   </CardContent>
+                  
+                  
+                  
               <FieldDescription className="text-left italic">
                 "DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future."
               </FieldDescription>
@@ -201,7 +204,18 @@ export function Hero({
                         </section>
                         <div className="p-6 flex items-center justify-center gap-4 ">
                           <p className="font-bold" >Progress:</p>
-                        <Progress value={progress} className="w-[60%]" />
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="cursor-pointer w-full">
+                                  <Progress value={progress} className="w-full" />
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>20% out of 1000 trees planted</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         <TreesIcon/>
                         </div>
                       </div>
