@@ -93,7 +93,7 @@ export function About({
                 Did you know?
                 In 1952, President Soekarno popularized the word PETANI as an acronym for "Penyangga Tatanan Negara Indonesia".
               </FieldDescription>
-              <FieldDescription className="text-xs  text-left italic w-full flex items-center px-3 py-1.5 font-normal shadow-md hover:shadow active:shadow-none bg-transparent border-2 transition hover:translate-y-1 active:translate-y-2 active:translate-x-1">
+              <FieldDescription className="text-xs  text-left italic hover:not-italic hover:text-foreground transition-all duration-300 w-full flex items-center px-3 py-1.5 font-normal shadow-md hover:shadow active:shadow-none bg-transparent border-2 hover:translate-y-1 active:translate-y-2 active:translate-x-1">
                 "Bung Karno wanted to emphasize that farming is not just a profession, but the foundation of the nation's life. From the hands of farmers comes the food that satisfies us and strengthens us to remain sovereign. This legacy of thought reminds us that food security is key to national independence. Therefore, respecting and supporting farmers means safeguarding Indonesia's future."
               </FieldDescription>
               <FieldDescription className="text-sm text-foreground text-left">

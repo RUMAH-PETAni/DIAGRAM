@@ -4,8 +4,9 @@ import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/retroui/ButtonCustom"
 import { Card, CardContent } from "@/components/retroui/CardCustom"
-import { TypeAnimation } from 'react-type-animation';
-import { useTheme } from "next-themes";
+import { Text } from "@/components/retroui/Text"
+import { TypeAnimation } from 'react-type-animation'
+import { useTheme } from "next-themes"
 import {
   Tooltip,
   TooltipContent,
@@ -14,6 +15,13 @@ import {
 } from "@/components/retroui/Tooltip"
 
 import { Dialog } from "@/components/retroui/DialogCustom"
+
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerTitle,
+} from "@/components/ui/drawer"
 import {
   Field,
   FieldDescription,
@@ -35,6 +43,7 @@ export function Hero({
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showExploreModal, setShowExploreModal] = useState(false);
+  const [showCampaignDrawer, setShowCampaignDrawer] = useState(false);
   const { theme } = useTheme();
   const router = useRouter();
 
@@ -124,7 +133,7 @@ export function Hero({
               <FieldDescription className="text-left italic">
                 "DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future."
               </FieldDescription>
-              
+              <div className="grid grid-cols-2 gap-4">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -144,7 +153,37 @@ export function Hero({
                     )}
                   </Tooltip>
                 </TooltipProvider>
-              
+                <Drawer open={showCampaignDrawer} onOpenChange={setShowCampaignDrawer}>
+                  <DrawerTrigger asChild>
+                    <Button
+                      variant = "secondary"
+                      type="button"
+                      className="flex items-center justify-center"
+                      onClick={() => setShowCampaignDrawer(true)}
+                    >
+                      Campaign!
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent className="w-full bg-cover bg-center" style={{ backgroundImage: "url('/komunitas.png')" }}>
+                    <div className="p-12 text-center h-full flex items-center justify-center ">
+                      <div className=" bg-opacity-50 p-4 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
+                        <DrawerTitle className="text-2xl font-bold">
+                        Support Us! to build our local farmers 
+                        <br/>by planting trees in community forest areas</DrawerTitle>
+                        <p className="mt-2">You can donate through our environmental fundraising project at <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
+                         <section className="flex w-full justify-center gap-4 p-4">
+                        <Button
+                          type="button"
+                          className="flex items-center justify-center"
+                        >
+                          Donate Now
+                        </Button>
+                        </section>
+                      </div>
+                    </div>
+                  </DrawerContent>
+                </Drawer>
+              </div>
               {error && (
                 <div className="text-sm text-red-500 text-center">
                   {error}
@@ -179,6 +218,9 @@ export function Hero({
     {/* Explore Modal */}
     <Dialog open={showExploreModal} onOpenChange={setShowExploreModal}>
       <Dialog.Content className="w-full max-w-full sm:max-w-md sm:mx-auto">
+        <Dialog.Header>
+          <Text as="h5">Explore</Text>
+        </Dialog.Header>
         <div className="grid grid-cols-1 gap-4 p-4">
           {/* Features & Tools Button */}
           <Button

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/retroui/ButtonCustom";
-import { Blocks, DatabaseZap, Globe, Handshake, House, Info, Map, Settings, Shapes, Sun } from "lucide-react";
+import { Blocks, DatabaseZap, Globe, MessageCircleQuestion, Handshake, House, Info, Map, Settings, Shapes, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Dialog } from "@/components/retroui/DialogCustom";
 import { Card, CardContent } from "@/components/retroui/CardCustom"
@@ -102,15 +102,15 @@ const Navigation = () => {
             </Card>
 
             <Card className="border p-4 bg-background flex flex-col items-center justify-center"> 
-            <Info className="h-8 w-8 mb-2" />
+            <MessageCircleQuestion className="h-8 w-8 mb-2" />
             <Button 
               size="sm"
               className="w-full flex text-xs items-center justify-center"
               onClick={() => {
               setShowModal(false);
-              window.location.href = "/about";
+              window.location.href = "/faq";
             }}>
-              About
+              F.A.Q
             </Button>
             </Card>
           </div>

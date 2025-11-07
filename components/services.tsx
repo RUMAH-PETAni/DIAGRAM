@@ -246,7 +246,7 @@ export function Services({
               onClick={handleRequestRequest}
               disabled={selectedServices.length === 0}
             >
-              Request
+              Send Request
             </Button>
           </section>
           </div>
