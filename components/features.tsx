@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/retroui/ButtonCustom"
 import { Badge } from "@/components/retroui/BadgeCustom"
 import { Card, CardContent } from "@/components/retroui/CardCustom"
+import { Text } from "@/components/retroui/Text";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react"
@@ -19,10 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/retroui/Tooltip"
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/DialogCustom"
+import { Dialog } from "@/components/retroui/DialogCustom"
 
 
 export function Features({
@@ -166,8 +164,9 @@ export function Features({
                       variant="outline"
                       type="button" 
                       className="w-full flex items-center justify-center"
+                      disabled={isLoading}
                       >
-                      Open
+                      {isLoading ? "Opening..." : "Open"}                      
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -183,7 +182,7 @@ export function Features({
         <div className="w-full">
           <h3 className="font-bold text-lg ml-4 my-2">Tools:</h3> 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <MapPinned className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -196,7 +195,7 @@ export function Features({
                 {isLoading ? "Opening..." : "Land Mapping"}
               </Button>
             </Card>
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <Sprout className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -208,7 +207,7 @@ export function Features({
                 {isLoading ? "Opening..." : "Farm Monitoring"}
               </Button>
             </Card>
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <NotebookText className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -220,7 +219,7 @@ export function Features({
                 {isLoading ? "Opening..." : "Log Activity"}
                </Button>
             </Card>
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <ShieldPlus className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -239,11 +238,14 @@ export function Features({
       
       {/* Extras Modal */}
       <Dialog open={extrasModalOpen} onOpenChange={setExtrasModalOpen}>
-        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">
-             
-          <div className="grid grid-cols-2 gap-4">
+        <Dialog.Content size={"md"}>
+          <Dialog.Header>
+            <Text as="h5">Extra Tools</Text>
+          </Dialog.Header>
+
+          <div className="grid grid-cols-2 gap-4 p-4">
              {/* AI Insight Card */}
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <BrainCircuit className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -261,7 +263,7 @@ export function Features({
             </Card>
 
             {/* Discussion Card */}
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <MessagesSquare className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -281,7 +283,7 @@ export function Features({
             
             
             {/* Carbon Tools Card */}
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <Calculator className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -298,14 +300,14 @@ export function Features({
               </Button>
             </Card>
             {/* WHISP Tools Card */}
-            <Card className="border p-4 bg-background transition-all duration-300 cursor-pointer flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-md">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <Trees className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
                 type="button" 
                 disabled={isLoading}
                 size="sm"
-                className="w-full flex items-center justify-center"
+                className="w-full flex text-xs items-center justify-center"
                 onClick={() => {
                   // TODO: Implement WHISP tools functionality
                   setExtrasModalOpen(false);
@@ -315,7 +317,7 @@ export function Features({
               </Button>
             </Card>
           </div>
-        </DialogContent>
+        </Dialog.Content>
       </Dialog>
     </div> 
   )

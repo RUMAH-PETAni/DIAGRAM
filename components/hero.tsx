@@ -13,10 +13,7 @@ import {
   TooltipTrigger,
 } from "@/components/retroui/Tooltip"
 
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/DialogCustom"
+import { Dialog } from "@/components/retroui/DialogCustom"
 import {
   Field,
   FieldDescription,
@@ -181,7 +178,7 @@ export function Hero({
     
     {/* Explore Modal */}
     <Dialog open={showExploreModal} onOpenChange={setShowExploreModal}>
-      <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto">
+      <Dialog.Content className="w-full max-w-full sm:max-w-md sm:mx-auto">
         <div className="grid grid-cols-1 gap-4 p-4">
           {/* Features & Tools Button */}
           <Button
@@ -233,7 +230,7 @@ export function Hero({
             </div>
           </Button>
         </div>
-      </DialogContent>
+      </Dialog.Content>
     </Dialog>
     
     </div>

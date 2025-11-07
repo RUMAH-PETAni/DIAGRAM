@@ -40,4 +40,4 @@ We ensure the safety and confidentiality of such data by:
 - Storing all sensitive data encrypted on secure servers.
 - Never displaying NIK or similar identifiers in public areas of the app.
 - Never sharing sensitive data with any third party without explicit user consent.
-- Allowing users to request deletion of their data at any time via **support@rumahpetani.cloud**.
+- Allowing users to request deletion of their data at any time via **support@rumahpetani.cloud**

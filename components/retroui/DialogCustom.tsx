@@ -229,4 +229,4 @@ const DialogComponent = Object.assign(Dialog, {
   Footer: DialogFooter,
 });
 
-export { DialogComponent as Dialog, DialogContent, DialogHeader, DialogDescription, DialogFooter };
+export { DialogComponent as Dialog };

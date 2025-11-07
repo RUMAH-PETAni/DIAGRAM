@@ -3,10 +3,9 @@
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Blocks, DatabaseZap, Globe, Handshake, House, Info, Map, Settings, Shapes, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/DialogCustom";
+import { Dialog } from "@/components/retroui/DialogCustom";
+import { Card, CardContent } from "@/components/retroui/CardCustom"
+import { Text } from "@/components/retroui/Text";
 import Link from "next/link";
 
 const Navigation = () => {
@@ -32,52 +31,90 @@ const Navigation = () => {
       
       {/* Modal with 4 grid icons */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">
-          <div className="grid grid-cols-2 gap-4">
-            <Button className="flex flex-col items-center justify-center p-4" onClick={() => {
+        <Dialog.Content size={"md"}>
+          <Dialog.Header>
+            <Text as="h5">Navigation Menu</Text>
+          </Dialog.Header>
+          <div className="grid grid-cols-2 gap-4 p-4">
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
+              <House className="h-8 w-8 mb-2" />
+              <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
               setShowModal(false);
               window.location.href = "/";
-            }}>
-              <House className="h-8 w-8 mb-2" />
-              <span className="text-sm">Home</span>
-            </Button>
-            <Button className="flex flex-col items-center justify-center p-4" onClick={() => {
+              }}>
+                Home
+              </Button>
+            </Card>
+      
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">       
+            <Shapes className="h-8 w-8 mb-2" />
+            <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
               setShowModal(false);
               window.location.href = "/features";
             }}>
-              <Shapes className="h-8 w-8 mb-2" />
-              <span className="text-sm">Features</span>
+              Features
             </Button>
-            <Button className="flex flex-col items-center justify-center p-4" onClick={() => {
+            </Card>
+
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">    
+            <Handshake className="h-8 w-8 mb-2" />
+            <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
               setShowModal(false);
               window.location.href = "/services";
             }}>
-              <Handshake className="h-8 w-8 mb-2" />
-              <span className="text-sm">Services</span>
+              Services
             </Button>
-            <Button className="flex flex-col items-center justify-center p-4" onClick={() => {
+            </Card>
+
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">  
+            <DatabaseZap className="h-8 w-8 mb-2" />
+            <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
               setShowModal(false);
               window.location.href = "/data-library";
             }}>
-              <DatabaseZap className="h-8 w-8 mb-2" />
-              <span className="text-sm">Library</span>
+              Library
             </Button>
-            <Button className="flex flex-col items-center justify-center p-4" onClick={() => {
+            </Card>
+
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center"> 
+            <Settings className="h-8 w-8 mb-2" />
+            <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
               setShowModal(false);
               window.location.href = "/Settings";
             }}>
-              <Settings className="h-8 w-8 mb-2" />
-              <span className="text-sm">Settings</span>
+              Settings
             </Button>
-             <Button className="flex flex-col items-center justify-center p-4" onClick={() => {
+            </Card>
+
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center"> 
+            <Info className="h-8 w-8 mb-2" />
+            <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
               setShowModal(false);
               window.location.href = "/about";
             }}>
-              <Info className="h-8 w-8 mb-2" />
-              <span className="text-sm">About</span>
+              About
             </Button>
+            </Card>
           </div>
-        </DialogContent>
+        </Dialog.Content>
       </Dialog>
     </>
   );

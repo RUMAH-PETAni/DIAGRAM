@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/retroui/ButtonCustom"
 import { Card, CardContent } from "@/components/retroui/CardCustom"
+import { Text } from "@/components/retroui/Text";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react"
@@ -18,10 +19,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/DialogCustom"
+import { Dialog } from "@/components/retroui/DialogCustom"
 import { toast } from "sonner";
 import { createServiceRequest } from "@/lib/services/requests";
 import { Input } from "./retroui/InputCustom"
@@ -119,7 +117,7 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">SWApeta <br/>&#40;Social Forestry&#41;</h3>
+            <h3 className="font-bold text-lg">SWApeta | Social Forestry</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs  text-muted-foreground grow">
@@ -135,7 +133,7 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Aerial Photo Mapping</h3>
+            <h3 className="font-bold text-lg">Aerial Survey & Mapping</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
@@ -151,7 +149,7 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Tree Planting & Monitoring</h3>
+            <h3 className="font-bold text-lg">Planting & Monitoring</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs  text-muted-foreground grow">
@@ -194,7 +192,7 @@ export function Services({
       
         <Card className="p-4">
           <p className="text-sm  text-foreground grow">
-            Select your service request, and our dedicated team will review your needs and contact you via email for further discussion.
+            Choose your service request, and our dedicated team will review your needs and contact you via email for further discussion.
           </p>
           <div className="mt-auto w-full pt-4"> 
             <Button 
@@ -205,7 +203,7 @@ export function Services({
               }}
               disabled={isLoading}
               >
-              {isLoading ? "Requesting..." : "Request Services"}
+              {isLoading ? "Requesting..." : "Services Request"}
             </Button>
           </div>
         </Card>
@@ -214,8 +212,11 @@ export function Services({
       
       {/* Request Services Dialog */}
       <Dialog open={requestModalOpen} onOpenChange={setRequestModalOpen}>
-        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">          
-          <div className="space-y-3">
+        <Dialog.Content size={"md"}>
+          <Dialog.Header>
+            <Text as="h5">Services Request</Text>
+          </Dialog.Header>          
+          <div className="space-y-3 p-4">
             {servicesList.map((service, index) => (
               <Card 
                 key={index} 
@@ -226,7 +227,7 @@ export function Services({
                   <input
                     type="checkbox"
                     id={`service-${index}`}
-                    className="h-4 w-4 rounded border-input cursor-pointer"
+                    className="cursor-pointer"
                     checked={selectedServices.includes(index)}
                     onChange={() => toggleService(index)}
                   />
@@ -238,23 +239,18 @@ export function Services({
                 </div>
               </Card>
             ))}
-          </div>
+            <section className="flex w-full justify-end"> 
           
-          <div className = "grid grid-cols-2 gap-4 mt-8">  
             <Button 
-              variant="outline" 
-              onClick={() => setRequestModalOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button 
+              className="flex items-center justify-center"
               onClick={handleRequestRequest}
               disabled={selectedServices.length === 0}
             >
               Request
             </Button>
+          </section>
           </div>
-        </DialogContent>
+        </Dialog.Content>
       </Dialog>
     </div> 
   )

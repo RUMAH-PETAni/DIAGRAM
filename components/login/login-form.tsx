@@ -15,10 +15,8 @@ import { Input } from "@/components/retroui/InputCustom"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/Dialog"
+import { Dialog } from "@/components/retroui/DialogCustom"
+import { Text } from "@/components/retroui/Text"
 import { ForgotPasswordForm } from "@/components/login/forgot-password-form"
 
 export function LoginForm({
@@ -104,18 +102,19 @@ export function LoginForm({
                   {error}
                 </div>
               )}
-              <div className = "flex justify-between">
-              <FieldDescription className="text-left">
-                Don&apos;t have an account?{" "}
-                <Link href="/auth/sign-up">
-                  Sign up
-                </Link>
-              </FieldDescription>
-              <FieldDescription className="text-right">
-                <Link href="/" className="text-primary font-bold cursor-pointer">
-                  Home
-                </Link>
-              </FieldDescription>
+              <div className="flex flex-col sm:flex-row justify-between items-center w-full text-sm gap-1">
+                <FieldDescription className="text-left">
+                  Don&apos;t have an account?{" "}
+                  <Link href="/auth/sign-up">
+                    Sign up
+                  </Link>
+                </FieldDescription>
+
+                <FieldDescription className="text-right">
+                  <Link href="/" className="text-primary font-bold cursor-pointer">
+                    Home
+                  </Link>
+                </FieldDescription>
               </div>
             </FieldGroup>
           </form>
@@ -125,9 +124,12 @@ export function LoginForm({
       
       {/* Forgot Password Modal */}
       <Dialog open={showForgotPasswordModal} onOpenChange={setShowForgotPasswordModal}>
-        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto">
+        <Dialog.Content size={"md"}>
+          <Dialog.Header>
+            <Text as="h5">Reset your password</Text>
+          </Dialog.Header>
           <ForgotPasswordForm onClose={() => setShowForgotPasswordModal(false)} />
-        </DialogContent>
+        </Dialog.Content>
       </Dialog>
     </div>
   )

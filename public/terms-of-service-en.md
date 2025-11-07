@@ -21,4 +21,4 @@ We may update, add, or discontinue certain features without prior notice.
 These Terms are governed by the laws of the Republic of Indonesia.
 
 ### **7. Contact**
-For any inquiries, contact **support@rumahpetani.cloud**.
+For any inquiries, contact **support@rumahpetani.cloud**

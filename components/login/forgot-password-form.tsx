@@ -63,19 +63,17 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-          <CardDescription>
-            Type in your email and we&apos;ll send you a link to reset your
-            password
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleForgotPassword}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
+ 
+          
+      
+          <form onSubmit={handleForgotPassword} className= "flex flex-col gap-4">
+            <div className="flex flex-col p-4 gap-4">
+              <section>
+              <p>Type in your email and we&apos;ll send you a link to reset your
+              password</p>
+            </section>
+            
+              <div className="flex-col gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -86,14 +84,17 @@ export function ForgotPasswordForm({
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+              <section className="flex w-full justify-end">
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full flex items-center justify-center" disabled={isLoading}>
+              <Button 
+                className="flex items-center justify-center"
+                type="submit" disabled={isLoading}>
                 {isLoading ? "Sending..." : "Send reset email"}
               </Button>
+              </section>
             </div>
           </form>
-        </CardContent>
-      </Card>
-    </div>
+  
+
   );
 }

@@ -219,7 +219,7 @@ export function SignupForm({
                   {error}
                 </div>
               )}
-              <div className = "flex justify-between">
+              <div className="flex flex-col sm:flex-row justify-between items-center w-full text-sm gap-1">
               <FieldDescription className="text-left">
                 Already have an account?{" "}
                 <Link href="/auth/login">

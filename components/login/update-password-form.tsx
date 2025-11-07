@@ -12,6 +12,7 @@ import {
 } from "@/components/retroui/CardCustom";
 import { Input } from "@/components/retroui/InputCustom";
 import { Label } from "@/components/retroui/Label";
+import { Text } from "@/components/retroui/Text"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -46,7 +47,8 @@ export function UpdatePasswordForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Reset Your Password</CardTitle>
+          <Text as="h5">Reset your password</Text>
+          
           <CardDescription>
             Please enter your new password below.
           </CardDescription>
@@ -65,10 +67,12 @@ export function UpdatePasswordForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <section className="flex w-full justify-end">
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
                 {isLoading ? "Saving..." : "Save new password"}
               </Button>
+              </section>
             </div>
           </form>
         </CardContent>

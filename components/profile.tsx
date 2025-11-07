@@ -17,10 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/retroui/SelectCustom"
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/DialogCustom"
+import { Dialog } from "@/components/retroui/DialogCustom"
 import { toast } from "sonner"
 
 import { useEffect, useState } from "react"
@@ -477,7 +474,7 @@ export function Profile({
         </CardContent>
       </Card>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">
+        <Dialog.Content className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">
           
             {/* Public avatars */}
            
@@ -526,7 +523,7 @@ export function Profile({
               Select Avatar
             </Button>
           </div>
-        </DialogContent>
+        </Dialog.Content>
       </Dialog>
     </div>
   )
