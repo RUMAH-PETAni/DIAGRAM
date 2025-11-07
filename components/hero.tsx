@@ -164,8 +164,8 @@ export function Hero({
                       Campaign!
                     </Button>
                   </DrawerTrigger>
-                  <DrawerContent className="w-full bg-cover bg-center" style={{ backgroundImage: "url('/komunitas.png')" }}>
-                    <div className="p-12 text-center h-full flex items-center justify-center ">
+                  <DrawerContent className="w-full bg-cover bg-center" style={{ backgroundImage: "url('/landscape.svg')" }}>
+                    <div className="p-6 text-center h-full flex items-center justify-center ">
                       <div className=" bg-opacity-50 p-4 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
                         <DrawerTitle className="text-2xl font-bold">
                         Support Us! to build our local farmers 
