@@ -1,6 +1,6 @@
 import { AuthButton } from "@/components/auth-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Navigation } from "@/components/navigation";
+import { NavigationWrapper } from "@/components/navigation-wrapper";
 
 export function Header() {
   return (
@@ -9,7 +9,7 @@ export function Header() {
         <AuthButton />
          <div className="flex gap-2">
           <ThemeSwitcher />
-          <Navigation />
+          <NavigationWrapper />
       </div>
       </div>
     </header>

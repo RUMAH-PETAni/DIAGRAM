@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/retroui/ButtonCustom"
 import { Label } from "@/components/retroui/Label"
+import { Text } from "@/components/retroui/Text"
 import { Card, CardContent } from "@/components/retroui/CardCustom"
 import {
   Field,
@@ -474,11 +475,11 @@ export function Profile({
         </CardContent>
       </Card>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <Dialog.Content className="w-full max-w-full sm:max-w-md sm:mx-auto p-4">
-          
-            {/* Public avatars */}
-           
-              <h3 className="text-2xl text-center font-medium mb-4">Choose your avatar</h3>
+        <Dialog.Content size={"md"}>
+          <Dialog.Header>
+            <Text as="h5">Choose your avatar</Text>
+          </Dialog.Header>
+            <section className="flex flex-col gap-4 p-4">
               <div className="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto">
                 {publicAvatars.map((avatar) => (
                   <div 
@@ -494,8 +495,24 @@ export function Profile({
                   </div>
                 ))}
               </div>
-          
-        
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <Button
+                  className="flex items-center justify-center" 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="flex items-center justify-center" 
+                  type="button" 
+                  onClick={() => selectedAvatar && handleAvatarSelect(selectedAvatar)}
+                  disabled={!selectedAvatar}
+                >
+                  Select Avatar
+                </Button>
+              </div>
             <div className="flex flex-col my-2 gap-2">
               <Label>Upload image from your devices:</Label>
               <Input
@@ -505,24 +522,7 @@ export function Profile({
                 onChange={handleAvatarUpload}
               />
             </div>
-           <div className="grid grid-cols-2 gap-4 mt-4">
-            <Button
-              className="flex items-center justify-center" 
-              type="button" 
-              variant="outline" 
-              onClick={() => setIsModalOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="flex items-center justify-center" 
-              type="button" 
-              onClick={() => selectedAvatar && handleAvatarSelect(selectedAvatar)}
-              disabled={!selectedAvatar}
-            >
-              Select Avatar
-            </Button>
-          </div>
+          </section>
         </Dialog.Content>
       </Dialog>
     </div>

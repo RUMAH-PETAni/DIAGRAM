@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/retroui/ButtonCustom"
+import { Text } from "@/components/retroui/Text"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/retroui/CardCustom"
 import {
   Field,
@@ -17,10 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/retroui/SelectCustom"
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/retroui/DialogCustom"
+import { Dialog } from "@/components/retroui/DialogCustom"
 import { toast } from "sonner"
 
 import { useEffect, useState } from "react"
@@ -437,9 +435,11 @@ export function NewProfileForm({
       </Card>
       
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-full w-full sm:max-w-md px-4 item-center justify-center">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Choose Your Avatar</CardTitle>       
+        <Dialog.Content size={"md"}>
+          <Dialog.Header>
+            <Text as="h5">Choose your avatar</Text>
+          </Dialog.Header>
+          <section className="flex flex-col gap-4 p-4">      
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto">
                 {publicAvatars.map((avatar) => (
@@ -486,8 +486,8 @@ export function NewProfileForm({
                 onChange={handleAvatarUpload}
               />
             </div>
-          </CardHeader>
-        </DialogContent>
+            </section>
+        </Dialog.Content>
       </Dialog>
     </div>
   )
