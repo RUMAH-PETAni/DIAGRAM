@@ -97,9 +97,11 @@ export function About({
                 "Bung Karno wanted to emphasize that farming is not just a profession, but the foundation of the nation's life. From the hands of farmers comes the food that satisfies us and strengthens us to remain sovereign. This legacy of thought reminds us that food security is key to national independence. Therefore, respecting and supporting farmers means safeguarding Indonesia's future."
               </FieldDescription>
               <FieldDescription className="text-sm text-foreground text-left">
-                Let's continue to support the struggle of our farmers, the true pillars of this country.
+                Let's continue to support the struggle of our farmers, the true pillars of this country.&nbsp;
+                <Link href="/story" className="font-bold cursor-pointer">
+                    See our story &#8599;
+                  </Link>
               </FieldDescription>
-           
               <FieldDescription className="text-right">
                 <Link href="/" className="text-primary font-bold cursor-pointer">
                   Home

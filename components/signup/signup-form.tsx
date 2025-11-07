@@ -21,11 +21,11 @@ import {
   CardTitle,
 } from "@/components/retroui/CardCustom";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
 import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
 
@@ -219,47 +219,41 @@ export function SignupForm({
                   {error}
                 </div>
               )}
-              <div className="flex flex-col sm:flex-row justify-between items-center w-full text-sm gap-1">
+              
+             
               <FieldDescription className="text-left">
                 Already have an account?{" "}
-                <Link href="/auth/login">
+                <Link href="/auth/login" className="font-bold cursor-pointer">
                   Sign in
                 </Link>
               </FieldDescription>
-              <FieldDescription className="text-right">
-                <Link href="/" className="text-primary font-bold cursor-pointer">
-                  Home
-                </Link>
-              </FieldDescription>
-              </div>
             </FieldGroup>
           </form>
-          
         </CardContent>
       </Card>
-       {/* Terms of Service Sheet */}
-            <Sheet open={showTermsSheet} onOpenChange={setShowTermsSheet}>
-              <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle className="text-center text-base">Terms of Service</SheetTitle>
-                </SheetHeader>
-                <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
-                  <ReactMarkdown>{termsContent}</ReactMarkdown>
-                </div>
-              </SheetContent>
-            </Sheet>
-            
-            {/* Privacy Policy Sheet */}
-            <Sheet open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
-              <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle className="text-center text-base">Privacy Policy</SheetTitle>
-                </SheetHeader>
-                <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
-                  <ReactMarkdown>{privacyContent}</ReactMarkdown>
-                </div>
-              </SheetContent>
-            </Sheet>
+      {/* Terms of Service drawer */}
+     <Drawer open={showTermsSheet} onOpenChange={setShowTermsSheet}>
+        <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto p-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">Terms of Service</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-6 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
+            <ReactMarkdown>{termsContent}</ReactMarkdown>
+          </div>
+        </DrawerContent>
+      </Drawer>
+      
+      {/* Privacy Policy Drawer */}
+      <Drawer open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
+        <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto p-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">Privacy Policy</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-6 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
+            <ReactMarkdown>{privacyContent}</ReactMarkdown>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/retroui/CardCustom"
 import { Text } from "@/components/retroui/Text"
 import { TypeAnimation } from 'react-type-animation'
 import { useTheme } from "next-themes"
+import { Progress } from "@/components/retroui/Progress";
 import {
   Tooltip,
   TooltipContent,
@@ -21,7 +22,8 @@ import {
   DrawerContent,
   DrawerTrigger,
   DrawerTitle,
-} from "@/components/ui/drawer"
+  DrawerHeader,
+} from "@/components/retroui/DrawerCustom"
 import {
   Field,
   FieldDescription,
@@ -30,7 +32,8 @@ import {
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Blocks, DatabaseZap, Handshake, Shapes } from "lucide-react"
+import { Blocks, DatabaseZap, Handshake, Shapes, TreesIcon } from "lucide-react"
+import React from "react"
 
 export function Hero({
   className,
@@ -88,6 +91,13 @@ export function Hero({
     }
     // If not authenticated, do nothing - tooltip will show the message
   };
+
+   const [progress, setProgress] = React.useState(13);
+ 
+  React.useEffect(() => {
+    const timer = setTimeout(() => setProgress(66), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -164,21 +174,36 @@ export function Hero({
                       Campaign!
                     </Button>
                   </DrawerTrigger>
-                  <DrawerContent className="w-full bg-cover bg-center" style={{ backgroundImage: "url('/landscape.svg')" }}>
-                    <div className="p-6 text-center h-full flex items-center justify-center ">
+                 
+                  <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
+                    <DrawerHeader>
+                      <DrawerTitle className="font-bold text-2xl">Let's Support Us!</DrawerTitle>
+                    </DrawerHeader>
+                    <div className="p-6 text-center h-full flex items-start justify-center ">
                       <div className=" bg-opacity-50 p-4 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
-                        <DrawerTitle className="text-2xl font-bold">
-                        Support Us! to build our local farmers 
-                        <br/>by planting trees in community forest areas</DrawerTitle>
+                        <p className="text-2xl font-bold">
+                        Help our local farmers by planting trees in community forest areas</p>
                         <p className="mt-2">You can donate through our environmental fundraising project at <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
-                         <section className="flex w-full justify-center gap-4 p-4">
+                         <section className="w-full grid grid-cols-2 gap-4 p-4">
                         <Button
                           type="button"
                           className="flex items-center justify-center"
                         >
-                          Donate Now
+                          Donate
+                        </Button>
+                        <Button
+                          variant = "outline"
+                          type="button"
+                          className="flex items-center justify-center"
+                        >
+                         Report
                         </Button>
                         </section>
+                        <div className="p-6 flex items-center justify-center gap-4 ">
+                          <p className="font-bold" >Progress:</p>
+                        <Progress value={progress} className="w-[60%]" />
+                        <TreesIcon/>
+                        </div>
                       </div>
                     </div>
                   </DrawerContent>

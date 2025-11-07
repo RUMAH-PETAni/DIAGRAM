@@ -10,8 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/retroui/CardCustom";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/login/field"
 import { Input } from "@/components/retroui/InputCustom";
 import { Label } from "@/components/retroui/Label";
+import Link from "next/link"
 import { Text } from "@/components/retroui/Text"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -45,35 +52,44 @@ export function UpdatePasswordForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <Text as="h5">Reset your password</Text>
-          
-          <CardDescription>
-            Please enter your new password below.
-          </CardDescription>
-        </CardHeader>
+      <Card className="overflow-hidden p-0">
         <CardContent>
-          <form onSubmit={handleForgotPassword}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
+          <form className="p-6 md:p-8 " onSubmit={handleForgotPassword}>
+            <FieldGroup>
+              <div className="flex flex-col items-center gap-2 text-center">
+                <h1 className="text-2xl font-bold">Reset your password</h1>
+                 <p className="text-muted-foreground text-balance">
+                  Please enter your new password below.
+                </p>
+              </div>
+              <Field>
                 <Label htmlFor="password">New password</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="New password"
+                  placeholder="********" 
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              </div>
-              <section className="flex w-full justify-end">
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save new password"}
-              </Button>
-              </section>
-            </div>
+              </Field>
+              <Field>
+                
+                  {error && <p className="text-sm text-red-500">{error}</p>}
+                  <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
+                    {isLoading ? "Saving..." : "Save new password"}
+                  </Button>
+               
+              </Field>
+              
+                <FieldDescription className="text-left">
+                  Already have an account?{" "}
+                  <Link href="/auth/login" className="font-bold cursor-pointer">
+                    Sign in
+                  </Link>
+                </FieldDescription>
+            
+            </FieldGroup>
           </form>
         </CardContent>
       </Card>

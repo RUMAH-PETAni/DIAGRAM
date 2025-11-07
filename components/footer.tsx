@@ -2,19 +2,22 @@
 
 import Link from "next/link";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
+import { Card, CardContent } from "@/components/retroui/CardCustom"
 import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
+import { FAQDrawer } from "@/components/faq-drawer";
 
 export function Footer() {
   const [showTermsSheet, setShowTermsSheet] = useState(false);
   const [showPrivacySheet, setShowPrivacySheet] = useState(false);
   const [termsContent, setTermsContent] = useState("");
   const [privacyContent, setPrivacyContent] = useState("");
+  const [showFAQ, setShowFAQ] = useState(false);
 
   const fetchTermsOfService = async () => {
     try {
@@ -61,31 +64,42 @@ export function Footer() {
         >
           Privacy Policy
         </button>
+        <button
+          type="button"
+          className="underline cursor-pointer hover:text-foreground transition-colors"
+          onClick={async () => {
+            setShowFAQ(true);
+          }}
+        >
+          F.A.Q
+        </button>
       </div>
       
-      {/* Terms of Service Sheet */}
-      <Sheet open={showTermsSheet} onOpenChange={setShowTermsSheet}>
-        <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
-          <SheetHeader>
-            <SheetTitle className="text-center text-base">Terms of Service</SheetTitle>
-          </SheetHeader>
-          <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
+      {/* Terms of Service drawer */}
+     <Drawer open={showTermsSheet} onOpenChange={setShowTermsSheet}>
+        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">Terms of Service</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
             <ReactMarkdown>{termsContent}</ReactMarkdown>
           </div>
-        </SheetContent>
-      </Sheet>
+        </DrawerContent>
+      </Drawer>
       
-      {/* Privacy Policy Sheet */}
-      <Sheet open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
-        <SheetContent className="w-[90vw] max-w-2xl overflow-y-auto">
-          <SheetHeader>
-            <SheetTitle className="text-center text-base">Privacy Policy</SheetTitle>
-          </SheetHeader>
-          <div className="p-6 prose prose-sm max-w-none text-xs leading-relaxed space-y-4">
+      {/* Privacy Policy Drawer */}
+      <Drawer open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
+        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">Privacy Policy</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
             <ReactMarkdown>{privacyContent}</ReactMarkdown>
           </div>
-        </SheetContent>
-      </Sheet>
+        </DrawerContent>
+      </Drawer>
+      <FAQDrawer isOpen={showFAQ} onOpenChange={setShowFAQ} />
+        
          <p>
         © 2025 |{" "}
         <Link
@@ -94,6 +108,7 @@ export function Footer() {
         >
           RUMAHPETAni
         </Link>
+      
       </p>
     </footer>
   );

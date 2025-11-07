@@ -14,19 +14,19 @@ Your data is used to:
 - Send service-related notifications
 
 ### **3. Data Storage and Security**
-Data is securely stored using third-party providers such as **Supabase** with appropriate security measures to prevent unauthorized access or deletion.
+Data is securely stored using third-party providers with appropriate security measures to prevent unauthorized access or deletion.
 
 ### **4. Data Sharing**
 We **do not sell or rent** your personal data. Data is only shared with service providers that assist in app operations under similar privacy protections.
 
 ### **5. User Rights**
-You can request deletion or updates of your data by emailing **support@rumahpetani.cloud**.
+You can request deletion or updates of your data by emailing **support@rumahpetani.cloud**
 
 ### **6. Policy Updates**
-This policy may be updated periodically. The latest version will always be available at [https://rumahpetani.cloud/](https://rumahpetani.cloud/).
+This policy may be updated periodically. The latest version will always be available at [https://rumahpetani.cloud/](https://rumahpetani.cloud/)
 
 ### **7. Contact**
-For questions or privacy concerns, contact **support@rumahpetani.cloud**.
+For questions or privacy concerns, contact **support@rumahpetani.cloud**
 
 
 ---

@@ -52,6 +52,7 @@ export function LoginForm({
     }
   };
 
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
@@ -102,23 +103,15 @@ export function LoginForm({
                   {error}
                 </div>
               )}
-              <div className="flex flex-col sm:flex-row justify-between items-center w-full text-sm gap-1">
+        
                 <FieldDescription className="text-left">
                   Don&apos;t have an account?{" "}
-                  <Link href="/auth/sign-up">
+                  <Link href="/auth/sign-up" className="font-bold cursor-pointer">
                     Sign up
                   </Link>
                 </FieldDescription>
-
-                <FieldDescription className="text-right">
-                  <Link href="/" className="text-primary font-bold cursor-pointer">
-                    Home
-                  </Link>
-                </FieldDescription>
-              </div>
             </FieldGroup>
           </form>
-          
         </CardContent>
       </Card>
       

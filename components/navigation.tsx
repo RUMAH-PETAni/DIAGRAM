@@ -7,10 +7,12 @@ import { Dialog } from "@/components/retroui/DialogCustom";
 import { Card, CardContent } from "@/components/retroui/CardCustom"
 import { Text } from "@/components/retroui/Text";
 import Link from "next/link";
+import { FAQDrawer } from "@/components/faq-drawer";
 
 const Navigation = () => {
   const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showFAQ, setShowFAQ] = useState(false);
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -108,7 +110,7 @@ const Navigation = () => {
               className="w-full flex text-xs items-center justify-center"
               onClick={() => {
               setShowModal(false);
-              window.location.href = "/faq";
+              setShowFAQ(true);
             }}>
               F.A.Q
             </Button>
@@ -116,6 +118,7 @@ const Navigation = () => {
           </div>
         </Dialog.Content>
       </Dialog>
+      <FAQDrawer isOpen={showFAQ} onOpenChange={setShowFAQ} />
     </>
   );
 };
