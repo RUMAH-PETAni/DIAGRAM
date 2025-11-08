@@ -11,11 +11,13 @@ import {
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useLanguage } from "@/lib/i18n/context"
 
 export function About({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -90,21 +92,21 @@ export function About({
                 </div>
               </div>
               <FieldDescription className="text-sm text-foreground text-left">
-                Did you know?
-                In 1952, President Soekarno popularized the word PETANI as an acronym for "Penyangga Tatanan Negara Indonesia".
+                {t('about.didYouKnow')}
+                {t('about.acronym')}
               </FieldDescription>
               <FieldDescription className="text-xs  text-left italic hover:not-italic hover:text-foreground transition-all duration-300 w-full flex items-center px-3 py-1.5 font-normal shadow-md hover:shadow active:shadow-none bg-transparent border-2 hover:translate-y-1 active:translate-y-2 active:translate-x-1">
-                "Bung Karno wanted to emphasize that farming is not just a profession, but the foundation of the nation's life. From the hands of farmers comes the food that satisfies us and strengthens us to remain sovereign. This legacy of thought reminds us that food security is key to national independence. Therefore, respecting and supporting farmers means safeguarding Indonesia's future."
+                {t('about.quote')}
               </FieldDescription>
               <FieldDescription className="text-sm text-foreground text-left">
-                Let's continue to support the struggle of our farmers, the true pillars of this country.&nbsp;
+                {t('about.support')}&nbsp;
                 <Link href="/story" className="font-bold cursor-pointer">
-                    See our story &#8599;
+                    {t('about.story')} &#8599;
                   </Link>
               </FieldDescription>
               <FieldDescription className="text-right">
                 <Link href="/" className="text-primary font-bold cursor-pointer">
-                  Home
+                  {t('about.home')}
                 </Link>
               </FieldDescription>
             </FieldGroup>

@@ -34,11 +34,13 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Blocks, DatabaseZap, Handshake, Shapes, TreesIcon } from "lucide-react"
 import React from "react"
+import { useLanguage } from "@/lib/i18n/context"
 
 export function Hero({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { t, language } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -106,26 +108,27 @@ export function Hero({
           <form className="p-6 md:p-8 " onSubmit={handleLogin}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">DIAGRAM</h1>
+                <h1 className="text-2xl font-bold">{t('hero.title')}</h1>
                 <p className="font-bold text-muted-foreground text-balance">
-                  A Digital Ecosystem for Agroforestry Management
+                  {t('hero.subtitle')}
                 </p>
               </div>
               <CardContent className="p-0">
                     <p className="text-balance">
-                    Empowering Smallholder Farmers with:
+                    {t('hero.empowering')}
                     </p>
                     <Field className="mt-2">
                       <div className="w-full flex items-center px-3 py-1.5 font-normal shadow-md hover:shadow active:shadow-none bg-transparent border-2 transition hover:translate-y-1 active:translate-y-2 active:translate-x-1">
                         <TypeAnimation
+                          key={language} // Force re-render when language changes
                           sequence={[
-                            'Climate Smart Agriculture.',
+                            t('hero.climateSmart'),
                             2000, // Wait 2s after this string
-                            'Data-Driven Solutions.',
+                            t('hero.dataDriven'),
                             2000, // Wait 2s after this string
-                            'Sustainable Technology.',
+                            t('hero.sustainableTech'),
                             2000, // Wait 2s after this string
-                            'Precision Agroforestry.',
+                            t('hero.precisionAgro'),
                             2000, // Wait 2s after this string
                           ]}
                           wrapper="span"
@@ -144,7 +147,7 @@ export function Hero({
                   
                   
               <FieldDescription className="text-left italic">
-                "DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future."
+                {t('hero.description')}
               </FieldDescription>
               <div className="grid grid-cols-2 gap-4">
                 <TooltipProvider>
@@ -156,12 +159,12 @@ export function Hero({
                         onClick={handleExplore} 
                         disabled={isLoading}
                       >
-                        {isLoading ? "Exploring..." : "Explore"}
+                        {isLoading ? t('hero.explore') + "..." : t('hero.explore')}
                       </Button>
                     </TooltipTrigger>
                     {!isAuthenticated && (
                       <TooltipContent>
-                        <p>You must login first</p>
+                        <p>{t('general.youMustLogin')}</p>
                       </TooltipContent>
                     )}
                   </Tooltip>
@@ -174,36 +177,36 @@ export function Hero({
                       className="flex items-center justify-center"
                       onClick={() => setShowCampaignDrawer(true)}
                     >
-                      Campaign!
+                      {t('hero.campaign')}
                     </Button>
                   </DrawerTrigger>
                  
                   <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
                     <DrawerHeader>
-                      <DrawerTitle className="font-bold text-2xl">Let's Support Us!</DrawerTitle>
+                      <DrawerTitle className="font-bold text-2xl">{t('hero.letSupport')}</DrawerTitle>
                     </DrawerHeader>
                     <div className="p-6 text-center h-full flex items-start justify-center ">
                       <div className=" bg-opacity-50 p-6 md:p-8 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
                         <p className="text-2xl font-bold">
-                        Help local farmers by planting trees in community forest areas</p>
-                        <p className="mt-2">You can donate through our environmental fundraising project at <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
+                        {t('hero.supportMessage')}</p>
+                        <p className="mt-2">{t('hero.donateLink')} <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
                          <section className="w-full grid grid-cols-2 gap-4 mt-4 p-4">
                         <Button
                           type="button"
                           className="flex items-center justify-center"
                         >
-                          Donate
+                          {t('hero.donate')}
                         </Button>
                         <Button
                           variant = "outline"
                           type="button"
                           className="flex items-center justify-center"
                         >
-                         Report
+                         {t('hero.report')}
                         </Button>
                         </section>
                         <div className="p-6 flex items-center justify-center gap-4 ">
-                          <p className="font-bold" >Progress:</p>
+                          <p className="font-bold" >{t('hero.progress')}</p>
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -230,7 +233,7 @@ export function Hero({
               )}
               <FieldDescription className="text-right">
                 <Link href="/about" className="text-primary font-bold cursor-pointer">
-                  About
+                  {t('hero.about')}
                 </Link>
               </FieldDescription>
             </FieldGroup>
@@ -258,7 +261,7 @@ export function Hero({
     <Dialog open={showExploreModal} onOpenChange={setShowExploreModal}>
       <Dialog.Content className="w-full max-w-full sm:max-w-md sm:mx-auto">
         <Dialog.Header>
-          <Text as="h5">Explore</Text>
+          <Text as="h5">{t('explore.title')}</Text>
         </Dialog.Header>
         <div className="grid grid-cols-1 gap-4 p-4">
           {/* Features & Tools Button */}
@@ -273,8 +276,8 @@ export function Hero({
              <Shapes className="mr-2 h-10 w-10"/>
             </div>
             <div className="text-left">
-              <div className="font-medium">Features and Tools</div>
-              <div className="text-xs text-muted-foreground">Smart tools to map, monitor, and manage your farm efficiently.</div>
+              <div className="font-medium">{t('explore.features')}</div>
+              <div className="text-xs text-muted-foreground">{t('explore.featuresDesc')}</div>
             </div>
           </Button>
           
@@ -290,8 +293,8 @@ export function Hero({
             <Handshake className="mr-2 h-10 w-10"/>
             </div>
              <div className="text-left">
-              <div className="font-medium">On Demand Services</div>
-              <div className="text-xs text-muted-foreground">Instant access to expert support and digital farming solutions.</div>
+              <div className="font-medium">{t('explore.services')}</div>
+              <div className="text-xs text-muted-foreground">{t('explore.servicesDesc')}</div>
             </div>
           </Button>
           {/* Data Library Button */}
@@ -306,8 +309,8 @@ export function Hero({
             <DatabaseZap className="mr-2 h-10 w-10" />
             </div>
              <div className="text-left">
-              <div className="font-medium">Data Library</div>
-              <div className="text-xs text-muted-foreground">Reliable agricultural data and insights at your fingertips.</div>
+              <div className="font-medium">{t('explore.dataLibrary')}</div>
+              <div className="text-xs text-muted-foreground">{t('explore.dataLibraryDesc')}</div>
             </div>
           </Button>
         </div>

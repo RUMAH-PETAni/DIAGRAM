@@ -3,7 +3,6 @@ import { FloatingAIButton } from "@/components/floating-ai-button";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
-
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[url('/kontur.svg')] bg-cover bg-center md:bg-muted">

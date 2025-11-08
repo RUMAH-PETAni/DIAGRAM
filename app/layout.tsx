@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo_Black, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/retroui/Sonner";
+import { LanguageProvider } from "@/lib/i18n/context";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -34,17 +35,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body className={`${archivoBlack.variable} ${space.variable}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-        <Toaster />
+        <LanguageProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </LanguageProvider>
       </body>
     </html>
   );
