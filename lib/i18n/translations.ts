@@ -11,7 +11,7 @@ export const translations = {
     'hero.description': "DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future.",
     'hero.explore': 'Explore',
     'hero.campaign': 'Campaign!',
-    'hero.letSupport': 'Let Support Us!',
+    'hero.letSupport': 'Let`s Support Us!',
     'hero.donate': 'Donate',
     'hero.report': 'Report',
     'hero.progress': 'Progress:',
@@ -43,7 +43,9 @@ export const translations = {
     'nav.services': 'Services',
     'nav.library': 'Library',
     'nav.settings': 'Settings',
-    'nav.faq': 'F.A.Q',
+    'nav.faq': 'FAQ',
+    'nav.terms': 'Terms of Service',
+    'nav.privacy': 'Privacy Policy',
     'nav.navigationMenu': 'Navigation Menu',
     
     // General translations
@@ -53,6 +55,24 @@ export const translations = {
     'general.english': 'English',
     'general.indonesian': 'Indonesian',
     'general.youMustLogin': 'You must login first',
+    'general.account': 'Account',
+    'general.here': 'here',
+    'general.hello': 'Hello',
+    
+    // FAQ translations
+    'faq.title': 'Frequently Asked Questions',
+    'faq.whoIsRumahpetani': 'Who is RUMAHPETAni?',
+    'faq.whoIsRumahpetaniAnswer': 'RUMAH PETANI is a community movement driven by the spirit of innovation and a commitment to supporting smallholder farmers. We empower them to manage and utilize natural resources sustainably and responsibly.',
+    'faq.whatIsDiagram': 'What is DIAGRAM?',
+    'faq.whatIsDiagramAnswer': 'DIAGRAM is a Digital Ecosystem for Agroforestry Management that empowers smallholder farmers with climate smart agriculture, data-driven solutions, sustainable technology, and precision agroforestry tools.',
+    'faq.howToGetStarted': 'How can I get started?',
+    'faq.howToGetStartedAnswer': 'You can start by creating an account and exploring our features. Once registered, you\'ll have access to our mapping tools, monitoring systems, and data library to help manage your farm efficiently.',
+    'faq.cost': 'Is there a cost to use platform?',
+    'faq.costAnswer': 'This platform offers a range of free and premium features. Basic access to our tools is free, while advanced features and services may require a subscription or payment.',
+    'faq.mobileSupport': 'Can I use on mobile devices?',
+    'faq.mobileSupportAnswer': 'Yes, DIAGRAM is designed to work across devices with responsive design that works well on tablets and smartphones.',
+    'faq.contactSupport': 'How do I contact support?',
+    'faq.contactSupportAnswer': 'You can contact our support team through the support section of your account, or send us an email at support@rumahpetani.cloud',
   },
   id: {
     // Homepage translations
@@ -77,14 +97,14 @@ export const translations = {
     // Explore modal translations
     'explore.features': 'Fitur dan Alat',
     'explore.featuresDesc': 'Alat pintar untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',
-    'explore.services': 'Layanan On Demand',
+    'explore.services': 'Layanan Berbasis Permintaan',
     'explore.servicesDesc': 'Akses instan ke dukungan ahli dan solusi pertanian digital.',
     'explore.dataLibrary': 'Perpustakaan Data',
     'explore.dataLibraryDesc': 'Data dan wawasan pertanian yang andal di ujung jari Anda.',
     'explore.title': 'Jelajahi',
     
     // About page translations
-    'about.didYouKnow': 'Tahukah Anda?',
+    'about.didYouKnow': 'Tahukah Anda? ',
     'about.acronym': 'Pada tahun 1952, Presiden Soekarno mempopulerkan kata PETANI sebagai akronim dari "Penyangga Tatanan Negara Indonesia".',
     'about.quote': '"Bung Karno ingin menekankan bahwa bertani bukan hanya sebuah profesi, tetapi fondasi kehidupan bangsa. Dari tangan para petani datang makanan yang memuaskan kita dan memperkuat kita untuk tetap berdaulat. Warisan pikiran ini mengingatkan kita bahwa ketahanan pangan adalah kunci kemerdekaan nasional. Karena itu, menghormati dan mendukung para petani berarti menjaga masa depan Indonesia."',
     'about.support': 'Mari terus dukung perjuangan para petani kita, pilar sejati negeri ini.',
@@ -98,7 +118,9 @@ export const translations = {
     'nav.services': 'Layanan',
     'nav.library': 'Perpustakaan',
     'nav.settings': 'Pengaturan',
-    'nav.faq': 'T.A.K',
+    'nav.terms': 'Ketentuan Layanan',
+    'nav.privacy': 'Kebijakan Privasi',
+    'nav.faq': 'F.A.Q',
     'nav.navigationMenu': 'Menu Navigasi',
     
     // General translations
@@ -108,5 +130,23 @@ export const translations = {
     'general.english': 'Inggris',
     'general.indonesian': 'Indonesia',
     'general.youMustLogin': 'Anda harus masuk terlebih dahulu',
+    'general.account': 'Akun',
+    'general.here': 'di sini',
+    'general.hello': 'Halo',
+    
+    // FAQ translations
+    'faq.title': 'Pertanyaan yang Sering Diajukan',
+    'faq.whoIsRumahpetani': 'Siapa itu RUMAHPETAni?',
+    'faq.whoIsRumahpetaniAnswer': 'RUMAH PETANI adalah gerakan komunitas yang digerakkan oleh semangat inovasi dan komitmen untuk mendukung para petani skala kecil. Kami memberdayakan mereka untuk mengelola dan memanfaatkan sumber daya alam secara berkelanjutan dan bertanggung jawab.',
+    'faq.whatIsDiagram': 'Apa itu DIAGRAM?',
+    'faq.whatIsDiagramAnswer': 'DIAGRAM adalah Ekosistem Digital untuk Manajemen Agroforestri yang memberdayakan para petani skala kecil dengan pertanian tepat iklim, solusi berbasis data, teknologi berkelanjutan, dan alat-alat agroforestri presisi.',
+    'faq.howToGetStarted': 'Bagaimana cara memulainya?',
+    'faq.howToGetStartedAnswer': 'Anda dapat memulai dengan membuat akun dan menjelajahi fitur-fitur kami. Setelah terdaftar, Anda akan memiliki akses ke alat pemetaan, sistem monitoring, dan perpustakaan data untuk membantu mengelola pertanian Anda secara efisien.',
+    'faq.cost': 'Apakah ada biaya untuk menggunakan platform?',
+    'faq.costAnswer': 'Platform ini menawarkan berbagai fitur gratis dan premium. Akses dasar ke alat-alat kami gratis, sementara fitur dan layanan lanjutan mungkin memerlukan langganan atau pembayaran.',
+    'faq.mobileSupport': 'Dapatkah saya menggunakan platform ini di perangkat mobile?',
+    'faq.mobileSupportAnswer': 'Ya, DIAGRAM dirancang untuk bekerja di berbagai perangkat dengan desain responsif yang bekerja dengan baik di tablet dan smartphone.',
+    'faq.contactSupport': 'Bagaimana cara menghubungi dukungan?',
+    'faq.contactSupportAnswer': 'Anda dapat menghubungi tim dukungan kami melalui bagian dukungan akun Anda, atau kirimkan email ke support@rumahpetani.cloud',
   }
 };

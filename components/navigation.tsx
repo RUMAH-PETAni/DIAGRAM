@@ -1,15 +1,17 @@
 "use client";
 
 import { Button } from "@/components/retroui/ButtonCustom";
-import { Blocks, DatabaseZap, Globe, MessageCircleQuestion, Handshake, House, Info, Map, Settings, Shapes, Sun } from "lucide-react";
+import { Blocks, DatabaseZap, Globe, MessageCircleQuestion, Handshake, House, Info, Map, Settings, Shapes, Shield, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Dialog } from "@/components/retroui/DialogCustom";
 import { Card, CardContent } from "@/components/retroui/CardCustom"
 import { Text } from "@/components/retroui/Text";
 import Link from "next/link";
 import { FAQDrawer } from "@/components/faq-drawer";
+import { useLanguage } from "@/lib/i18n/context";
 
 const Navigation = () => {
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
@@ -35,7 +37,7 @@ const Navigation = () => {
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Navigation Menu</Text>
+            <Text as="h5">{t('nav.navigationMenu')}</Text>
           </Dialog.Header>
           <div className="grid grid-cols-2 gap-4 p-4">
             <Card className="border p-4 bg-background flex flex-col items-center justify-center">
@@ -47,7 +49,7 @@ const Navigation = () => {
               setShowModal(false);
               window.location.href = "/";
               }}>
-                Home
+                {t('nav.home')}
               </Button>
             </Card>
       
@@ -60,7 +62,7 @@ const Navigation = () => {
               setShowModal(false);
               window.location.href = "/features";
             }}>
-              Features
+              {t('nav.features')}
             </Button>
             </Card>
 
@@ -73,7 +75,7 @@ const Navigation = () => {
               setShowModal(false);
               window.location.href = "/services";
             }}>
-              Services
+              {t('nav.services')}
             </Button>
             </Card>
 
@@ -86,7 +88,7 @@ const Navigation = () => {
               setShowModal(false);
               window.location.href = "/data-library";
             }}>
-              Library
+              {t('nav.library')}
             </Button>
             </Card>
 
@@ -99,7 +101,7 @@ const Navigation = () => {
               setShowModal(false);
               window.location.href = "/Settings";
             }}>
-              Settings
+              {t('nav.settings')}
             </Button>
             </Card>
 
@@ -112,7 +114,33 @@ const Navigation = () => {
               setShowModal(false);
               setShowFAQ(true);
             }}>
-              F.A.Q
+              {t('nav.faq')}
+            </Button>
+            </Card>
+
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
+            <Info className="h-8 w-8 mb-2" />
+            <Button
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
+              setShowModal(false);
+              window.location.href = "/legal/terms-of-service";
+            }}>
+              {t('nav.terms')}
+            </Button>
+            </Card>
+
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
+            <Shield className="h-8 w-8 mb-2" />
+            <Button
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
+              setShowModal(false);
+              window.location.href = "/legal/privacy-policy";
+            }}>
+              {t('nav.privacy')}
             </Button>
             </Card>
           </div>

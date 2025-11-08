@@ -82,6 +82,8 @@
     "react-type-animation": "^3.2.0",
     "react-use": "^17.6.0",
     "recharts": "latest",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
