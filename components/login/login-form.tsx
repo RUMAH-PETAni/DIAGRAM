@@ -18,11 +18,13 @@ import { useState } from "react"
 import { Dialog } from "@/components/retroui/DialogCustom"
 import { Text } from "@/components/retroui/Text"
 import { ForgotPasswordForm } from "@/components/login/forgot-password-form"
+import { useLanguage } from "@/lib/i18n/context";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -60,14 +62,14 @@ export function LoginForm({
           <form className="p-6 md:p-8 " onSubmit={handleLogin}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Login to your account</h1>
+                <h1 className="text-2xl font-bold">{t('auth.loginTitle')}</h1>
               </div>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t('auth.email')}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder={t('auth.emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -75,19 +77,19 @@ export function LoginForm({
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">{t('auth.password')}</FieldLabel>
                   <button
                     type="button"
                     className="ml-auto text-sm underline-offset-2 hover:underline cursor-pointer"
                     onClick={() => setShowForgotPasswordModal(true)}
                   >
-                    Forgot your password?
+                    {t('auth.forgotPassword')}
                   </button>
                 </div>
                 <Input 
                   id="password" 
                   type="password"
-                  placeholder="********" 
+                  placeholder={t('auth.passwordPlaceholder')} 
                   required 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -95,7 +97,7 @@ export function LoginForm({
               </Field>
               <Field>
                 <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
-                  {isLoading ? "Logging in..." : "Login"}
+                  {isLoading ? t('auth.loggingIn') : t('auth.loginButton')}
                 </Button>
               </Field>
               {error && (
@@ -105,9 +107,9 @@ export function LoginForm({
               )}
         
                 <FieldDescription className="text-left">
-                  Don&apos;t have an account?{" "}
+                  {t('auth.noAccount')}{" "}
                   <Link href="/auth/sign-up" className="font-bold cursor-pointer">
-                    Sign up
+                    {t('auth.signUp')}
                   </Link>
                 </FieldDescription>
             </FieldGroup>
@@ -119,7 +121,7 @@ export function LoginForm({
       <Dialog open={showForgotPasswordModal} onOpenChange={setShowForgotPasswordModal}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Forgot you password?</Text>
+            <Text as="h5">{t('auth.forgotPasswordModalTitle')}</Text>
           </Dialog.Header>
           <ForgotPasswordForm onClose={() => setShowForgotPasswordModal(false)} />
         </Dialog.Content>

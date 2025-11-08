@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/retroui/InputCustom";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 
 type ForgotPasswordFormProps = {
   className?: string;
@@ -22,6 +23,7 @@ export function ForgotPasswordForm({
   onClose,
   ...props
 }: ForgotPasswordFormProps) {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -63,14 +65,14 @@ export function ForgotPasswordForm({
     <form onSubmit={handleForgotPassword} className= "p-4">
       <FieldGroup>
         <div className="flex flex-col  gap-2">
-          <p>Type in your email and we&apos;ll send you a link to reset password.</p>
+          <p>{t('auth.forgotPasswordDescription')}</p>
         </div>
           <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <FieldLabel htmlFor="email">{t('auth.email')}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder={t('auth.emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -82,7 +84,7 @@ export function ForgotPasswordForm({
               <Button 
                 className="flex items-center justify-center"
                 type="submit" disabled={isLoading}>
-                {isLoading ? "Sending..." : "Send reset email"}
+                {isLoading ? t('auth.sending') : t('auth.sendResetEmail')}
               </Button>
               </section>          
       </FieldGroup>

@@ -26,13 +26,16 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/retroui/DrawerCustom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
+import { useLanguage } from "@/lib/i18n/context";
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { language, t } = useLanguage();
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -48,13 +51,13 @@ export function SignupForm({
     setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t('auth.passwordsNotMatch'));
       setIsLoading(false);
       return;
     }
 
     if (!hasConsented) {
-      setError("You must agree to the Terms of Service and Privacy Policy to create an account.");
+      setError(t('auth.mustAgree'));
       setIsLoading(false);
       return;
     }
@@ -94,27 +97,51 @@ export function SignupForm({
   const [termsContent, setTermsContent] = useState("");
   const [privacyContent, setPrivacyContent] = useState("");
 
-   const fetchTermsOfService = async () => {
+  const fetchTermsOfService = async () => {
     try {
-      const response = await fetch('/terms-of-service-en.md');
+      const response = await fetch(`/terms-of-service-${language}.md`);
       const text = await response.text();
       setTermsContent(text);
     } catch (error) {
       console.error('Error fetching terms of service:', error);
-      setTermsContent('# Terms of Service\n\nError loading content.');
+      // Fallback to English if the language-specific file doesn't exist
+      try {
+        const response = await fetch('/terms-of-service-en.md');
+        const text = await response.text();
+        setTermsContent(text);
+      } catch {
+        setTermsContent('# Terms of Service\n\nError loading content.');
+      }
     }
   };
 
   const fetchPrivacyPolicy = async () => {
     try {
-      const response = await fetch('/privacy-policy-en.md');
+      const response = await fetch(`/privacy-policy-${language}.md`);
       const text = await response.text();
       setPrivacyContent(text);
     } catch (error) {
       console.error('Error fetching privacy policy:', error);
-      setPrivacyContent('# Privacy Policy\n\nError loading content.');
+      // Fallback to English if the language-specific file doesn't exist  
+      try {
+        const response = await fetch('/privacy-policy-en.md');
+        const text = await response.text();
+        setPrivacyContent(text);
+      } catch {
+        setPrivacyContent('# Privacy Policy\n\nError loading content.');
+      }
     }
   };
+
+  // Refetch content when language changes
+  useEffect(() => {
+    if (showTermsSheet) {
+      fetchTermsOfService();
+    }
+    if (showPrivacySheet) {
+      fetchPrivacyPolicy();
+    }
+  }, [language]);
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -123,25 +150,25 @@ export function SignupForm({
           <form className="p-6 md:p-8" onSubmit={handleSignUp}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Create your account</h1>
+                <h1 className="text-2xl font-bold">{t('auth.signUpTitle')}</h1>
               </div>
                   <Field>
-                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <FieldLabel htmlFor="email">{t('auth.email')}</FieldLabel>
                     <Input
                       id="email"
                       type="email"
-                      placeholder="email@example.com"
+                      placeholder={t('auth.emailPlaceholder')}
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </Field>
                   <Field>
-                    <FieldLabel htmlFor="username">Username</FieldLabel>
+                    <FieldLabel htmlFor="username">{t('auth.username')}</FieldLabel>
                     <Input
                       id="username"
                       type="text"
-                      placeholder="username" 
+                      placeholder={t('auth.usernamePlaceholder')} 
                       required
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
@@ -150,11 +177,11 @@ export function SignupForm({
             
                 <Field className="grid grid-cols-2 gap-4">
                   <Field>
-                    <FieldLabel htmlFor="password">Password</FieldLabel>
+                    <FieldLabel htmlFor="password">{t('auth.password')}</FieldLabel>
                     <Input 
                       id="password" 
                       type="password"
-                      placeholder="********" 
+                      placeholder={t('auth.passwordPlaceholder')} 
                       required 
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -162,12 +189,12 @@ export function SignupForm({
                   </Field>
                   <Field>
                     <FieldLabel htmlFor="confirm-password">
-                      Confirm Password
+                      {t('auth.confirmPassword')}
                     </FieldLabel>
                     <Input 
                       id="confirm-password" 
                       type="password" 
-                      placeholder="********"
+                      placeholder={t('confirmPasswordPlaceholder')}
                       required 
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
@@ -184,7 +211,7 @@ export function SignupForm({
                   required
                 />
                 <span className="text-muted-foreground cursor-pointer">
-                  I have read and agree to the&nbsp;
+                  {t('auth.ihaveRead')} &nbsp;
                   <button
                     type="button"
                     className="underline cursor-pointer hover:text-foreground transition-colors"
@@ -193,9 +220,9 @@ export function SignupForm({
                       setShowTermsSheet(true);
                     }}
                   >
-                    Terms of Service
+                    {t('auth.termsOfService')}
                   </button>
-                  &nbsp;and&nbsp; 
+                  &nbsp;{t('auth.and')}&nbsp; 
                   <button
                     type="button"
                     className="underline cursor-pointer hover:text-foreground transition-colors"
@@ -204,14 +231,14 @@ export function SignupForm({
                       setShowPrivacySheet(true);
                     }}
                   >
-                    Privacy Policy
+                    {t('auth.privacyPolicy')}
                   </button>
                 </span>
               </label>
               
               <Field>
                 <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
-                  {isLoading ? "Creating account..." : "Create Account"}
+                  {isLoading ? t('auth.creatingAccount') : t('auth.createAccount')}
                 </Button>
               </Field>
               {error && (
@@ -222,38 +249,38 @@ export function SignupForm({
               
              
               <FieldDescription className="text-left">
-                Already have an account?{" "}
+                {t('auth.alreadyHaveAccount')}{" "}
                 <Link href="/auth/login" className="font-bold cursor-pointer">
-                  Sign in
+                  {t('auth.signIn')}
                 </Link>
               </FieldDescription>
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
-      {/* Terms of Service drawer */}
-     <Drawer open={showTermsSheet} onOpenChange={setShowTermsSheet}>
-        <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto p-6">
-          <DrawerHeader>
-            <DrawerTitle className="font-bold text-2xl">Terms of Service</DrawerTitle>
-          </DrawerHeader>
-          <div className="p-6 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
-            <ReactMarkdown>{termsContent}</ReactMarkdown>
-          </div>
-        </DrawerContent>
-      </Drawer>
-      
-      {/* Privacy Policy Drawer */}
-      <Drawer open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
-        <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto p-6">
-          <DrawerHeader>
-            <DrawerTitle className="font-bold text-2xl">Privacy Policy</DrawerTitle>
-          </DrawerHeader>
-          <div className="p-6 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
-            <ReactMarkdown>{privacyContent}</ReactMarkdown>
-          </div>
-        </DrawerContent>
-      </Drawer>
+     {/* Terms of Service drawer */}
+          <Drawer open={showTermsSheet} onOpenChange={setShowTermsSheet}>
+             <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+               <DrawerHeader>
+                 <DrawerTitle className="font-bold text-2xl">{t('nav.terms')}</DrawerTitle>
+               </DrawerHeader>
+               <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
+                 <ReactMarkdown>{termsContent}</ReactMarkdown>
+               </div>
+             </DrawerContent>
+           </Drawer>
+           
+           {/* Privacy Policy Drawer */}
+           <Drawer open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
+             <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+               <DrawerHeader>
+                 <DrawerTitle className="font-bold text-2xl">{t('nav.privacy')}</DrawerTitle>
+               </DrawerHeader>
+               <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
+                 <ReactMarkdown>{privacyContent}</ReactMarkdown>
+               </div>
+             </DrawerContent>
+           </Drawer>
     </div>
   )
 }

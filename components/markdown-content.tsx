@@ -156,13 +156,14 @@ We ensure the safety and confidentiality of such data by:
 
   return (
     <div className={className}>
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
-        className="prose max-w-none"
-      >
-        {content}
-      </ReactMarkdown>
+      <div className="prose max-w-none">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
     </div>
   );
 }

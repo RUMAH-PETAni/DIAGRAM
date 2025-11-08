@@ -19,11 +19,13 @@ import Link from "next/link"
 import { Text } from "@/components/retroui/Text"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 
 export function UpdatePasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const { t } = useLanguage();
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,17 +56,17 @@ export function UpdatePasswordForm({
           <form className="p-6 md:p-8 " onSubmit={handleForgotPassword}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Reset your password</h1>
+                <h1 className="text-2xl font-bold">{t('auth.updatePasswordTitle')}</h1>
                  <p className="text-muted-foreground">
-                  Please enter your new password below.
+                  {t('auth.updatePasswordDescription')}
                 </p>
               </div>
               <Field>
-                <FieldLabel htmlFor="password">New password</FieldLabel>
+                <FieldLabel htmlFor="password">{t('auth.newPassword')}</FieldLabel>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="********" 
+                  placeholder={t('auth.passwordPlaceholder')} 
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -73,13 +75,13 @@ export function UpdatePasswordForm({
               <Field>
                   {error && <p className="text-sm text-red-500">{error}</p>}
                   <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
-                    {isLoading ? "Saving..." : "Save new password"}
+                    {isLoading ? t('auth.saving') : t('auth.saveNewPassword')}
                   </Button>
               </Field>
               <FieldDescription className="text-left">
-                  Already have an account?{" "}
+                  {t('auth.alreadyHaveAccount')}{" "}
                   <Link href="/auth/login" className="font-bold cursor-pointer">
-                    Sign in
+                    {t('auth.signIn')}
                   </Link>
               </FieldDescription>
             </FieldGroup>

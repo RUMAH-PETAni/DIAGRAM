@@ -14,6 +14,7 @@ export const translations = {
     'hero.letSupport': 'Let`s Support Us!',
     'hero.donate': 'Donate',
     'hero.report': 'Report',
+    'hero.treesPlanted': '20% out of 1000 trees planted',
     'hero.progress': 'Progress:',
     'hero.supportMessage': 'Help local farmers by planting trees in community forest areas',
     'hero.donateLink': 'You can donate through our environmental fundraising project at',
@@ -73,6 +74,55 @@ export const translations = {
     'faq.mobileSupportAnswer': 'Yes, DIAGRAM is designed to work across devices with responsive design that works well on tablets and smartphones.',
     'faq.contactSupport': 'How do I contact support?',
     'faq.contactSupportAnswer': 'You can contact our support team through the support section of your account, or send us an email at support@rumahpetani.cloud',
+    
+    // Authentication translations
+    'auth.loginTitle': 'Login to your account',
+    'auth.email': 'Email',
+    'auth.emailPlaceholder': 'email@example.com',
+    'auth.password': 'Password',
+    'auth.passwordPlaceholder': '********',
+    'auth.forgotPassword': 'Forgot your password?',
+    'auth.loginButton': 'Login',
+    'auth.loggingIn': 'Logging in...',
+    'auth.noAccount': 'Don\'t have an account?',
+    'auth.signUp': 'Sign up',
+    'auth.forgotPasswordModalTitle': 'Forgot your password?',
+    
+    // Signup translations
+    'auth.signUpTitle': 'Create your account',
+    'auth.username': 'Username',
+    'auth.usernamePlaceholder': 'username',
+    'auth.confirmPassword': 'Confirm Password',
+    'auth.confirmPasswordPlaceholder': '********',
+    'auth.createAccount': 'Create Account',
+    'auth.creatingAccount': 'Creating account...',
+    'auth.alreadyHaveAccount': 'Already have an account?',
+    'auth.signIn': 'Sign in',
+    'auth.passwordsNotMatch': 'Passwords do not match',
+    'auth.ihaveRead': 'I have read and agree to the',
+    'auth.mustAgree': 'You must agree to the Terms of Service and Privacy Policy to create an account.',
+    'auth.termsAgreement': 'I have read and agree to the ',
+    'auth.termsOfService': 'Terms of Service',
+    'auth.and': ' and ',
+    'auth.privacyPolicy': 'Privacy Policy',
+    
+    // Forgot Password translations
+    'auth.forgotPasswordDescription': 'Type in your email and we\'ll send you a link to reset password.',
+    'auth.sendResetEmail': 'Send reset email',
+    'auth.sending': 'Sending...',
+    
+    // Update Password translations
+    'auth.updatePasswordTitle': 'Reset your password',
+    'auth.updatePasswordDescription': 'Please enter your new password below.',
+    'auth.newPassword': 'New password',
+    'auth.saveNewPassword': 'Save new password',
+    'auth.saving': 'Saving...',
+    
+    // Logout modal translations
+    'auth.confirmAction': 'Confirm your action?',
+    'auth.confirmLogout': 'Are you sure you want to logout?',
+    'auth.needToSignInAgain': 'You\'ll need to sign in again to access your account.',
+    'auth.loggingOut': 'Logging out...',
   },
   id: {
     // Homepage translations
@@ -88,6 +138,7 @@ export const translations = {
     'hero.campaign': 'Kampanye!',
     'hero.letSupport': 'Mari Dukung Kami!',
     'hero.donate': 'Donasi',
+    'hero.treesPlanted': '20% dari 1000 pohon ditanam',
     'hero.report': 'Laporan',
     'hero.progress': 'Kemajuan:',
     'hero.supportMessage': 'Bantu petani lokal dengan menanam pohon di Hutan Kemasyarakatan',
@@ -147,6 +198,55 @@ export const translations = {
     'faq.mobileSupport': 'Dapatkah saya menggunakan platform ini di perangkat mobile?',
     'faq.mobileSupportAnswer': 'Ya, DIAGRAM dirancang untuk bekerja di berbagai perangkat dengan desain responsif yang bekerja dengan baik di tablet dan smartphone.',
     'faq.contactSupport': 'Bagaimana cara menghubungi dukungan?',
-    'faq.contactSupportAnswer': 'Anda dapat menghubungi tim dukungan kami melalui bagian dukungan akun Anda, atau kirimkan email ke support@rumahpetani.cloud',
+    'faq.contactSupportAnswer': 'Anda dapat menghubungi tim dukungan kami melalukung bagian dukungan akun Anda, atau kirimkan email ke support@rumahpetani.cloud',
+    
+    // Authentication translations
+    'auth.loginTitle': 'Masuk ke akun Anda',
+    'auth.email': 'Email',
+    'auth.emailPlaceholder': 'email@example.com',
+    'auth.password': 'Kata Sandi',
+    'auth.passwordPlaceholder': '********',
+    'auth.forgotPassword': 'Lupa kata sandi?',
+    'auth.loginButton': 'Masuk',
+    'auth.loggingIn': 'Sedang masuk...',
+    'auth.noAccount': 'Belum punya akun?',
+    'auth.signUp': 'Daftar',
+    'auth.forgotPasswordModalTitle': 'Lupa kata sandi?',
+    
+    // Signup translations
+    'auth.signUpTitle': 'Buat akun Anda',
+    'auth.username': 'Nama Pengguna',
+    'auth.usernamePlaceholder': 'nama pengguna',
+    'auth.confirmPassword': 'Konfirmasi Kata Sandi',
+    'auth.confirmPasswordPlaceholder': '********',
+    'auth.createAccount': 'Buat Akun',
+    'auth.creatingAccount': 'Sedang membuat akun...',
+    'auth.alreadyHaveAccount': 'Sudah punya akun?',
+    'auth.signIn': 'Masuk',
+    'auth.passwordsNotMatch': 'Kata sandi tidak cocok',
+    'auth.ihaveRead': 'Saya telah membaca dan setuju',
+    'auth.mustAgree': 'Anda harus setuju dengan Ketentuan Layanan dan Kebijakan Privasi untuk membuat akun.',
+    'auth.termsAgreement': 'Saya telah membaca dan setuju dengan ',
+    'auth.termsOfService': 'Ketentuan Layanan',
+    'auth.and': ' dan ',
+    'auth.privacyPolicy': 'Kebijakan Privasi',
+    
+    // Forgot Password translations
+    'auth.forgotPasswordDescription': 'Ketik alamat email Anda dan kami akan mengirimkan tautan untuk mengatur ulang kata sandi.',
+    'auth.sendResetEmail': 'Kirim email reset',
+    'auth.sending': 'Mengirim...',
+    
+    // Update Password translations
+    'auth.updatePasswordTitle': 'Atur ulang kata sandi Anda',
+    'auth.updatePasswordDescription': 'Silakan masukkan kata sandi baru Anda di bawah ini.',
+    'auth.newPassword': 'Kata sandi baru',
+    'auth.saveNewPassword': 'Simpan kata sandi baru',
+    'auth.saving': 'Menyimpan...',
+    
+    // Logout modal translations
+    'auth.confirmAction': 'Konfirmasi tindakan Anda?',
+    'auth.confirmLogout': 'Apakah Anda yakin ingin keluar?',
+    'auth.needToSignInAgain': 'Anda harus masuk kembali untuk mengakses akun Anda.',
+    'auth.loggingOut': 'Sedang keluar...',
   }
 };

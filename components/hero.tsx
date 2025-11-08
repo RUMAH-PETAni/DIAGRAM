@@ -215,7 +215,7 @@ export function Hero({
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent>
-                                <p>20% out of 1000 trees planted</p>
+                                <p>{t('hero.treesPlanted')}</p>
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
