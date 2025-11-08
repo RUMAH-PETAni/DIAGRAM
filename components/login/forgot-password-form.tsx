@@ -4,14 +4,11 @@ import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/retroui/ButtonCustom";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/retroui/CardCustom";
+  Field,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field"
 import { Input } from "@/components/retroui/InputCustom";
-import { Label } from "@/components/retroui/Label";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -63,18 +60,13 @@ export function ForgotPasswordForm({
   };
 
   return (
- 
-          
-      
-          <form onSubmit={handleForgotPassword} className= "flex flex-col gap-4">
-            <div className="flex flex-col p-4 gap-4">
-              <section>
-              <p>Type in your email and we&apos;ll send you a link to reset your
-              password</p>
-            </section>
-            
-              <div className="flex-col gap-2">
-                <Label htmlFor="email">Email</Label>
+    <form onSubmit={handleForgotPassword} className= "p-4">
+      <FieldGroup>
+        <div className="flex flex-col  gap-2">
+          <p>Type in your email and we&apos;ll send you a link to reset password.</p>
+        </div>
+          <Field>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
                   type="email"
@@ -83,7 +75,8 @@ export function ForgotPasswordForm({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-              </div>
+          </Field>
+   
               <section className="flex w-full justify-end">
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button 
@@ -91,10 +84,8 @@ export function ForgotPasswordForm({
                 type="submit" disabled={isLoading}>
                 {isLoading ? "Sending..." : "Send reset email"}
               </Button>
-              </section>
-            </div>
-          </form>
-  
-
+              </section>          
+      </FieldGroup>
+    </form>
   );
 }

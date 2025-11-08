@@ -2,16 +2,16 @@ We value your privacy and are committed to protecting your personal information.
 
 ### **1. Information We Collect**
 We may collect:
-- Account details (email, name, gender, phone number and address)
-- Farm location data (coordinates and address input)
-- Technical data such as IP address, device type, and app activity
+- • Account details (email, name, gender, phone number and address)
+- • Farm location data (coordinates and address input)
+- • Technical data such as IP address, device type, and app activity
 
 ### **2. How We Use Information**
 Your data is used to:
-- Manage user accounts and authentication
-- Provide mapping and agroforestry analysis services
-- Improve user experience and app features
-- Send service-related notifications
+- • Manage user accounts and authentication
+- • Provide mapping and agroforestry analysis services
+- • Improve user experience and app features
+- • Send service-related notifications
 
 ### **3. Data Storage and Security**
 Data is securely stored using third-party providers with appropriate security measures to prevent unauthorized access or deletion.

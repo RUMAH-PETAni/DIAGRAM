@@ -8,7 +8,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/signup/field"
+} from "@/components/ui/field"
 
 import { Input } from "@/components/retroui/InputCustom"
 import Link from "next/link"

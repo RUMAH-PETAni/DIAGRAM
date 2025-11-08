@@ -4,9 +4,9 @@ By using this platform, you agree to the following Terms of Service.
 You agree to use this service only for lawful purposes and in compliance with applicable laws.
 
 ### **2. User Accounts**
-- You are responsible for maintaining the security of your account.  
-- Do not share login credentials with others.  
-- We reserve the right to suspend accounts engaged in suspicious activity.
+- • You are responsible for maintaining the security of your account.  
+- • Do not share login credentials with others.  
+- • We reserve the right to suspend accounts engaged in suspicious activity.
 
 ### **3. Ownership of Content**
 All materials in the platform (source code, design, logo, and system data) belong to **RUMAHPETAni team**. Reproduction or modification without written permission is prohibited.

@@ -9,7 +9,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/login/field"
+} from "@/components/ui/field"
 
 import { Input } from "@/components/retroui/InputCustom"
 import Link from "next/link"
@@ -119,7 +119,7 @@ export function LoginForm({
       <Dialog open={showForgotPasswordModal} onOpenChange={setShowForgotPasswordModal}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Reset your password</Text>
+            <Text as="h5">Forgot you password?</Text>
           </Dialog.Header>
           <ForgotPasswordForm onClose={() => setShowForgotPasswordModal(false)} />
         </Dialog.Content>

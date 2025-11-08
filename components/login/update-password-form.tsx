@@ -6,16 +6,13 @@ import { Button } from "@/components/retroui/ButtonCustom";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/retroui/CardCustom";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/login/field"
+} from "@/components/ui/field"
 import { Input } from "@/components/retroui/InputCustom";
 import { Label } from "@/components/retroui/Label";
 import Link from "next/link"
@@ -58,12 +55,12 @@ export function UpdatePasswordForm({
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Reset your password</h1>
-                 <p className="text-muted-foreground text-balance">
+                 <p className="text-muted-foreground">
                   Please enter your new password below.
                 </p>
               </div>
               <Field>
-                <Label htmlFor="password">New password</Label>
+                <FieldLabel htmlFor="password">New password</FieldLabel>
                 <Input
                   id="password"
                   type="password"
@@ -74,21 +71,17 @@ export function UpdatePasswordForm({
                 />
               </Field>
               <Field>
-                
                   {error && <p className="text-sm text-red-500">{error}</p>}
                   <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
                     {isLoading ? "Saving..." : "Save new password"}
                   </Button>
-               
               </Field>
-              
-                <FieldDescription className="text-left">
+              <FieldDescription className="text-left">
                   Already have an account?{" "}
                   <Link href="/auth/login" className="font-bold cursor-pointer">
                     Sign in
                   </Link>
-                </FieldDescription>
-            
+              </FieldDescription>
             </FieldGroup>
           </form>
         </CardContent>

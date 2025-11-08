@@ -19,26 +19,31 @@ export function FAQDrawer({ isOpen = false, onOpenChange }: { isOpen?: boolean; 
   const faqs = [
     {
       id: 1,
+      question: "Who is RUMAHPETAni?",
+      answer: "RUMAH PETANI is a community movement driven by the spirit of innovation and a commitment to supporting smallholder farmers. We empower them to manage and utilize natural resources sustainably and responsibly."
+    },
+    {
+      id: 2,
       question: "What is DIAGRAM?",
       answer: "DIAGRAM is a Digital Ecosystem for Agroforestry Management that empowers smallholder farmers with climate smart agriculture, data-driven solutions, sustainable technology, and precision agroforestry tools."
     },
     {
-      id: 2,
+      id: 3,
       question: "How can I get started?",
       answer: "You can start by creating an account and exploring our features. Once registered, you'll have access to our mapping tools, monitoring systems, and data library to help manage your farm efficiently."
     },
     {
-      id: 3,
-      question: "Is there a cost to use DIAGRAM?",
-      answer: "DIAGRAM offers a range of free and premium features. Basic access to our tools is free, while advanced features and services may require a subscription or payment."
+      id: 4,
+      question: "Is there a cost to use platform?",
+      answer: "This platform offers a range of free and premium features. Basic access to our tools is free, while advanced features and services may require a subscription or payment."
     },
     {
-      id: 4,
+      id: 5,
       question: "Can I use on mobile devices?",
       answer: "Yes, DIAGRAM is designed to work across devices with responsive design that works well on tablets and smartphones."
     },
     {
-      id: 5,
+      id: 6,
       question: "How do I contact support?",
       answer: "You can contact our support team through the support section of your account, or send us an email at support@rumahpetani.cloud"
     }

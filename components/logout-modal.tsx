@@ -41,7 +41,7 @@ export function LogoutModal({
     }
   };
 
-  return (
+  return ( 
     <Dialog open={isOpen} onOpenChange={onClose}>
       <Dialog.Content size={"md"}>
         <Dialog.Header>

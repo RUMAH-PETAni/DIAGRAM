@@ -183,9 +183,9 @@ export function Hero({
                       <DrawerTitle className="font-bold text-2xl">Let's Support Us!</DrawerTitle>
                     </DrawerHeader>
                     <div className="p-6 text-center h-full flex items-start justify-center ">
-                      <div className=" bg-opacity-50 p-4 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
+                      <div className=" bg-opacity-50 p-6 md:p-8 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
                         <p className="text-2xl font-bold">
-                        Help our local farmers by planting trees in community forest areas</p>
+                        Help local farmers by planting trees in community forest areas</p>
                         <p className="mt-2">You can donate through our environmental fundraising project at <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
                          <section className="w-full grid grid-cols-2 gap-4 mt-4 p-4">
                         <Button
