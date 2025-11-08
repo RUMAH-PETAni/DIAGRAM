@@ -187,7 +187,7 @@ export function Hero({
                         <p className="text-2xl font-bold">
                         Help our local farmers by planting trees in community forest areas</p>
                         <p className="mt-2">You can donate through our environmental fundraising project at <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
-                         <section className="w-full grid grid-cols-2 gap-4 p-4">
+                         <section className="w-full grid grid-cols-2 gap-4 mt-4 p-4">
                         <Button
                           type="button"
                           className="flex items-center justify-center"
@@ -216,7 +216,7 @@ export function Hero({
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
-                        <TreesIcon/>
+                        <TreesIcon className="size-8"/>
                         </div>
                       </div>
                     </div>
