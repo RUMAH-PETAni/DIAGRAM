@@ -135,20 +135,20 @@ const Navigation = () => {
       
       {/* Settings Drawer */}
       <Drawer open={showSettingsDrawer} onOpenChange={setShowSettingsDrawer} direction="top">
-        <DrawerContent className="h-[40vh] md:h-[50vh] w-full max-w-md mx-auto px-6">
+        <DrawerContent className="h-[30vh] md:h-[40vh] w-full max-w-md mx-auto px-6">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('nav.settings')}</DrawerTitle>
           </DrawerHeader>
-          <div className="p-4 max-w-none space-y-4">
-            <div className="flex items-center justify-between p-3 bg-muted">
+          <div className="p-2 max-w-none">
+            <div className="flex items-center justify-between py-2">
               <span className="font-bold">{t('general.theme')}</span>
               <ThemeSwitcher />
             </div>
-            <div className="flex items-center justify-between p-3 bg-muted">
+            <div className="flex items-center justify-between py-2">
               <span className="font-bold">{t('general.language')}</span>
               <LanguageSwitcher />
             </div>
-            <div className="flex items-center justify-between p-3 bg-muted">
+            <div className="flex items-center justify-between py-2">
               <span className="font-bold">{t('settings.locationAccess')}</span>
               <LocationSettings />
             </div>
