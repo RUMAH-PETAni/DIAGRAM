@@ -135,7 +135,7 @@ const Navigation = () => {
       
       {/* Settings Drawer */}
       <Drawer open={showSettingsDrawer} onOpenChange={setShowSettingsDrawer} direction="top">
-        <DrawerContent className="h-[50vh] w-full max-w-md mx-auto px-6">
+        <DrawerContent className="h-[40vh] md:h-[50vh] w-full max-w-md mx-auto px-6">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('nav.settings')}</DrawerTitle>
           </DrawerHeader>
@@ -153,6 +153,8 @@ const Navigation = () => {
               <LocationSettings />
             </div>
           </div>
+          {/* Bottom handle similar to the top handle for visual consistency */}
+          <div className="mx-auto mb-4 hidden h-2 w-[100px] rounded-full bg-muted group-data-[vaul-drawer-direction=top]/drawer-content:block" />
         </DrawerContent>
       </Drawer>
       
