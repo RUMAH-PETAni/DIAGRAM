@@ -140,15 +140,15 @@ const Navigation = () => {
             <DrawerTitle className="font-bold text-2xl">{t('nav.settings')}</DrawerTitle>
           </DrawerHeader>
           <div className="p-4 max-w-none space-y-4">
-            <div className="flex items-center justify-between p-3 bg-muted">
+            <div className="flex  justify-between p-3 bg-muted">
               <span className="font-bold">{t('general.theme')}</span>
               <ThemeSwitcher />
             </div>
-            <div className="flex items-center justify-between p-3 bg-muted">
+            <div className="flex  justify-between p-3 bg-muted">
               <span className="font-bold">{t('general.language')}</span>
               <LanguageSwitcher />
             </div>
-            <div className="flex items-center justify-between p-3 bg-muted">
+            <div className="flex  justify-between p-3 bg-muted">
               <span className="font-bold">{t('settings.locationAccess')}</span>
               <LocationSettings />
             </div>
