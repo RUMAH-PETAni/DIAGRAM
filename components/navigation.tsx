@@ -15,7 +15,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "@/components/retroui/DrawerCustomTop";
+} from "@/components/retroui/DrawerCustom";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { LocationSettings } from "@/components/location-settings";
@@ -135,7 +135,7 @@ const Navigation = () => {
       
       {/* Settings Drawer */}
       <Drawer open={showSettingsDrawer} onOpenChange={setShowSettingsDrawer} direction="top">
-        <DrawerContent className="h-[40vh] w-full max-w-md mx-auto px-6">
+        <DrawerContent className="h-[30vh] md:h-[40vh] w-full max-w-md mx-auto px-6">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('nav.settings')}</DrawerTitle>
           </DrawerHeader>
