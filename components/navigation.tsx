@@ -135,24 +135,27 @@ const Navigation = () => {
       
       {/* Settings Drawer */}
       <Drawer open={showSettingsDrawer} onOpenChange={setShowSettingsDrawer} direction="top">
-        <DrawerContent className="h-[30vh] md:h-[40vh] w-full max-w-md mx-auto px-6">
+        <DrawerContent className="h-[320px]  w-full max-w-md mx-auto px-6 ">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('nav.settings')}</DrawerTitle>
           </DrawerHeader>
-          <div className="p-2 max-w-none">
-            <div className="flex items-center justify-between py-2">
+          <div className=" max-w-none">
+            
+            <div className="flex items-center justify-between my-2 p-3 bg-muted">
               <span className="font-bold">{t('general.theme')}</span>
               <ThemeSwitcher />
             </div>
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between my-2 p-3 bg-muted">
               <span className="font-bold">{t('general.language')}</span>
               <LanguageSwitcher />
             </div>
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between my-2 p-3 bg-muted">
               <span className="font-bold">{t('settings.locationAccess')}</span>
               <LocationSettings />
             </div>
-          </div>
+            </div>
+             <div className="bg-muted mx-auto mt-2 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=top]/drawer-content:block" />
+          
           
         </DrawerContent>
       </Drawer>
