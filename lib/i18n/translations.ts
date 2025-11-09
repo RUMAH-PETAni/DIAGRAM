@@ -447,7 +447,7 @@ export const translations = {
     'features.opening': 'Membuka...',
     'features.open': 'Buka',
     'features.landMapping': 'Pemetaan Lahan',
-    'features.farmMonitoring': 'Pemantauan Pertanian',
+    'features.farmMonitoring': 'Pemantauan Kebun',
     'features.logActivity': 'Catat Aktivitas',
     'features.extraTools': 'Alat Tambahan',
     'features.aiInsight': 'Wawasan AI',

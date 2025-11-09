@@ -110,7 +110,7 @@ export function Services({
       <h3 className="font-bold text-lg ml-4 my-2">{t('services.onDemand')}</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
         <Card className="p-4">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
+          <div className="flex bg-primary/50 items-center gap-3 mb-2" >
             <Image 
               src="/services1.svg" 
               alt="service 1 Icon" 
@@ -126,7 +126,7 @@ export function Services({
           </p>
         </Card>
         <Card className="p-4">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
+          <div className="flex bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/services2.svg" 
               alt="Services 2 Icon" 
@@ -142,7 +142,7 @@ export function Services({
           </p>
         </Card>
           <Card className="p-4">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
+          <div className="flex bg-primary/50 items-center gap-3 mb-2" >
             <Image 
               src="/services4.svg" 
               alt="service 4 Icon" 
@@ -158,7 +158,7 @@ export function Services({
           </p>
         </Card>
         <Card className="p-4">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
+          <div className="flex bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/services3.svg" 
               alt="services 3 Icon" 
@@ -175,7 +175,7 @@ export function Services({
         </Card>
 
         <Card className="p-4">
-          <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2">
+          <div className="flex bg-primary/50 items-center gap-3 mb-2">
             <Image 
               src="/services6.svg" 
               alt="services 6 Icon" 
