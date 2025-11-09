@@ -146,18 +146,18 @@ export function About({
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('about.storyTitle')}</DrawerTitle>
           </DrawerHeader>
-          <div className="p-6 text-center h-[calc(100%-4rem)] overflow-y-auto w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
-            <div className="bg-opacity-50 inline-block w-full max-w-3xl ">
-              <p className="font-bold text-5xl text-foreground">
+          <div className="p-6 text-center h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
+            <div className="inline-block w-full max-w-3xl ">
+              <p className="font-bold text-3xl md:text-4xl text-foreground">
                 {t('about.storyContent1')}
               </p>
-               <p className="font-bold text-5xl text-foreground">
+               <p className="font-bold text-2xl md:text-4xl text-foreground">
                 {t('about.storyContent2')}
               </p>
-                <p className="font-bold text-3xl text-foreground">
+                <p className="font-bold md:text-2xl text-foreground">
                 {t('about.storyContent3')}
               </p>
-               <p className=" text-foreground">
+               <p className="text-sm md:text-lg text-foreground">
                 {t('about.storyWritten')}, 
                 <span 
                   className="font-bold cursor-pointer hover:underline ml-1 text-primary" 
@@ -166,11 +166,13 @@ export function About({
                   {t('about.storyReadMore')}
                 </span>
               </p>
-              <img
-                src="/tabletmap2.png"
-                alt="Image"
-                className="h-full w-full mt-4"
-              />
+              <div className="aspect-video w-full mt-10 rounded-4xl overflow-hidden">
+                <img
+                  src="/tabletmap1.png"
+                  alt="Image"
+                  className="h-full w-full rounded-4xl object-cover"
+                />
+              </div>
             </div>
           </div>
           {/* Bottom handle for visual consistency */}
@@ -184,7 +186,7 @@ export function About({
           
           <div className="p-4 max-h-[70vh] overflow-auto">
             <iframe 
-              src="/tulisanbondan.pdf" 
+              src="/story.pdf" 
               className="w-full h-[60vh] border-0"
               title="Story PDF"
             />

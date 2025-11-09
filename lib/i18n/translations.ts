@@ -41,7 +41,7 @@ export const translations = {
     'about.storyContent1': 'Planting Hope,',
     'about.storyContent2': 'Crafting The Future:',
     'about.storyContent3': 'From Mat to Digital Map at Register 31.',
-    'about.storyWritten': 'Story written by: Bondan Pergola',
+    'about.storyWritten': 'Written by: B.Pergola',
     'about.storyReadMore': 'read more..',
 
     
@@ -288,7 +288,7 @@ export const translations = {
     'about.storyContent1': 'Menanam Harapan,',
     'about.storyContent2': 'Menyulam Masa Depan:',
     'about.storyContent3': 'Dari Tikar ke Peta Digital di Register 31.',
-    'about.storyWritten': 'Cerita ditulis oleh: Bondan Pergola',
+    'about.storyWritten': 'Ditulis oleh: B.Pergola',
     'about.storyReadMore': 'baca selengkapnya..',
 
     
