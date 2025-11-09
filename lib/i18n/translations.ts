@@ -59,6 +59,19 @@ export const translations = {
     'general.account': 'Account',
     'general.here': 'here',
     'general.cancel': 'Cancel',
+    'general.theme': 'Theme',
+    'general.light': 'Light',
+    'general.dark': 'Dark',
+    
+    // Settings translations
+    'settings.locationAccess': 'Location Access',
+    'settings.currentLocation': 'Current Location',
+    'settings.locationNotActive': 'Location not active',
+    'settings.locationNotSupported': 'Location services are not supported on this device',
+    'settings.locationPermissionDenied': 'Location permission was denied',
+    'settings.enabled': 'Enabled',
+    'settings.disabled': 'Disabled',
+    'settings.enable': 'Enable',
     'general.hello': 'Hello',
     'general.loading': 'Loading...',
     
@@ -75,7 +88,7 @@ export const translations = {
     'faq.mobileSupport': 'Can I use on mobile devices?',
     'faq.mobileSupportAnswer': 'Yes, DIAGRAM is designed to work across devices with responsive design that works well on tablets and smartphones.',
     'faq.contactSupport': 'How do I contact support?',
-    'faq.contactSupportAnswer': 'You can contact our support team through the support section of your account, or send us an email at support@rumahpetani.cloud',
+    'faq.contactSupportAnswer': 'You can contact our support team through send an email to support@rumahpetani.cloud',
     
     // Authentication translations
     'auth.loginTitle': 'Login to your account',
@@ -285,6 +298,19 @@ export const translations = {
     'general.account': 'Akun',
     'general.here': 'di sini',
     'general.cancel': 'Batal',
+    'general.theme': 'Tema',
+    'general.light': 'Terang',
+    'general.dark': 'Gelap',
+    
+    // Settings translations
+    'settings.locationAccess': 'Akses Lokasi',
+    'settings.currentLocation': 'Lokasi Saat Ini',
+    'settings.locationNotActive': 'Lokasi tidak aktif',
+    'settings.locationNotSupported': 'Layanan lokasi tidak didukung pada perangkat ini',
+    'settings.locationPermissionDenied': 'Izin lokasi ditolak',
+    'settings.enabled': 'Aktif',
+    'settings.disabled': 'Non aktif',
+    'settings.enable': 'Aktifkan',
     'general.hello': 'Halo',
     'general.loading': 'Memuat...',
     
@@ -300,8 +326,8 @@ export const translations = {
     'faq.costAnswer': 'Platform ini menawarkan berbagai fitur gratis dan premium. Akses dasar ke alat-alat kami gratis, sementara fitur dan layanan lanjutan mungkin memerlukan langganan atau pembayaran.',
     'faq.mobileSupport': 'Dapatkah saya menggunakan platform ini di perangkat mobile?',
     'faq.mobileSupportAnswer': 'Ya, DIAGRAM dirancang untuk bekerja di berbagai perangkat dengan desain responsif yang bekerja dengan baik di tablet dan smartphone.',
-    'faq.contactSupport': 'Bagaimana cara menghubungi dukungan?',
-    'faq.contactSupportAnswer': 'Anda dapat menghubungi tim dukungan kami melalui bagian dukungan akun Anda, atau kirimkan email ke support@rumahpetani.cloud',
+    'faq.contactSupport': 'Bagaimana cara menghubungi kami?',
+    'faq.contactSupportAnswer': 'Anda dapat menghubungi tim dukungan kami melalui email ke support@rumahpetani.cloud',
     
     // Authentication translations
     'auth.loginTitle': 'Masuk ke akun Anda',

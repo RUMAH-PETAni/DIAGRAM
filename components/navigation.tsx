@@ -9,12 +9,23 @@ import { Text } from "@/components/retroui/Text";
 import Link from "next/link";
 import { FAQDrawer } from "@/components/faq-drawer";
 import { useLanguage } from "@/lib/i18n/context";
+import { 
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
+import { LocationSettings } from "@/components/location-settings";
 
 const Navigation = () => {
   const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
+  const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -27,6 +38,7 @@ const Navigation = () => {
 
   return (
     <>
+      
       <Button 
         className="flex items-center justify-center h-10 w-10 p-0"
         onClick={() => setShowModal(true)}>
@@ -99,7 +111,7 @@ const Navigation = () => {
               className="w-full flex text-xs items-center justify-center"
               onClick={() => {
               setShowModal(false);
-              window.location.href = "/Settings";
+              setShowSettingsDrawer(true);
             }}>
               {t('nav.settings')}
             </Button>
@@ -120,6 +132,30 @@ const Navigation = () => {
           </div>
         </Dialog.Content>
       </Dialog>
+      
+      {/* Settings Drawer */}
+      <Drawer open={showSettingsDrawer} onOpenChange={setShowSettingsDrawer} direction="top">
+        <DrawerContent className="h-[50vh] w-full max-w-md mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">{t('nav.settings')}</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4 max-w-none space-y-4">
+            <div className="flex items-center justify-between p-3 bg-muted">
+              <span className="font-bold">{t('general.theme')}</span>
+              <ThemeSwitcher />
+            </div>
+            <div className="flex items-center justify-between p-3 bg-muted">
+              <span className="font-bold">{t('general.language')}</span>
+              <LanguageSwitcher />
+            </div>
+            <div className="flex items-center justify-between p-3 bg-muted">
+              <span className="font-bold">{t('settings.locationAccess')}</span>
+              <LocationSettings />
+            </div>
+          </div>
+        </DrawerContent>
+      </Drawer>
+      
       <FAQDrawer isOpen={showFAQ} onOpenChange={setShowFAQ} />
     </>
   );
