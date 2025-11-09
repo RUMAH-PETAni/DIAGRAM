@@ -21,13 +21,14 @@ import {
   TooltipTrigger,
 } from "@/components/retroui/Tooltip"
 import { Dialog } from "@/components/retroui/DialogCustom"
+import { useLanguage } from "@/lib/i18n/context";
 
 
 export function Features({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-
+  const { t } = useLanguage();
   const router = useRouter();
   const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
@@ -86,7 +87,7 @@ export function Features({
   return (
     <div className={cn("flex flex-col", className)} {...props}>
       {/* Existing features cards section */}
-      <h3 className="font-bold text-lg ml-4 my-2">Features:</h3> 
+      <h3 className="font-bold text-lg ml-4 my-2">{t('features.features')}</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
         <Card className="p-4 ">
           <div className="flex bg-primary/50 items-center gap-3 mb-2" >
@@ -98,11 +99,11 @@ export function Features({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Data Management</h3>
+            <h3 className="font-bold text-lg">{t('features.dataManagement')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs  text-muted-foreground grow">
-            Manage farmer and land information in one integrated system. Everything is securely stored and easily accessible to support smarter agricultural decisions.
+           {t('features.dataManagementDesc')}
           </p>
           <div className="mt-auto pt-4">
            <section className="flex w-full justify-end">
@@ -112,7 +113,7 @@ export function Features({
             onClick={handleFeature1} 
             disabled={isLoading}
             >
-            {isLoading ? "Opening..." : "Open"}
+            {isLoading ? t('features.opening') : t('features.open')} 
           </Button>
           </section>  
           </div>
@@ -126,11 +127,11 @@ export function Features({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Interactive Map</h3>
+            <h3 className="font-bold text-lg">{t('features.interactiveMap')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
-          Monitor field conditions in real time with interactive maps. Visualize land monitoring data and field activities through a clear and intuitive interface.
+          {t('features.interactiveMapDesc')}
           </p>
           <div className="mt-auto pt-4"> 
             <section className="flex w-full justify-end">
@@ -140,7 +141,7 @@ export function Features({
             onClick={handleFeature2} 
             disabled={isLoading}
             >
-            {isLoading ? "Opening..." : "Open"}
+            {isLoading ? t('features.opening') : t('features.open')} 
           </Button>
           </section>
           </div>
@@ -155,11 +156,11 @@ export function Features({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Agroforestry Market</h3>
+            <h3 className="font-bold text-lg">{t('features.agroforestryMarket')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
-           Connect farmers, buyers, and service providers in a sustainable agricultural ecosystem. Find trusted partners and build a fair and transparent value chain.
+           {t('features.agroforestryMarketDesc')}
           </p>
             <div className="mt-auto pt-4 text-muted"> 
               <TooltipProvider>
@@ -172,12 +173,12 @@ export function Features({
                       className="flex items-center justify-center"
                       disabled={isLoading}
                       >
-                      {isLoading ? "Opening..." : "Open"}                      
+                      {isLoading ? t('features.opening') : t('features.open')}                      
                     </Button>
                     </section>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Feature not avalaible yet</p>
+                    <p>{t('features.notAvailable')}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -187,7 +188,7 @@ export function Features({
       {/* Existing tools cards section */}
       <div className="grid grid-cols-1 gap-8 w-full max-w-full my-6">    
         <div className="w-full">
-          <h3 className="font-bold text-lg ml-4 my-2">Tools:</h3> 
+          <h3 className="font-bold text-lg ml-4 my-2">{t('features.tools')}</h3> 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card className="border p-4 bg-background flex flex-col items-center justify-center">
               <MapPinned className="w-8 h-8 mb-2" />
@@ -199,7 +200,7 @@ export function Features({
                 className="w-full flex text-xs items-center justify-center"
                 onClick={handleLandMapping}
                 >
-                {isLoading ? "Opening..." : "Land Mapping"}
+                {isLoading ? t('features.opening') : t('features.landMapping')}
               </Button>
             </Card>
             <Card className="border p-4 bg-background flex flex-col items-center justify-center">
@@ -211,7 +212,7 @@ export function Features({
                 size="sm"
                 className="w-full flex text-xs items-center justify-center"
                 >
-                {isLoading ? "Opening..." : "Farm Monitoring"}
+                {isLoading ? t('features.opening') : t('features.farmMonitoring')}
               </Button>
             </Card>
             <Card className="border p-4 bg-background flex flex-col items-center justify-center">
@@ -223,7 +224,7 @@ export function Features({
                 size="sm"
                 className="w-full flex text-xs items-center justify-center"
                 >
-                {isLoading ? "Opening..." : "Log Activity"}
+                {isLoading ? t('features.opening') : t('features.logActivity')}
                </Button>
             </Card>
             <Card className="border p-4 bg-background flex flex-col items-center justify-center">
@@ -236,7 +237,7 @@ export function Features({
                 className="w-full flex text-xs items-center justify-center"
                 onClick={handleExtrasClick}
                 >
-                {isLoading ? "Opening..." : "Extra Tools"}
+                {isLoading ? t('features.opening') : t('features.extraTools')}
               </Button>
             </Card>
           </div>
@@ -247,7 +248,7 @@ export function Features({
       <Dialog open={extrasModalOpen} onOpenChange={setExtrasModalOpen}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Extra Tools</Text>
+            <Text as="h5">{t('features.extraToolsTitle')}</Text>
           </Dialog.Header>
 
           <div className="grid grid-cols-2 gap-4 p-4">
@@ -265,7 +266,7 @@ export function Features({
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "AI Insight"}
+                {isLoading ? t('features.opening') : t('features.aiInsight')}
               </Button>
             </Card>
 
@@ -284,7 +285,7 @@ export function Features({
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "Chat Forum"}
+                {isLoading ? t('features.opening') : t('features.chatForum')}
               </Button>
             </Card>
             
@@ -303,7 +304,7 @@ export function Features({
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "Carbon Calc"}
+                {isLoading ? t('features.opening') : t('features.carbonCalc')}
               </Button>
             </Card>
             {/* WHISP Tools Card */}
@@ -320,7 +321,7 @@ export function Features({
                   setExtrasModalOpen(false);
                 }}
               >
-                {isLoading ? "Opening..." : "WHISP Tools"}
+                {isLoading ? t('features.opening') : t('features.whispTools')}
               </Button>
             </Card>
           </div>

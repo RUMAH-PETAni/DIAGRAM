@@ -22,8 +22,8 @@ export function FAQDrawer({ isOpen = false, onOpenChange }: { isOpen?: boolean; 
   const faqs = [
     {
       id: 1,
-      question: t('faq.whoIsRumahpetani'),
-      answer: t('faq.whoIsRumahpetaniAnswer')
+      question: t('faq.aboutRumahpetani'),
+      answer: t('faq.aboutRumahpetaniAnswer')
     },
     {
       id: 2,

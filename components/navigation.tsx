@@ -117,32 +117,6 @@ const Navigation = () => {
               {t('nav.faq')}
             </Button>
             </Card>
-
-            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
-            <Info className="h-8 w-8 mb-2" />
-            <Button
-              size="sm"
-              className="w-full flex text-xs items-center justify-center"
-              onClick={() => {
-              setShowModal(false);
-              window.location.href = "/legal/terms-of-service";
-            }}>
-              {t('nav.terms')}
-            </Button>
-            </Card>
-
-            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
-            <Shield className="h-8 w-8 mb-2" />
-            <Button
-              size="sm"
-              className="w-full flex text-xs items-center justify-center"
-              onClick={() => {
-              setShowModal(false);
-              window.location.href = "/legal/privacy-policy";
-            }}>
-              {t('nav.privacy')}
-            </Button>
-            </Card>
           </div>
         </Dialog.Content>
       </Dialog>

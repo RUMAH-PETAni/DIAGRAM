@@ -43,8 +43,8 @@ export function ForgotPasswordForm({
       if (error) throw error;
       
       // Show success toast instead of changing UI
-      toast.success("Check Your Email", {
-        description: "If you registered using your email and password, you will receive a password reset email.",
+      toast.success(t('auth.toastCheckEmail'), {
+        description: t('auth.toastIfRegistered'),
       });
       
       // Optionally clear the form after successful submission

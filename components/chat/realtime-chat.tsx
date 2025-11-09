@@ -7,6 +7,7 @@ import { useRealtimeChat } from "./use-realtime-chat";
 import { useChatScroll } from "./use-chat-scroll";
 import { ChatMessageItem } from "./chat-message";
 import { Send } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 interface Message {
   id: string;
@@ -29,6 +30,7 @@ export function RealtimeChat({
   currentUserDisplayName,
   initialMessages,
 }: RealtimeChatProps) {
+  const { t } = useLanguage();
   const [message, setMessage] = useState("");
   const { messages, sendMessage: originalSendMessage, isConnected } = useRealtimeChat({
     roomId,
@@ -97,7 +99,7 @@ export function RealtimeChat({
           <Input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your message..."
+            placeholder={t('chat.typeMessage')}
             disabled={!isConnected}
           />
           <Button type="submit" disabled={!isConnected || message.trim() === ""}>
@@ -105,7 +107,7 @@ export function RealtimeChat({
           </Button>
         </form>
         <p className="mt-2 text-center text-sm text-muted-foreground">
-          {isConnected ? "Connected" : "Connecting..."}
+          {isConnected ? t('chat.connected') : t('chat.connecting')}
         </p>
       </div>
     </div>

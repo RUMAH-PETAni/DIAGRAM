@@ -24,13 +24,14 @@ import { toast } from "sonner";
 import { createServiceRequest } from "@/lib/services/requests";
 import { Input } from "./retroui/InputCustom"
 import { Label } from "./retroui/Label"
+import { useLanguage } from "@/lib/i18n/context";
 
 
 export function Services({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-
+  const { t } = useLanguage();
   const router = useRouter();
   const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
@@ -58,11 +59,11 @@ export function Services({
   
     // Services list for request modal
   const servicesList = [
-    { title: "SWApeta | Social Forestry" },
-    { title: "Aerial Survey & Mapping" },
-    { title: "Planting & Monitoring" },
-    { title: "Land Carbon Accounting" },
-    { title: "Research & Development" },
+    { title: t('services.socialForestry') },
+    { title: t('services.aerialSurvey') },
+    { title: t('services.plantingMonitoring') },
+    { title: t('services.landCarbon') },
+    { title: t('services.researchDevelopment') },
   ];
   
   const toggleService = (index: number) => {
@@ -88,7 +89,7 @@ export function Services({
         // Show success toast notification
         // NOTE: To make toast work, add the Toaster component to your root layout
         // Import Toaster from "@/components/ui/sonner" and add <Toaster /> to app/layout.tsx
-        toast.success("Your request has been successfully sent, our team will contact you via email soon");
+        toast.success(t('services.requestSuccess'));
       } else {
         toast.error("Failed to submit request. Please try again.");
         console.error("Error submitting service request:", result.error);
@@ -106,7 +107,7 @@ export function Services({
   return (
     <div className={cn("flex flex-col", className)} {...props}>
       {/* Existing features cards section */}
-      <h3 className="font-bold text-lg ml-4 my-2">On Demand Services:</h3> 
+      <h3 className="font-bold text-lg ml-4 my-2">{t('services.onDemand')}</h3> 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full">
         <Card className="p-4">
           <div className="flex rounded-lg bg-primary/50 items-center gap-3 mb-2" >
@@ -117,11 +118,11 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">SWApeta | Social Forestry</h3>
+            <h3 className="font-bold text-lg">{t('services.socialForestry')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs  text-muted-foreground grow">
-            Empowering community forest management through digital mapping and data-driven insights.
+            {t('services.socialForestryDesc')}
           </p>
         </Card>
         <Card className="p-4">
@@ -133,11 +134,11 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Aerial Survey & Mapping</h3>
+            <h3 className="font-bold text-lg">{t('services.aerialSurvey')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
-        High-resolution aerial imagery for precise land mapping and environmental monitoring.
+            {t('services.aerialSurveyDesc')}
           </p>
         </Card>
           <Card className="p-4">
@@ -149,11 +150,11 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Planting & Monitoring</h3>
+            <h3 className="font-bold text-lg">{t('services.plantingMonitoring')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs  text-muted-foreground grow">
-            Plan, track, and verify tree planting activities with real-time digital monitoring tools.
+            {t('services.plantingMonitoringDesc')}
           </p>
         </Card>
         <Card className="p-4">
@@ -165,11 +166,11 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Land Carbon Accounting</h3>
+            <h3 className="font-bold text-lg">{t('services.landCarbon')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
-          Measure and analyze land-based carbon stocks to support climate action initiatives.
+          {t('services.landCarbonDesc')}
           </p>
         </Card>
 
@@ -182,17 +183,17 @@ export function Services({
               height={64}
               className={`w-16 h-16 text-primary ${mounted && theme === 'dark' ? 'invert' : ''}`}
             />
-            <h3 className="font-bold text-lg">Research & Development</h3>
+            <h3 className="font-bold text-lg">{t('services.researchDevelopment')}</h3>
           </div>
           <Separator className="my-3" />
           <p className="text-xs text-muted-foreground grow">
-           Advancing sustainable agriculture through data analysis, innovation, and field research.
+           {t('services.researchDevelopmentDesc')}
           </p>
         </Card>
       
         <Card className="p-4">
           <p className="text-sm  text-foreground grow">
-            Choose your service request, and our dedicated team will review your needs and contact you via email for further discussion.
+            {t('services.chooseRequest')}
           </p>
           <div className="mt-auto w-full pt-4"> 
             <Button 
@@ -203,18 +204,18 @@ export function Services({
               }}
               disabled={isLoading}
               >
-              {isLoading ? "Requesting..." : "Services Request"}
+              {isLoading ? t('services.requesting') : t('services.servicesRequest')}
             </Button>
           </div>
         </Card>
       </div>
-      <p className="font-bold text-sm text-center my-6">We provide comprehensive sustainability consulting services designed to support your environmental and operational goals.</p>
+      <p className="font-bold text-sm text-center my-6">{t('services.comprehensive')}</p>
       
       {/* Request Services Dialog */}
       <Dialog open={requestModalOpen} onOpenChange={setRequestModalOpen}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Services Request</Text>
+            <Text as="h5">{t('services.servicesRequest')}</Text>
           </Dialog.Header>          
           <div className="space-y-3 p-4">
             {servicesList.map((service, index) => (
@@ -246,7 +247,7 @@ export function Services({
               onClick={handleRequestRequest}
               disabled={selectedServices.length === 0}
             >
-              Send Request
+              {t('services.sendRequest')}
             </Button>
           </section>
           </div>

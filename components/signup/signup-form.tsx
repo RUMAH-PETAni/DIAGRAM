@@ -76,8 +76,8 @@ export function SignupForm({
       if (error) throw error;
       
       // Show success toast instead of modal
-      toast.success("Registration Successful!", {
-        description: `Please check your email to verify your account. Confirmation email has been sent to: ${email}`,
+      toast.success(t('auth.toastCheckReg'), {
+        description: `${t('auth.toastCheckEmailReg')} ${email}`,
       });
       
       // Reset form fields after successful registration

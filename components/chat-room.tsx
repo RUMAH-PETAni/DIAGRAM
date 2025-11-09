@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { RealtimeChat } from "@/components/chat/realtime-chat";
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/retroui/CardCustom";
+import { useLanguage } from "@/lib/i18n/context";
 
 interface Message {
   id: string;
@@ -15,6 +16,7 @@ interface Message {
 }
 
 export default function ChatRoom() {
+  const { t } = useLanguage();
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -74,7 +76,7 @@ export default function ChatRoom() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-10">
-        <p>Loading discussion...</p>
+        <p>{t('chat.loadingDiscussion')}</p>
       </div>
     );
   }
@@ -82,7 +84,7 @@ export default function ChatRoom() {
   if (!user) {
     return (
       <div className="flex items-center justify-center py-10">
-        <p>Please log in to access the forum.</p>
+        <p>{t('chat.loginToAccessForum')}</p>
       </div>
     );
   }
@@ -91,8 +93,8 @@ export default function ChatRoom() {
     <div className="w-full max-w-4xl mx-auto">
       <Card className="h-[70vh] flex flex-col">
         <CardHeader>
-          <CardTitle>Chat Forum</CardTitle>
-          <p className="text-sm text-muted-foreground">Room: general</p>
+          <CardTitle>{t('chat.chatForum')}</CardTitle>
+          <p className="text-sm text-muted-foreground">{t('chat.roomGeneral')}</p>
         </CardHeader>
         <CardContent className="flex-1 p-0 overflow-hidden">
           {user ? (

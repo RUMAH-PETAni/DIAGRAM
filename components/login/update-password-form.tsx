@@ -20,6 +20,7 @@ import { Text } from "@/components/retroui/Text"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/context";
+import { toast } from "sonner"
 
 export function UpdatePasswordForm({
   className,
@@ -40,8 +41,14 @@ export function UpdatePasswordForm({
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
+
+      // Show success toast
+      toast.success(t('auth.toastUpdatePassword'), {
+        description: t('auth.toastSuccessPassowrd'),
+      });
       // Update this route to redirect to an authenticated route. The user already has an active session.
       router.push("/auth/login");
+
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

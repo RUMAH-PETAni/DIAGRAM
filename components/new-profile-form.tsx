@@ -23,6 +23,7 @@ import { toast } from "sonner"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { useLanguage } from "@/lib/i18n/context";
 
 interface Profile {
   id: string;
@@ -40,6 +41,7 @@ export function NewProfileForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { t } = useLanguage();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [formData, setFormData] = useState<Partial<Profile>>({});
   const [error, setError] = useState<string | null>(null);
@@ -295,8 +297,8 @@ export function NewProfileForm({
       setProfile(prev => prev ? { ...prev, ...formData } as Profile : null);
 
       // Show success toast
-      toast("Profile Updated", {
-        description: "Your profile has been updated successfully.",
+      toast.success(t('profile.toastSaveProfile'), {
+        description: t('profile.toastSaveProfile'),
       });
       
       // Navigate to home page after successful save
@@ -312,7 +314,7 @@ export function NewProfileForm({
   if (isLoading && !isInitialized) {
     return (
       <div className={cn("flex flex-col gap-6 items-center justify-center", className)} {...props}>
-        <p>Loading profile...</p>
+        <p>{t('profile.loadingProfile')}.</p>
       </div>
     );
   }
@@ -323,7 +325,7 @@ export function NewProfileForm({
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="p-6 md:p-8  ">
             <div className="relative flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold mb-4">Complete Your Profile</h1>
+              <h1 className="text-2xl font-bold mb-4">{t('profile.completeProfile')}</h1>
               <div className="w-55 h-55 rounded-full overflow-hidden border-2 border-black">
                 {profile?.avatar_url ? (
                   <img 
@@ -344,7 +346,7 @@ export function NewProfileForm({
                   size="sm" 
                   onClick={openAvatarModal}
                 >
-                  Change
+                  {t('profile.change')} 
                 </Button>
               </div>
             </div>
@@ -364,53 +366,53 @@ export function NewProfileForm({
           <div className="p-6 md:p-8">
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="full_name">Full Name</FieldLabel>
+                <FieldLabel htmlFor="full_name">{t('profile.fullName')}</FieldLabel>
                 <Input
                   id="full_name"
                   name="full_name"
                   value={formData.full_name || ''}
                   onChange={handleChange}
-                  placeholder="Enter full name"
+                  placeholder={t('profile.fullNamePlaceholder')}
                 />
               </Field>
               
               <Field className="grid grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor="gender">Gender</FieldLabel>
+                  <FieldLabel htmlFor="gender">{t('profile.gender')}</FieldLabel>
                   <Select 
                     name="gender" 
                     value={formData.gender || ''} 
                     onValueChange={(value) => handleSelectChange('gender', value)}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select gender" />
+                      <SelectValue placeholder={t('profile.genderPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
+                      <SelectItem value="Male">{t('profile.genderMale')} </SelectItem>
+                      <SelectItem value="Female">{t('profile.genderFemale')} </SelectItem>
                     </SelectContent>
                   </Select>
                 </Field>
                 
                 <Field>
-                  <FieldLabel htmlFor="phone">Phone</FieldLabel>
+                  <FieldLabel htmlFor="phone">{t('profile.phone')} </FieldLabel>
                   <Input
                     id="phone"
                     name="phone"
                     value={formData.phone || ''}
                     onChange={handleChange}
-                    placeholder="Enter phone number"
+                    placeholder={t('profile.phonePlaceholder')}
                   />
                 </Field>
               </Field>
               <Field>
-                <FieldLabel htmlFor="address">Address</FieldLabel>
+                <FieldLabel htmlFor="address">{t('profile.address')}</FieldLabel>
                 <Input
                   id="address"
                   name="address"
                   value={formData.address || ''}
                   onChange={handleChange}
-                  placeholder="Enter address"
+                  placeholder={t('profile.addressPlaceholder')}
                 />
               </Field>
               <Field>
@@ -420,7 +422,7 @@ export function NewProfileForm({
                   disabled={isSaving || !formData.full_name || !formData.phone || !formData.gender || !formData.address}
                   className="w-full flex items-center justify-center"
                 >
-                  {isSaving ? "Saving profile..." : "Save profile"}
+                  {isSaving ? t('profile.savingProfile') : t('profile.saveProfile') }
                 </Button>
               </Field>
               
@@ -437,7 +439,7 @@ export function NewProfileForm({
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Choose your avatar</Text>
+            <Text as="h5">{t('profile.chooseAvatar')}</Text>
           </Dialog.Header>
           <section className="flex flex-col gap-4 p-4">      
             <div className="space-y-6">
@@ -465,7 +467,7 @@ export function NewProfileForm({
                 variant="outline" 
                 onClick={() => setIsModalOpen(false)}
               >
-                Cancel
+                {t('general.cancel')}
               </Button>
               <Button 
                 type="button" 
@@ -473,12 +475,12 @@ export function NewProfileForm({
                 onClick={() => selectedAvatar && handleAvatarSelect(selectedAvatar)}
                 disabled={!selectedAvatar}
               >
-                Select Avatar
+                {t('profile.selectAvatar')}
               </Button>
             </div>
 
             <div className="flex flex-col my-2 gap-2">
-              <Label>or you can upload image from your devices</Label>
+              <Label>{t('profile.uploadImage')}</Label>
               <Input
                 type="file"
                 accept="image/*"

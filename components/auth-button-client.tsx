@@ -88,7 +88,7 @@ export function AuthButtonClient() {
   };
 
   if (loading) {
-    return <div className="flex items-center gap-2">Loading...</div>;
+    return <div className="flex items-center gap-2">{t('general.loading')}</div>;
   }
 
   if (userData) {

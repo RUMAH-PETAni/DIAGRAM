@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "next-themes";
 import { Send, Bot, User, XIcon } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 import { 
   Sheet, 
   SheetContent, 
@@ -31,13 +32,14 @@ interface ChatSheetProps {
 }
 
 export function ChatSheet({ children }: ChatSheetProps) {
+  const { t } = useLanguage();
   const router = useRouter();
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = React.useState(false);
   const [messages, setMessages] = React.useState<Message[]>([
     {
       id: "1",
-      content: "Hello! I'm your Assistant. How can I help you with agriculture today?",
+      content: t('chat_sheet.welcomeMessage'),
       role: "assistant",
       timestamp: new Date(),
     }
@@ -105,7 +107,7 @@ export function ChatSheet({ children }: ChatSheetProps) {
       
       const errorMessage: Message = {
         id: Date.now().toString(),
-        content: "Sorry, I encountered an error. Please try again.",
+        content: t('chat_sheet.errorMessage'),
         role: "assistant",
         timestamp: new Date(),
       };
@@ -127,7 +129,7 @@ export function ChatSheet({ children }: ChatSheetProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bot className="w-5 h-5 text-primary" />
-                <SheetTitle className="text-lg">AI-Gronomist</SheetTitle>
+                <SheetTitle className="text-lg">{t('chat_sheet.aiAgronomist')}</SheetTitle>
               </div>
               <SheetClose asChild>
         
@@ -203,7 +205,7 @@ export function ChatSheet({ children }: ChatSheetProps) {
                 ref={inputRef}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about agriculture, crops, soil, weather..."
+                placeholder={t('chat_sheet.askPlaceholder')}
                 className="flex-1"
                 disabled={isLoading}
               />
@@ -217,8 +219,8 @@ export function ChatSheet({ children }: ChatSheetProps) {
               </Button>
             </form>
             <p className="text-xs text-muted-foreground mt-2 text-center">
-              AI can make mistakes, Be specific for the best results.
-              <br/>Powered by OpenAI GPT-4o-mini
+              {t('chat_sheet.infoMessage')}
+              <br/>{t('chat_sheet.poweredBy')}
             </p>
           </div>
         </SheetContent>

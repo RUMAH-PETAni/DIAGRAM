@@ -23,6 +23,7 @@ import { toast } from "sonner"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/lib/i18n/context";
 
 interface Profile {
   id: string;
@@ -43,7 +44,7 @@ export function Profile({
   isModal = false,
   ...props
 }: React.ComponentProps<"div"> & { onClose?: () => void, router?: any, isModal?: boolean }) {
-
+  const { t } = useLanguage();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [formData, setFormData] = useState<Partial<Profile>>({});
   const [error, setError] = useState<string | null>(null);
@@ -294,8 +295,8 @@ export function Profile({
       setProfile(prev => prev ? { ...prev, ...formData } as Profile : null);
       
       // Show success toast
-      toast("Profile Updated", {
-        description: "Your profile has been updated successfully.",
+      toast.success(t('profile.toastUpdate'), {
+        description: t('profile.toastSucces'),
       });
       
       // Close the modal if onClose is provided
@@ -315,8 +316,8 @@ export function Profile({
       setError('Failed to update profile. Please try again.');
       
       // Show error toast
-      toast.error("Error", {
-        description: "Failed to update profile. Please try again.",
+      toast.error(t('profile.toastError'), {
+        description: t('profile.toastErrorDesc'),
       });
     } finally {
       setIsSaving(false);
@@ -326,7 +327,7 @@ export function Profile({
   if (isLoading && !isInitialized) {
     return (
       <div className={cn("flex flex-col gap-6 items-center justify-center", className)} {...props}>
-        <p>Loading profile...</p>
+        <p>{t('profile.loadingProfile')}</p>
       </div>
     );
   }
@@ -337,7 +338,7 @@ export function Profile({
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="p-6 md:p-8 ">
             <div className="relative flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold mb-4">Account Profile</h1>
+              <h1 className="text-2xl font-bold mb-4">{t('profile.accountProfile')}</h1>
               <div className="w-55 h-55 rounded-full overflow-hidden border-2 border-black">
                 {profile?.avatar_url ? (
                   <img 
@@ -358,7 +359,7 @@ export function Profile({
                   size="sm" 
                   onClick={openAvatarModal}
                 >
-                  Change
+                  {t('profile.change')} 
                 </Button>
               </div>
             </div>
@@ -378,31 +379,31 @@ export function Profile({
             <FieldGroup>
               <Field className="grid grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor="username">Username</FieldLabel>
+                  <FieldLabel htmlFor="username">{t('profile.username')}</FieldLabel>
                   <Input
                     id="username"
                     name="username"
                     value={formData.username || ''}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    placeholder="Enter username"
+                    placeholder={t('profile.usernamePlaceholder')}
                   />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="full_name">Full Name</FieldLabel>
+                  <FieldLabel htmlFor="full_name">{t('profile.fullName')}</FieldLabel>
                   <Input
                     id="full_name"
                     name="full_name"
                     value={formData.full_name || ''}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    placeholder="Enter full name"
+                    placeholder={t('profile.fullNamePlaceholder')}
                   />
                 </Field>
               </Field>
               <Field className="grid grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor="gender">Gender</FieldLabel>
+                  <FieldLabel htmlFor="gender">{t('profile.gender')}</FieldLabel>
                   <Select 
                     name="gender" 
                     value={formData.gender || ''} 
@@ -410,16 +411,16 @@ export function Profile({
                     disabled={!isEditing}
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select gender" />
+                      <SelectValue placeholder={t('profile.genderPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
+                      <SelectItem value="Male">{t('profile.genderMale')} </SelectItem>
+                      <SelectItem value="Female">{t('profile.genderFemale')} </SelectItem>
                     </SelectContent>
                   </Select>
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="phone">Phone</FieldLabel>
+                  <FieldLabel htmlFor="phone">{t('profile.phone')}</FieldLabel>
                   <Input
                     id="phone"
                     name="phone"
@@ -427,12 +428,12 @@ export function Profile({
                     onChange={handleChange}
                     disabled={!isEditing}
                     className="w-full"
-                    placeholder="Enter phone number"
+                    placeholder={t('profile.phonePlaceholder')}
                   />
                 </Field>
               </Field>
               <Field>
-                <FieldLabel htmlFor="address">Address</FieldLabel>
+                <FieldLabel htmlFor="address">{t('profile.address')}</FieldLabel>
                 <Input
                   id="address"
                   name="address"
@@ -440,7 +441,7 @@ export function Profile({
                   onChange={handleChange}
                   disabled={!isEditing}
               
-                  placeholder="Enter address"
+                  placeholder={t('profile.addressPlaceholder')}
                 />
               </Field>
               <div className="grid grid-cols-2 gap-4">
@@ -450,7 +451,7 @@ export function Profile({
                 type="button"
                 onClick={() => setIsEditing(!isEditing)}
                 >
-                {isEditing ? 'Cancel' : 'Edit Profile'}
+                {isEditing ? t('profile.cancel') : t('profile.editProfile')}
               </Button>
               {isEditing && (
                 <Field>
@@ -460,7 +461,7 @@ export function Profile({
                     onClick={handleSubmit} 
                     disabled={isSaving}
                   >
-                    {isSaving ? "Saving profile..." : "Save Changes"}
+                    {isSaving ? t('profile.savingProfile') : t('profile.saveProfile')}
                   </Button>
                 </Field>
               )}
@@ -477,7 +478,7 @@ export function Profile({
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Choose your avatar</Text>
+            <Text as="h5">{t('profile.chooseAvatar')}</Text>
           </Dialog.Header>
             <section className="flex flex-col gap-4 p-4">
               <div className="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto">
@@ -502,7 +503,7 @@ export function Profile({
                   variant="outline" 
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Cancel
+                  {t('general.cancel')}
                 </Button>
                 <Button
                   className="flex items-center justify-center" 
@@ -510,7 +511,7 @@ export function Profile({
                   onClick={() => selectedAvatar && handleAvatarSelect(selectedAvatar)}
                   disabled={!selectedAvatar}
                 >
-                  Select Avatar
+                  {t('profile.selectAvatar')}
                 </Button>
               </div>
             <div className="flex flex-col my-2 gap-2">
