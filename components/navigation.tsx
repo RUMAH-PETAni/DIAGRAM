@@ -15,7 +15,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "@/components/retroui/DrawerCustom";
+} from "@/components/retroui/DrawerCustomTop";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { LocationSettings } from "@/components/location-settings";
@@ -153,8 +153,7 @@ const Navigation = () => {
               <LocationSettings />
             </div>
           </div>
-          {/* Bottom handle similar to the top handle for visual consistency */}
-          <div className="mx-auto mb-4 hidden h-2 w-[100px] rounded-full bg-muted group-data-[vaul-drawer-direction=top]/drawer-content:block" />
+          
         </DrawerContent>
       </Drawer>
       
