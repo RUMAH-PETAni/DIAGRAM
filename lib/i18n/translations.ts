@@ -317,7 +317,7 @@ export const translations = {
     // FAQ translations
     'faq.title': 'Pertanyaan yang Sering Diajukan',
     'faq.aboutRumahpetani': 'Tentang RUMAHPETAni?',
-    'faq.aboutRumahpetaniAnswer': 'RUMAH PETANI adalah sebuah komunitas yang digerakkan oleh semangat inovasi dan komitmen untuk mendukung para petani skala kecil. Kami memberdayakan mereka untuk mengelola dan memanfaatkan sumber daya alam secara berkelanjutan dan bertanggung jawab.',
+    'faq.aboutRumahpetaniAnswer': 'RUMAH PETANI adalah sebuah komunitas yang digerakkan oleh semangat inovasi dan komitmen untuk mendukung para petani skala kecil. Kami memberdayakan mereka untuk mengelola dan memanfaatkan sumber daya alam secara lestari dan bertanggung jawab.',
     'faq.whatIsDiagram': 'Apa itu DIAGRAM?',
     'faq.whatIsDiagramAnswer': 'DIAGRAM adalah Ekosistem Digital untuk Manajemen Agroforestri yang memberdayakan para petani skala kecil dengan pertanian tepat iklim, solusi berbasis data, teknologi berkelanjutan, dan alat-alat agroforestri presisi.',
     'faq.howToGetStarted': 'Bagaimana cara memulainya?',
@@ -452,7 +452,7 @@ export const translations = {
     'features.extraTools': 'Alat Tambahan',
     'features.aiInsight': 'Wawasan AI',
     'features.chatForum': 'Forum Obrolan',
-    'features.carbonCalc': 'Kalkulator Karbon',
+    'features.carbonCalc': 'Hitung Karbon',
     'features.whispTools': 'Alat WHISP',
     'features.extraToolsTitle': 'Alat Tambahan',
     

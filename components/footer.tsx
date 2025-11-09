@@ -70,6 +70,15 @@ export function Footer() {
   return (
     <footer className="w-full flex flex-col items-center justify-center mx-auto text-center gap-3 py-6">
       <div className="flex gap-4">
+         <button
+          type="button"
+          className="underline cursor-pointer hover:text-foreground transition-colors"
+          onClick={async () => {
+            setShowFAQ(true);
+          }}
+        >
+          {t('nav.faq')}
+        </button>
         <button
           type="button"
           className="underline cursor-pointer hover:text-foreground transition-colors"
@@ -90,15 +99,7 @@ export function Footer() {
         >
           {t('nav.privacy')}
         </button>
-        <button
-          type="button"
-          className="underline cursor-pointer hover:text-foreground transition-colors"
-          onClick={async () => {
-            setShowFAQ(true);
-          }}
-        >
-          {t('nav.faq')}
-        </button>
+       
       </div>
       
       {/* Terms of Service drawer */}
