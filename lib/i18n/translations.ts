@@ -35,8 +35,14 @@ export const translations = {
     'about.quote': '"Bung Karno wanted to emphasize that farming is not just a profession, but the foundation of the nation\'s life. From the hands of farmers comes the food that satisfies us and strengthens us to remain sovereign. This legacy of thought reminds us that food security is key to national independence. Therefore, respecting and supporting farmers means safeguarding Indonesia\'s future."',
     'about.support': 'Let\'s continue to support the struggle of our farmers, the true pillars of this country.',
     'about.home': 'Home',
-    'about.story': 'See our story',
+    'about.story': 'See their story',
     'about.title': 'About',
+    'about.storyTitle': 'FOREST, HOPE & FUTURE',
+    'about.storyContent1': 'Planting Hope,',
+    'about.storyContent2': 'Crafting The Future:',
+    'about.storyContent3': 'From Mat to Digital Map at Register 31.',
+    'about.storyWritten': 'Written by: Bondan Pergola',
+
     
     // Navigation translations
     'nav.home': 'Home',
@@ -274,8 +280,13 @@ export const translations = {
     'about.quote': '"Bung Karno ingin menekankan bahwa bertani bukan hanya sebuah profesi, tetapi fondasi kehidupan bangsa. Dari tangan para petani datang makanan yang memuaskan kita dan memperkuat kita untuk tetap berdaulat. Warisan pikiran ini mengingatkan kita bahwa ketahanan pangan adalah kunci kemerdekaan nasional. Karena itu, menghormati dan mendukung para petani berarti menjaga masa depan Indonesia."',
     'about.support': 'Mari terus dukung perjuangan para petani kita, pilar sejati negeri ini.',
     'about.home': 'Beranda',
-    'about.story': 'Lihat cerita kami',
+    'about.story': 'Lihat cerita mereka',
     'about.title': 'Tentang',
+    'about.storyTitle': 'HUTAN, HARAPAN & MASA DEPAN',
+    'about.storyContent1': 'Menanam Harapan,',
+    'about.storyContent2': 'Menyulam Masa Depan:',
+    'about.storyContent3': 'Dari Tikar ke Peta Digital di Register 31.',
+    'about.storyWritten': 'Ditulis oleh: Bondan Pergola',
     
     // Navigation translations
     'nav.home': 'Beranda',

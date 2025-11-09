@@ -12,6 +12,12 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useLanguage } from "@/lib/i18n/context"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
 
 export function About({
   className,
@@ -25,6 +31,11 @@ export function About({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { theme } = useTheme();
   const router = useRouter();
+  const [showStoryDrawer, setShowStoryDrawer] = useState(false);
+
+  const handleStoryClick = () => {
+    setShowStoryDrawer(true);
+  };
 
   useEffect(() => {
    
@@ -100,9 +111,12 @@ export function About({
               </FieldDescription>
               <FieldDescription className="text-sm text-foreground text-left">
                 {t('about.support')}&nbsp;
-                <Link href="/story" className="font-bold cursor-pointer">
-                    {t('about.story')} &#8599;
-                  </Link>
+                <span 
+                  className="font-bold cursor-pointer hover:underline" 
+                  onClick={handleStoryClick}
+                >
+                  {t('about.story')} &#8599;
+                </span>
               </FieldDescription>
               <FieldDescription className="text-right">
                 <Link href="/" className="text-primary font-bold cursor-pointer">
@@ -114,6 +128,38 @@ export function About({
           
         </CardContent>
       </Card>
+
+      {/* Story Drawer */}
+      <Drawer open={showStoryDrawer} onOpenChange={setShowStoryDrawer} direction="top">
+        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">{t('about.storyTitle')}</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-6 text-center h-[calc(100%-4rem)] overflow-y-auto w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
+            <div className="bg-opacity-50 inline-block w-full max-w-3xl ">
+              <p className="font-bold text-5xl text-left text-foreground">
+                {t('about.storyContent1')}
+              </p>
+               <p className="font-bold text-5xl text-left text-foreground">
+                {t('about.storyContent2')}
+              </p>
+                <p className="font-bold text-3xl text-left text-foreground">
+                {t('about.storyContent3')}
+              </p>
+               <p className="text-left text-foreground">
+                {t('about.storyWritten')}
+              </p>
+              <img
+                src="/tabletmap2.png"
+                alt="Image"
+                className="h-full w-full mt-4"
+              />
+            </div>
+          </div>
+          {/* Bottom handle for visual consistency */}
+          <div className="mx-auto mb-4 hidden h-2 w-[100px] rounded-full bg-muted group-data-[vaul-drawer-direction=top]/drawer-content:block" />
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }
