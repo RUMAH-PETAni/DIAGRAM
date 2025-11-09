@@ -41,7 +41,8 @@ export const translations = {
     'about.storyContent1': 'Planting Hope,',
     'about.storyContent2': 'Crafting The Future:',
     'about.storyContent3': 'From Mat to Digital Map at Register 31.',
-    'about.storyWritten': 'Written by: Bondan Pergola',
+    'about.storyWritten': 'Story written by: Bondan Pergola',
+    'about.storyReadMore': 'read more..',
 
     
     // Navigation translations
@@ -68,6 +69,7 @@ export const translations = {
     'general.theme': 'Theme',
     'general.light': 'Light',
     'general.dark': 'Dark',
+    'general.close': 'Close',
     
     // Settings translations
     'settings.locationAccess': 'Location Access',
@@ -286,7 +288,9 @@ export const translations = {
     'about.storyContent1': 'Menanam Harapan,',
     'about.storyContent2': 'Menyulam Masa Depan:',
     'about.storyContent3': 'Dari Tikar ke Peta Digital di Register 31.',
-    'about.storyWritten': 'Ditulis oleh: Bondan Pergola',
+    'about.storyWritten': 'Cerita ditulis oleh: Bondan Pergola',
+    'about.storyReadMore': 'baca selengkapnya..',
+
     
     // Navigation translations
     'nav.home': 'Beranda',
@@ -312,6 +316,7 @@ export const translations = {
     'general.theme': 'Tema',
     'general.light': 'Terang',
     'general.dark': 'Gelap',
+    'general.close': 'Tutup',
     
     // Settings translations
     'settings.locationAccess': 'Akses Lokasi',

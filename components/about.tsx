@@ -18,6 +18,9 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/retroui/DrawerCustom";
+import { Dialog } from "@/components/retroui/DialogCustom";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Button } from "./retroui/ButtonCustom";
 
 export function About({
   className,
@@ -32,9 +35,17 @@ export function About({
   const { theme } = useTheme();
   const router = useRouter();
   const [showStoryDrawer, setShowStoryDrawer] = useState(false);
+  const [showPDFModal, setShowPDFModal] = useState(false);
 
   const handleStoryClick = () => {
     setShowStoryDrawer(true);
+  };
+
+  const handleReadMoreClick = () => {
+    setShowStoryDrawer(false); // Close the drawer first
+    setTimeout(() => {
+      setShowPDFModal(true); // Then open the PDF modal
+    }, 300); // Delay to allow drawer closing animation to complete
   };
 
   useEffect(() => {
@@ -137,17 +148,23 @@ export function About({
           </DrawerHeader>
           <div className="p-6 text-center h-[calc(100%-4rem)] overflow-y-auto w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
             <div className="bg-opacity-50 inline-block w-full max-w-3xl ">
-              <p className="font-bold text-5xl text-left text-foreground">
+              <p className="font-bold text-5xl text-foreground">
                 {t('about.storyContent1')}
               </p>
-               <p className="font-bold text-5xl text-left text-foreground">
+               <p className="font-bold text-5xl text-foreground">
                 {t('about.storyContent2')}
               </p>
-                <p className="font-bold text-3xl text-left text-foreground">
+                <p className="font-bold text-3xl text-foreground">
                 {t('about.storyContent3')}
               </p>
-               <p className="text-left text-foreground">
-                {t('about.storyWritten')}
+               <p className=" text-foreground">
+                {t('about.storyWritten')}, 
+                <span 
+                  className="font-bold cursor-pointer hover:underline ml-1 text-primary" 
+                  onClick={handleReadMoreClick}
+                >
+                  {t('about.storyReadMore')}
+                </span>
               </p>
               <img
                 src="/tabletmap2.png"
@@ -160,6 +177,28 @@ export function About({
           <div className="mx-auto mb-4 hidden h-2 w-[100px] rounded-full bg-muted group-data-[vaul-drawer-direction=top]/drawer-content:block" />
         </DrawerContent>
       </Drawer>
+
+      {/* PDF Modal */}
+      <Dialog open={showPDFModal} onOpenChange={setShowPDFModal}>
+        <Dialog.Content size="screen" className="max-w-5xl max-h-[90vh] overflow-hidden">
+          
+          <div className="p-4 max-h-[70vh] overflow-auto">
+            <iframe 
+              src="/tulisanbondan.pdf" 
+              className="w-full h-[60vh] border-0"
+              title="Story PDF"
+            />
+          </div>
+          <Dialog.Footer className="border-t-2 px-4 py-2 flex items-center justify-end gap-2">
+            <Button 
+              
+              onClick={() => setShowPDFModal(false)}
+            >
+              {t('general.close')}
+            </Button>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog>
     </div>
   )
 }
