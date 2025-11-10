@@ -19,6 +19,13 @@ import { Dialog } from "@/components/retroui/DialogCustom"
 import { Text } from "@/components/retroui/Text"
 import { ForgotPasswordForm } from "@/components/login/forgot-password-form"
 import { useLanguage } from "@/lib/i18n/context";
+import { SignupForm } from "@/components/signup/signup-form";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
 
 export function LoginForm({
   className,
@@ -31,6 +38,7 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showSignupDrawer, setShowSignupDrawer] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -106,13 +114,7 @@ export function LoginForm({
                   {error}
                 </div>
               )}
-        
-                <FieldDescription className="text-left">
-                  {t('auth.noAccount')}{" "}
-                  <Link href="/auth/sign-up" className="font-bold cursor-pointer">
-                    {t('auth.signUp')}
-                  </Link>
-                </FieldDescription>
+              
             </FieldGroup>
           </form>
  
@@ -126,6 +128,18 @@ export function LoginForm({
           <ForgotPasswordForm onClose={() => setShowForgotPasswordModal(false)} />
         </Dialog.Content>
       </Dialog>
+      
+      {/* Signup Drawer */}
+      <Drawer open={showSignupDrawer} onOpenChange={setShowSignupDrawer} direction="bottom">
+        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">{t('auth.signUpTitle')}</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4 pb-8 max-h-[80vh] overflow-y-auto">
+            <SignupForm onClose={() => setShowSignupDrawer(false)} />
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }

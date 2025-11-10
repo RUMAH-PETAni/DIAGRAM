@@ -89,14 +89,14 @@ export function About({
           <div className="bg-muted relative overflow-hidden cursor-pointer">
             <div className="absolute inset-0 transition-opacity duration-500 hover:opacity-0">
               <img
-                src="/farmer.png"
+                src="/farmer1.png"
                 alt="Image"
                 className="h-full w-full object-cover"
               />
             </div>
             <div className="absolute inset-0 opacity-0 transition-opacity duration-500 hover:opacity-100">
               <img
-                src="/farmer1.png"
+                src="/hero1.png"
                 alt="Hover Image"
                 className="h-full w-full object-cover"
               />

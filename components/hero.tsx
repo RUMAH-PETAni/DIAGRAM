@@ -234,16 +234,16 @@ export function Hero({
             </FieldGroup>
           </form>
           <div className="bg-muted relative hidden md:block overflow-hidden cursor-pointer">
-            <div className="absolute inset-0 transition-opacity duration-500 hover:opacity-0">
+            <div className="absolute inset-0 transition-opacity duration-500 hover:opacity-100">
               <img
-                src="/tabletmap.png"
+                src="/tabletmap1.png"
                 alt="Image"
                 className="h-full w-full object-cover"
               />
             </div>
             <div className="absolute inset-0 opacity-0 transition-opacity duration-500 hover:opacity-100">
               <img
-                src="/tabletmap1.png"
+                src="/fly1.png"
                 alt="Hover Image"
                 className="h-full w-full object-cover"
               />

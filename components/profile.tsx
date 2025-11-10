@@ -355,10 +355,11 @@ export function Profile({
               </div>
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                 <Button 
+                
                   size="sm" 
                   onClick={openAvatarModal}
                 >
-                  {t('profile.change')} 
+                  {t('profile.changeAvatar')} 
                 </Button>
               </div>
             </div>
@@ -443,7 +444,9 @@ export function Profile({
                   placeholder={t('profile.addressPlaceholder')}
                 />
               </Field>
-              <div className="grid grid-cols-2 gap-4">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
               <Button
                 className="flex items-center justify-center" 
                 variant= "outline"

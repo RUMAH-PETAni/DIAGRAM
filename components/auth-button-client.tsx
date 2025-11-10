@@ -6,12 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { LogIn, UserCircle, LogOut, House, Blocks, Handshake, DatabaseZap } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu } from "@/components/retroui/MenuCustom";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/retroui/Tooltip";
+import { Text } from "@/components/retroui/Text";
 import { useEffect, useState } from "react";
 import { LogoutModal } from "@/components/logout-modal";
 import { useLanguage } from "@/lib/i18n/context";
@@ -19,10 +14,12 @@ import { Profile } from "@/components/profile";
 import {
   Drawer,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/retroui/DrawerCustom";
 import { LoginForm } from "@/components/login/login-form";
+import { SignupForm } from "@/components/signup/signup-form";
 
 export function AuthButtonClient() {
   const { t } = useLanguage();
@@ -31,6 +28,7 @@ export function AuthButtonClient() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showProfileDrawer, setShowProfileDrawer] = useState(false);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
+  const [showSignupDrawer, setShowSignupDrawer] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const supabase = createClient();
@@ -155,7 +153,7 @@ export function AuthButtonClient() {
           </DrawerContent>
         </Drawer>
         
-        <span className="md:inline-block text-xl font-medium">
+        <span className="md:inline-block text-xl font-medium p-2">
           {t('general.hello')}, {displayName}!
         </span>
       </div>
@@ -165,32 +163,65 @@ export function AuthButtonClient() {
   // Jika belum login, tampilkan tombol login dengan tooltip terjemahan
   return (
     <div className="flex gap-2">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button 
-              onClick={() => setShowLoginDrawer(true)}
-              className="flex items-center justify-center h-10 w-10 p-0"
-            >
-              <LogIn/>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{t('general.login')} {t('general.here')}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      
+      <Button 
+        onClick={() => setShowLoginDrawer(true)}
+        className="flex items-center justify-center h-10 w-10 p-0"
+        >
+        <LogIn/>
+      </Button>
+      <span className="md:inline-block text-xl text-foreground font-bold p-2">
+        {t('general.login')}
+      </span>
+    
       {/* Login Drawer */}
       <Drawer open={showLoginDrawer} onOpenChange={setShowLoginDrawer} direction="top">
-        <DrawerContent className="h-[380px] w-full max-w-md mx-auto px-6">
+        <DrawerContent className="h-[400px] w-full max-w-md mx-auto px-6">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('auth.loginTitle')}</DrawerTitle>
           </DrawerHeader>
           <div className=" max-w-none">
             <LoginForm onClose={() => setShowLoginDrawer(false)} />
           </div>
-         
+         <DrawerFooter className="text-center">
+          <div className="text-center justify-center">
+            {t('auth.noAccount')}{" "}
+              <button 
+                type="button"
+                className="font-bold cursor-pointer text-primary hover:underline"
+                onClick={() => {
+                  setShowLoginDrawer(false);
+                  setShowSignupDrawer(true);
+                }}>
+                {t('auth.signUp')}
+              </button>
+          </div>
+         </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+
+      {/* Signup Drawer */}
+      <Drawer open={showSignupDrawer} onOpenChange={setShowSignupDrawer} direction="top">
+        <DrawerContent className="h-[650px] md:h-[80vh] w-full max-w-md mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">{t('auth.signUpTitle')}</DrawerTitle>
+          </DrawerHeader>
+          <div className=" max-w-none">
+            <SignupForm onClose={() => setShowSignupDrawer(false)} />
+          </div>
+               <DrawerFooter className="text-center">
+          <div className="text-center justify-center">
+            {t('auth.alreadyHaveAccount')}{" "}
+              <button 
+                type="button"
+                className="font-bold cursor-pointer text-primary hover:underline"
+                onClick={() => {
+                  setShowLoginDrawer(true);
+                  setShowSignupDrawer(false);
+                }}>
+                {t('auth.signIn')}
+              </button>
+          </div>
+         </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </div>
