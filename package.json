@@ -71,6 +71,8 @@
     "maplibre-theme": "^1.0.0",
     "next": "latest",
     "next-themes": "latest",
+    "postcss-color-function": "^4.1.0",
+    "postcss-custom-properties": "^14.0.6",
     "postcss-nesting": "^13.0.2",
     "postcss-preset-env": "^10.4.0",
     "react": "^19.0.0",
