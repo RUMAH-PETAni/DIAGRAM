@@ -91,7 +91,6 @@ export function Hero({
     if (isAuthenticated) {
       setShowExploreModal(true);
     }
-    // If not authenticated, do nothing - tooltip will show the message
   };
 
    const [progress, setProgress] = React.useState(20);
@@ -150,9 +149,7 @@ export function Hero({
                 {t('hero.description')}
               </FieldDescription>
               <div className="grid grid-cols-2 gap-4">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
+                
                       <Button
                         type="button"
                         className="flex items-center justify-center"
@@ -161,14 +158,7 @@ export function Hero({
                       >
                         {isLoading ? t('hero.explore') + "..." : t('hero.explore')}
                       </Button>
-                    </TooltipTrigger>
-                    {!isAuthenticated && (
-                      <TooltipContent>
-                        <p>{t('general.youMustLogin')}</p>
-                      </TooltipContent>
-                    )}
-                  </Tooltip>
-                </TooltipProvider>
+             
                 <Drawer open={showCampaignDrawer} onOpenChange={setShowCampaignDrawer}>
                   <DrawerTrigger asChild>
                     <Button
