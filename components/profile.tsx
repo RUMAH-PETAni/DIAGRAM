@@ -338,8 +338,7 @@ export function Profile({
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="p-6 md:p-8 ">
             <div className="relative flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold mb-4">{t('profile.accountProfile')}</h1>
-              <div className="w-55 h-55 rounded-full overflow-hidden border-2 border-black">
+              <div className="w-50 h-50 rounded-full overflow-hidden border-2 border-black">
                 {profile?.avatar_url ? (
                   <img 
                     src={`https://sqbogrsoqrgnfkxmmhmf.supabase.co/storage/v1/object/public/profile_picture/${profile.avatar_url}`} 
@@ -377,7 +376,7 @@ export function Profile({
           </div>
           <div className="p-6 md:p-8">
             <FieldGroup>
-              <Field className="grid grid-cols-2 gap-4">
+              <Field className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Field>
                   <FieldLabel htmlFor="username">{t('profile.username')}</FieldLabel>
                   <Input
@@ -401,7 +400,7 @@ export function Profile({
                   />
                 </Field>
               </Field>
-              <Field className="grid grid-cols-2 gap-4">
+              <Field className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Field>
                   <FieldLabel htmlFor="gender">{t('profile.gender')}</FieldLabel>
                   <Select 

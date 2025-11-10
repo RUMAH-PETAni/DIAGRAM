@@ -15,12 +15,20 @@ import {
 import { useEffect, useState } from "react";
 import { LogoutModal } from "@/components/logout-modal";
 import { useLanguage } from "@/lib/i18n/context";
+import { Profile } from "@/components/profile";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
 
 export function AuthButtonClient() {
   const { t } = useLanguage();
   const [userData, setUserData] = useState<any>(null);
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showProfileDrawer, setShowProfileDrawer] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const supabase = createClient();
@@ -117,11 +125,9 @@ export function AuthButtonClient() {
 
           </Menu.Trigger>
           <Menu.Content className="min-w-36">
-            <Menu.Item asChild>
-              <Link href="/profile" className="flex items-center">
-                <UserCircle className="mr-2 h-4 w-4" />
-                <span>{t('general.account')}</span>
-              </Link>
+            <Menu.Item onClick={() => setShowProfileDrawer(true)} className="flex items-center cursor-pointer">
+              <UserCircle className="mr-2 h-4 w-4" />
+              <span>{t('general.account')}</span>
             </Menu.Item>
             <Menu.Item onClick={handleLogoutClick}>
               <LogOut className="mr-2 h-4 w-4" />
@@ -130,15 +136,26 @@ export function AuthButtonClient() {
           </Menu.Content>
         </Menu>
 
-
-
         <LogoutModal
           isOpen={showLogoutModal}
           onClose={() => setShowLogoutModal(false)}
         />
-      <span className="md:inline-block text-xl font-medium">
+        
+        {/* Profile Drawer */}
+        <Drawer open={showProfileDrawer} onOpenChange={setShowProfileDrawer} direction="bottom">
+          <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+            <DrawerHeader>
+              <DrawerTitle className="font-bold text-2xl">{t('profile.accountProfile')}</DrawerTitle>
+            </DrawerHeader>
+            <div className="p-4 pb-8 max-h-[80vh] overflow-y-auto">
+              <Profile />
+            </div>
+          </DrawerContent>
+        </Drawer>
+        
+        <span className="md:inline-block text-xl font-medium">
           {t('general.hello')}, {displayName}!
-      </span>
+        </span>
       </div>
     );
   }

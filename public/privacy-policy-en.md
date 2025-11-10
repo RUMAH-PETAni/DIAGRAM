@@ -4,13 +4,13 @@ We value your privacy and are committed to protecting your personal information.
 We may collect:
 - • Account details (email, name, gender, phone number and address)
 - • Farm location data (coordinates and address input)
-- • Technical data such as IP address, device type, and app activity
+- • Technical data such as IP address, device type, and platform activity
 
 ### **2. How We Use Information**
 Your data is used to:
 - • Manage user accounts and authentication
 - • Provide mapping and agroforestry analysis services
-- • Improve user experience and app features
+- • Improve user experience and platform features
 - • Send service-related notifications
 
 ### **3. Data Storage and Security**
@@ -32,7 +32,7 @@ For questions or privacy concerns, contact **support@rumahpetani.cloud**
 ---
 
 
-## 🛡️ **Sensitive Personal Data Collection**
+## **Sensitive Personal Data Collection**
 
 We may collect sensitive personal information such as **National Identity Number**, full address, and land ownership details. These are collected **solely for identity verification and farm management purposes**.
 

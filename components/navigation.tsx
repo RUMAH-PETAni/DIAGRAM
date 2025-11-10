@@ -155,8 +155,6 @@ const Navigation = () => {
             </div>
             </div>
              <div className="bg-muted mx-auto mt-2 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=top]/drawer-content:block" />
-          
-          
         </DrawerContent>
       </Drawer>
       

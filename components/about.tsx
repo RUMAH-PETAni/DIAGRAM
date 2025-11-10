@@ -175,8 +175,6 @@ export function About({
               </div>
             </div>
           </div>
-          {/* Bottom handle for visual consistency */}
-          <div className="mx-auto mb-4 hidden h-2 w-[100px] rounded-full bg-muted group-data-[vaul-drawer-direction=top]/drawer-content:block" />
         </DrawerContent>
       </Drawer>
 

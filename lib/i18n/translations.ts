@@ -86,7 +86,7 @@ export const translations = {
     // FAQ translations
     'faq.title': 'Frequently Asked Questions',
     'faq.aboutRumahpetani': 'About RUMAHPETAni?',
-    'faq.aboutRumahpetaniAnswer': 'RUMAH PETANI is a community driven by the spirit of innovation and a commitment to supporting smallholder farmers. We empower them to manage and utilize natural resources sustainably and responsibly.',
+    'faq.aboutRumahpetaniAnswer': 'RUMAH PETANI is a local community driven by the spirit of innovation and a commitment to supporting smallholder farmers. We help empower them to manage and utilize natural resources sustainably and responsibly.',
     'faq.whatIsDiagram': 'What is DIAGRAM?',
     'faq.whatIsDiagramAnswer': 'DIAGRAM is a Digital Ecosystem for Agroforestry Management that empowers smallholder farmers with climate smart agriculture, data-driven solutions, sustainable technology, and precision agroforestry tools.',
     'faq.howToGetStarted': 'How can I get started?',
@@ -243,9 +243,11 @@ export const translations = {
     'chat_sheet.aiAgronomist': 'AI-Gronomist',
     'chat_sheet.askPlaceholder': 'Ask about agriculture, crops, soil, weather...',
     'chat_sheet.errorMessage': 'Sorry, I encountered an error. Please try again.',
-    'chat_sheet.infoMessage': 'AI can make mistakes, Be specific for the best results.',
+    'chat_sheet.infoMessage': 'AI can make mistakes, ask specific questions for the best answers.',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
+
   },
+  
   id: {
     // Homepage translations
     'hero.title': 'DIAGRAM',
@@ -333,7 +335,7 @@ export const translations = {
     // FAQ translations
     'faq.title': 'Pertanyaan yang Sering Diajukan',
     'faq.aboutRumahpetani': 'Tentang RUMAHPETAni?',
-    'faq.aboutRumahpetaniAnswer': 'RUMAH PETANI adalah sebuah komunitas yang digerakkan oleh semangat inovasi dan komitmen untuk mendukung para petani skala kecil. Kami memberdayakan mereka untuk mengelola dan memanfaatkan sumber daya alam secara lestari dan bertanggung jawab.',
+    'faq.aboutRumahpetaniAnswer': 'RUMAH PETANI adalah sebuah komunitas lokal yang digerakkan oleh semangat inovasi dan komitmen untuk mendukung para petani skala kecil. Kami membantu memberdayakan mereka untuk mengelola dan memanfaatkan sumber daya alam secara lestari dan bertanggung jawab.',
     'faq.whatIsDiagram': 'Apa itu DIAGRAM?',
     'faq.whatIsDiagramAnswer': 'DIAGRAM adalah Ekosistem Digital untuk Manajemen Agroforestri yang memberdayakan para petani skala kecil dengan pertanian tepat iklim, solusi berbasis data, teknologi berkelanjutan, dan alat-alat agroforestri presisi.',
     'faq.howToGetStarted': 'Bagaimana cara memulainya?',
@@ -487,7 +489,8 @@ export const translations = {
     'chat_sheet.aiAgronomist': 'AI-Gronomist',
     'chat_sheet.askPlaceholder': 'Tanyakan tentang pertanian, tanaman, tanah, cuaca...',
     'chat_sheet.errorMessage': 'Maaf, saya mengalami kesalahan. Silakan coba lagi.',
-    'chat_sheet.infoMessage': 'AI bisa membuat kesalahan, Berspesifikasilah untuk hasil terbaik.',
-    'chat_sheet.poweredBy': 'Ditenagai oleh OpenAI GPT-4o-mini',
+    'chat_sheet.infoMessage': 'AI bisa membuat kesalahan, ajukan pertanyaan spesifik untuk hasil terbaik.',
+    'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
+
   }
 };

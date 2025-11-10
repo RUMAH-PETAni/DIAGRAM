@@ -300,7 +300,7 @@ export function Features({
                 size="sm"
                 className="w-full flex text-xs items-center justify-center"
                 onClick={() => {
-                  // TODO: Implement Carbon tools functionality
+                   // TODO: Implement Carbon Calculator functionality
                   setExtrasModalOpen(false);
                 }}
               >
@@ -317,7 +317,7 @@ export function Features({
                 size="sm"
                 className="w-full flex text-xs items-center justify-center"
                 onClick={() => {
-                  // TODO: Implement WHISP tools functionality
+                   // TODO: Implement WHISP functionality
                   setExtrasModalOpen(false);
                 }}
               >

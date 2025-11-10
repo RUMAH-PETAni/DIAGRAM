@@ -4,13 +4,13 @@ Kami menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi 
 Kami mungkin mengumpulkan:
 - • Detail akun (email, nama, jenis kelamin, nomor telepon dan alamat)
 - • Data lokasi lahan (koordinat dan input alamat)
-- • Data teknis seperti alamat IP, tipe perangkat, dan aktivitas aplikasi
+- • Data teknis seperti alamat IP, tipe perangkat, dan aktivitas platform
 
 ### **2. Cara Kami Menggunakan Informasi**
 Data Anda digunakan untuk:
 - • Mengelola akun pengguna dan otentikasi
 - • Menyediakan layanan pemetaan dan analisis agroforestri
-- • Meningkatkan pengalaman pengguna dan fitur aplikasi
+- • Meningkatkan pengalaman pengguna dan fitur platform
 - • Mengirimkan pemberitahuan terkait layanan
 
 ### **3. Penyimpanan dan Keamanan Data**
@@ -32,7 +32,7 @@ Untuk pertanyaan atau kekhawatiran tentang privasi, hubungi **support@rumahpetan
 ---
 
 
-## 🛡️ **Pengumpulan Data Pribadi Sensitif**
+## **Pengumpulan Data Pribadi Sensitif**
 
 Kami mungkin mengumpulkan informasi pribadi sensitif seperti **Nomor Induk Kependudukan**, alamat lengkap, dan detail kepemilikan lahan. Data ini dikumpulkan **hanya untuk tujuan verifikasi identitas dan manajemen lahan**.
 
