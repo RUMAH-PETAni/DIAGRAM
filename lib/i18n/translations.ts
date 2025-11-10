@@ -46,15 +46,14 @@ export const translations = {
 
     
     // Navigation translations
+    'nav.navigation': 'Navigation',
     'nav.home': 'Home',
+    'nav.about': 'About',
     'nav.features': 'Features',
     'nav.services': 'Services',
     'nav.library': 'Library',
     'nav.settings': 'Settings',
-    'nav.faq': 'FAQ',
-    'nav.terms': 'Terms of Service',
-    'nav.privacy': 'Privacy Policy',
-    'nav.navigationMenu': 'Navigation Menu',
+
     
     // General translations
     'general.login': 'Login',
@@ -70,6 +69,11 @@ export const translations = {
     'general.light': 'Light',
     'general.dark': 'Dark',
     'general.close': 'Close',
+    'general.hello': 'Hello',
+    'general.loading': 'Loading...',
+    'general.terms': 'Term of Service',
+    'general.privacy': 'Privacy Policy',
+    'general.faq': 'F.A.Q',
     
     // Settings translations
     'settings.locationAccess': 'Location Access',
@@ -80,8 +84,7 @@ export const translations = {
     'settings.enabled': 'Enabled',
     'settings.disabled': 'Disabled',
     'settings.enable': 'Enable',
-    'general.hello': 'Hello',
-    'general.loading': 'Loading...',
+   
     
     // FAQ translations
     'faq.title': 'Frequently Asked Questions',
@@ -295,15 +298,14 @@ export const translations = {
 
     
     // Navigation translations
+    'nav.navigation': 'Navigasi',
     'nav.home': 'Beranda',
+    'nav.about': 'Tentang',
     'nav.features': 'Fitur',
     'nav.services': 'Layanan',
     'nav.library': 'Perpustakaan',
     'nav.settings': 'Pengaturan',
-    'nav.terms': 'Ketentuan Layanan',
-    'nav.privacy': 'Kebijakan Privasi',
-    'nav.faq': 'F.A.Q',
-    'nav.navigationMenu': 'Menu Navigasi',
+    
     
     // General translations
     'general.login': 'Masuk',
@@ -319,6 +321,12 @@ export const translations = {
     'general.light': 'Terang',
     'general.dark': 'Gelap',
     'general.close': 'Tutup',
+    'general.terms': 'Ketentuan Layanan',
+    'general.privacy': 'Kebijakan Privasi',
+    'general.faq': 'F.A.Q',
+    'general.hello': 'Halo',
+    'general.loading': 'Memuat...',
+    
     
     // Settings translations
     'settings.locationAccess': 'Akses Lokasi',
@@ -329,8 +337,7 @@ export const translations = {
     'settings.enabled': 'Aktif',
     'settings.disabled': 'Non aktif',
     'settings.enable': 'Aktifkan',
-    'general.hello': 'Halo',
-    'general.loading': 'Memuat...',
+      
     
     // FAQ translations
     'faq.title': 'Pertanyaan yang Sering Diajukan',

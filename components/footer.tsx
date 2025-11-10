@@ -77,7 +77,7 @@ export function Footer() {
             setShowFAQ(true);
           }}
         >
-          {t('nav.faq')}
+          {t('general.faq')}
         </button>
         <button
           type="button"
@@ -87,7 +87,7 @@ export function Footer() {
             setShowTermsSheet(true);
           }}
         >
-          {t('nav.terms')}
+          {t('general.terms')}
         </button>
         <button
           type="button"
@@ -97,7 +97,7 @@ export function Footer() {
             setShowPrivacySheet(true);
           }}
         >
-          {t('nav.privacy')}
+          {t('general.privacy')}
         </button>
        
       </div>
@@ -106,7 +106,7 @@ export function Footer() {
      <Drawer open={showTermsSheet} onOpenChange={setShowTermsSheet}>
         <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
           <DrawerHeader>
-            <DrawerTitle className="font-bold text-2xl">{t('nav.terms')}</DrawerTitle>
+            <DrawerTitle className="font-bold text-2xl">{t('general.terms')}</DrawerTitle>
           </DrawerHeader>
           <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
             <ReactMarkdown>{termsContent}</ReactMarkdown>
@@ -118,7 +118,7 @@ export function Footer() {
       <Drawer open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
         <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
           <DrawerHeader>
-            <DrawerTitle className="font-bold text-2xl">{t('nav.privacy')}</DrawerTitle>
+            <DrawerTitle className="font-bold text-2xl">{t('general.privacy')}</DrawerTitle>
           </DrawerHeader>
           <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
             <ReactMarkdown>{privacyContent}</ReactMarkdown>

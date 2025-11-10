@@ -22,6 +22,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/retroui/DrawerCustom";
+import { LoginForm } from "@/components/login/login-form";
 
 export function AuthButtonClient() {
   const { t } = useLanguage();
@@ -29,6 +30,7 @@ export function AuthButtonClient() {
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showProfileDrawer, setShowProfileDrawer] = useState(false);
+  const [showLoginDrawer, setShowLoginDrawer] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const supabase = createClient();
@@ -166,10 +168,11 @@ export function AuthButtonClient() {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button asChild>
-              <Link href="/auth/login">
-                <LogIn/>
-              </Link>
+            <Button 
+              onClick={() => setShowLoginDrawer(true)}
+              className="flex items-center justify-center h-10 w-10 p-0"
+            >
+              <LogIn/>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -177,6 +180,19 @@ export function AuthButtonClient() {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
+      
+      {/* Login Drawer */}
+      <Drawer open={showLoginDrawer} onOpenChange={setShowLoginDrawer} direction="top">
+        <DrawerContent className="h-[380px] w-full max-w-md mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">{t('auth.loginTitle')}</DrawerTitle>
+          </DrawerHeader>
+          <div className=" max-w-none">
+            <LoginForm onClose={() => setShowLoginDrawer(false)} />
+          </div>
+         
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 }

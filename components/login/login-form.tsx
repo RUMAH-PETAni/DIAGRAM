@@ -22,8 +22,9 @@ import { useLanguage } from "@/lib/i18n/context";
 
 export function LoginForm({
   className,
+  onClose,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { onClose?: () => void }) {
   const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,6 +45,10 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
+      // Close the drawer after successful login
+      if (onClose) {
+        onClose();
+      }
       // Redirect to the homepage or protected route after successful login
       router.push("/");
       router.refresh();
@@ -57,13 +62,9 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent>
-          <form className="p-6 md:p-8 " onSubmit={handleLogin}>
+      
+          <form  onSubmit={handleLogin}>
             <FieldGroup>
-              <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">{t('auth.loginTitle')}</h1>
-              </div>
               <Field>
                 <FieldLabel htmlFor="email">{t('auth.email')}</FieldLabel>
                 <Input
@@ -114,8 +115,7 @@ export function LoginForm({
                 </FieldDescription>
             </FieldGroup>
           </form>
-        </CardContent>
-      </Card>
+ 
       
       {/* Forgot Password Modal */}
       <Dialog open={showForgotPasswordModal} onOpenChange={setShowForgotPasswordModal}>

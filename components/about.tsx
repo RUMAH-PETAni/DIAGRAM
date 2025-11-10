@@ -129,11 +129,6 @@ export function About({
                   {t('about.story')} &#8599;
                 </span>
               </FieldDescription>
-              <FieldDescription className="text-right">
-                <Link href="/" className="text-primary font-bold cursor-pointer">
-                  {t('about.home')}
-                </Link>
-              </FieldDescription>
             </FieldGroup>
           </form>
           

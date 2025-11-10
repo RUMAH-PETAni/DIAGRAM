@@ -231,11 +231,6 @@ export function Hero({
                   {error}
                 </div>
               )}
-              <FieldDescription className="text-right">
-                <Link href="/about" className="text-primary font-bold cursor-pointer">
-                  {t('hero.about')}
-                </Link>
-              </FieldDescription>
             </FieldGroup>
           </form>
           <div className="bg-muted relative hidden md:block overflow-hidden cursor-pointer">
