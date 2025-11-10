@@ -87,10 +87,8 @@ export function Hero({
 
   const handleExplore = (e: React.FormEvent) => {
     e.preventDefault();
-    // Only show the explore modal if user is authenticated
-    if (isAuthenticated) {
-      setShowExploreModal(true);
-    }
+    // Show the explore modal for all users
+    setShowExploreModal(true);
   };
 
    const [progress, setProgress] = React.useState(20);
