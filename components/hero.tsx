@@ -31,7 +31,7 @@ import {
   CarouselPrevious,
   CarouselNext,
   type CarouselApi,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carouselcustom"
 import {
   Field,
   FieldDescription,
@@ -260,26 +260,26 @@ export function Hero({
               <img 
                 src="/tabletmap1.png" 
                 alt="Features & Tools" 
-                className={`w-full h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
                   activeImageIndex === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
               <img 
                 src="/hero1.png" 
                 alt="On Demand Services" 
-                className={`w-full h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
                   activeImageIndex === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
               <img 
                 src="/laptop.png" 
                 alt="Data Library" 
-                className={`w-full h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
                   activeImageIndex === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
             </div>
-            <div className="px-6 h-full flex flex-col">
+            <div className="px-6 mt-80 md:mt-0 flex-1 flex flex-col">
               <div >
                 <Carousel opts={{ align: "end" }} className="w-full" setApi={(api: CarouselApi) => {
                   api?.on("select", () => {
@@ -291,7 +291,7 @@ export function Hero({
                       {/* Features & Tools Button */}
                       <div className="flex flex-col items-center justify-center">
                         <Card 
-                          className="flex items-center justify-center gap-4 w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
                           onClick={() => {
                             router.push("/features");
                             setShowExploreDrawer(false);
@@ -301,7 +301,7 @@ export function Hero({
                           <Shapes className="mr-2 h-10 w-10"/>
                           </div>
                           <div className="text-left">
-                            <div className="text-2xl font-bold">{t('explore.features')}</div>
+                            <div className="text-lg md:text-2xl font-bold">{t('explore.features')}</div>
                           </div>
                         </Card>
                         <div className="mt-2 text-center">
@@ -313,7 +313,7 @@ export function Hero({
                       {/* On Demand Services Button */}
                       <div className="flex flex-col items-center">
                         <Card 
-                          className="flex items-center justify-center gap-4 w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
                           onClick={() => {
                             router.push("/services");
                             setShowExploreDrawer(false);
@@ -323,7 +323,7 @@ export function Hero({
                           <Handshake className="mr-2 h-10 w-10"/>
                           </div>
                           <div className="text-left">
-                            <div className="text-2xl font-bold">{t('explore.services')}</div>
+                            <div className="text-lg md:text-2xl font-bold">{t('explore.services')}</div>
                           </div>
                         </Card>
                         <div className="mt-2 text-center">
@@ -335,7 +335,7 @@ export function Hero({
                       {/* Data Library Button */}
                       <div className="flex flex-col items-center">
                         <Card 
-                          className="flex items-center justify-center gap-4 w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
                           onClick={() => {
                             router.push("/library");
                             setShowExploreDrawer(false);
@@ -345,7 +345,7 @@ export function Hero({
                           <DatabaseZap className="mr-2 h-10 w-10" />
                           </div>
                           <div className="text-left">
-                            <div className="text-2xl font-bold">{t('explore.dataLibrary')}</div>
+                            <div className="text-lg md:text-2xl font-bold">{t('explore.dataLibrary')}</div>
                           </div>
                         </Card>
                         <div className="mt-2 text-center">
