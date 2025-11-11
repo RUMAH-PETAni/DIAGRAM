@@ -40,7 +40,7 @@ export function FloatingAIButton() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="default"
+                variant="outline"
                 className="flex items-center justify-center h-10 w-10 p-0 opacity-50 hover:opacity-100 transition-opacity"
                 aria-label="AI Agronomist"
               >

@@ -321,12 +321,13 @@ export function NewProfileForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <h1 className="text-2xl text-center font-bold">{t('profile.completeProfile')}</h1>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="p-6 md:p-8  ">
             <div className="relative flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold mb-4">{t('profile.completeProfile')}</h1>
-              <div className="w-55 h-55 rounded-full overflow-hidden border-2 border-black">
+              
+              <div className="w-50 h-50 rounded-full overflow-hidden border-2 border-black">
                 {profile?.avatar_url ? (
                   <img 
                     src={`https://sqbogrsoqrgnfkxmmhmf.supabase.co/storage/v1/object/public/profile_picture/${profile.avatar_url}`} 

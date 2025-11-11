@@ -158,7 +158,7 @@ export const translations = {
     
     // Profile form translations
     'profile.loadingProfile': 'Loading Profile..',
-    'profile.completeProfile': 'Complete Your Profile',
+    'profile.completeProfile': 'Please Complete Your Profile',
     'profile.accountProfile': 'Account Profile',
     'profile.changeAvatar': 'Change Avatar',
     'profile.username': 'Username',
@@ -411,7 +411,7 @@ export const translations = {
     
     // Profile form translations
     'profile.loadingProfile': 'Memuat Profil..',
-    'profile.completeProfile': 'Lengkapi Profil Anda',
+    'profile.completeProfile': 'Silahkan Lengkapi Profil Anda',
     'profile.accountProfile': 'Profil Akun',
     'profile.changeAvatar': 'Ganti Avatar',
     'profile.username': 'Nama Pengguna',
