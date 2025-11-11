@@ -164,7 +164,7 @@ export function About({
               </p>
               <div className="square md:aspect-video w-full mt-10 rounded-4xl overflow-hidden">
                 <img
-                  src="/tabletmap1.png"
+                  src="/blossom1.png"
                   alt="Image"
                   className="h-full w-full rounded-4xl object-cover"
                 />
