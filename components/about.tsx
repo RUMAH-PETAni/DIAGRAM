@@ -135,6 +135,7 @@ export function About({
         </CardContent>
       </Card>
 
+
       {/* Story Drawer */}
       <Drawer open={showStoryDrawer} onOpenChange={setShowStoryDrawer} direction="top">
         <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
@@ -161,7 +162,7 @@ export function About({
                   {t('about.storyReadMore')}
                 </span>
               </p>
-              <div className="aspect-video w-full mt-10 rounded-4xl overflow-hidden">
+              <div className="square md:aspect-video w-full mt-10 rounded-4xl overflow-hidden">
                 <img
                   src="/tabletmap1.png"
                   alt="Image"

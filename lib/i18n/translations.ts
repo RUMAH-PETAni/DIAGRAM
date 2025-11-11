@@ -22,9 +22,9 @@ export const translations = {
     
     // Explore modal translations
     'explore.features': 'Features and Tools',
-    'explore.featuresDesc': 'Smart tools to map, monitor, and manage your farm efficiently.',
+    'explore.featuresDesc': 'Map, monitor, and manage your farm efficiently.',
     'explore.services': 'On Demand Services',
-    'explore.servicesDesc': 'Instant access to expert support and digital farming solutions.',
+    'explore.servicesDesc': 'Access to expert support and digital farming solutions.',
     'explore.dataLibrary': 'Data Library',
     'explore.dataLibraryDesc': 'Reliable agricultural data and insights at your fingertips.',
     'explore.title': 'Explore',
@@ -274,9 +274,9 @@ export const translations = {
     
     // Explore modal translations
     'explore.features': 'Fitur dan Alat',
-    'explore.featuresDesc': 'Alat pintar untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',
+    'explore.featuresDesc': 'Alat untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',
     'explore.services': 'Layanan Berbasis Permintaan',
-    'explore.servicesDesc': 'Akses instan ke dukungan ahli dan solusi pertanian digital.',
+    'explore.servicesDesc': 'Akses ke dukungan ahli dan solusi pertanian digital.',
     'explore.dataLibrary': 'Perpustakaan Data',
     'explore.dataLibraryDesc': 'Data dan wawasan pertanian yang andal di ujung jari Anda.',
     'explore.title': 'Jelajahi',

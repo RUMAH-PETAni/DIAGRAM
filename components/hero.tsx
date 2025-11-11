@@ -25,6 +25,14 @@ import {
   DrawerHeader,
 } from "@/components/retroui/DrawerCustom"
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  type CarouselApi,
+} from "@/components/ui/carousel"
+import {
   Field,
   FieldDescription,
   FieldGroup,
@@ -47,8 +55,9 @@ export function Hero({
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showExploreModal, setShowExploreModal] = useState(false);
+  const [showExploreDrawer, setShowExploreDrawer] = useState(false);
   const [showCampaignDrawer, setShowCampaignDrawer] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const { theme } = useTheme();
   const router = useRouter();
 
@@ -88,7 +97,8 @@ export function Hero({
   const handleExplore = (e: React.FormEvent) => {
     e.preventDefault();
     // Show the explore modal for all users
-    setShowExploreModal(true);
+    setShowExploreDrawer(true);
+    setActiveImageIndex(0); // Reset to first slide and image
   };
 
    const [progress, setProgress] = React.useState(20);
@@ -240,65 +250,119 @@ export function Hero({
         </CardContent>
       </Card>
     
-    {/* Explore Modal */}
-    <Dialog open={showExploreModal} onOpenChange={setShowExploreModal}>
-      <Dialog.Content className="w-full max-w-full sm:max-w-md sm:mx-auto">
-        <Dialog.Header>
-          <Text as="h5">{t('explore.title')}</Text>
-        </Dialog.Header>
-        <div className="grid grid-cols-1 gap-4 p-4">
-          {/* Features & Tools Button */}
-          <Button
-            className="flex items-center gap-4 p-4"
-            onClick={() => {
-              router.push("/features");
-              setShowExploreModal(false);
-            }}
-          >
-            <div className=" w-16 flex items-center justify-center">
-             <Shapes className="mr-2 h-10 w-10"/>
+    {/* Explore Drawer */}
+    <Drawer open={showExploreDrawer} onOpenChange={setShowExploreDrawer} direction="top">
+      <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto flex flex-col bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')"}}>
+        <DrawerTitle></DrawerTitle>
+        <div className="h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
+          <div className="inline-block w-full max-w-3xl px-6">
+            <div className="square md:aspect-video w-full relative">
+              <img 
+                src="/tabletmap1.png" 
+                alt="Features & Tools" 
+                className={`w-full h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImageIndex === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
+              <img 
+                src="/hero1.png" 
+                alt="On Demand Services" 
+                className={`w-full h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImageIndex === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
+              <img 
+                src="/laptop.png" 
+                alt="Data Library" 
+                className={`w-full h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImageIndex === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
             </div>
-            <div className="text-left">
-              <div className="font-medium">{t('explore.features')}</div>
-              <div className="text-xs text-muted-foreground">{t('explore.featuresDesc')}</div>
+            <div className="px-6 h-full flex flex-col">
+              <div >
+                <Carousel opts={{ align: "end" }} className="w-full" setApi={(api: CarouselApi) => {
+                  api?.on("select", () => {
+                    setActiveImageIndex(api.selectedScrollSnap());
+                  });
+                }}>
+                  <CarouselContent>
+                    <CarouselItem>
+                      {/* Features & Tools Button */}
+                      <div className="flex flex-col items-center justify-center">
+                        <Card 
+                          className="flex items-center justify-center gap-4 w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                          onClick={() => {
+                            router.push("/features");
+                            setShowExploreDrawer(false);
+                          }}
+                        >
+                          <div className=" w-16 flex items-center justify-center">
+                          <Shapes className="mr-2 h-10 w-10"/>
+                          </div>
+                          <div className="text-left">
+                            <div className="text-2xl font-bold">{t('explore.features')}</div>
+                          </div>
+                        </Card>
+                        <div className="mt-2 text-center">
+                          <p className="text-muted-foreground">{t('explore.featuresDesc')}</p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                    <CarouselItem>
+                      {/* On Demand Services Button */}
+                      <div className="flex flex-col items-center">
+                        <Card 
+                          className="flex items-center justify-center gap-4 w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                          onClick={() => {
+                            router.push("/services");
+                            setShowExploreDrawer(false);
+                          }}
+                        >
+                          <div className=" w-16 flex items-center justify-center">
+                          <Handshake className="mr-2 h-10 w-10"/>
+                          </div>
+                          <div className="text-left">
+                            <div className="text-2xl font-bold">{t('explore.services')}</div>
+                          </div>
+                        </Card>
+                        <div className="mt-2 text-center">
+                          <p className=" text-muted-foreground">{t('explore.servicesDesc')}</p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                    <CarouselItem>
+                      {/* Data Library Button */}
+                      <div className="flex flex-col items-center">
+                        <Card 
+                          className="flex items-center justify-center gap-4 w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                          onClick={() => {
+                            router.push("/library");
+                            setShowExploreDrawer(false);
+                          }}
+                        >
+                          <div className=" w-16 flex items-center justify-center">
+                          <DatabaseZap className="mr-2 h-10 w-10" />
+                          </div>
+                          <div className="text-left">
+                            <div className="text-2xl font-bold">{t('explore.dataLibrary')}</div>
+                          </div>
+                        </Card>
+                        <div className="mt-2 text-center">
+                          <p className="text-muted-foreground">{t('explore.dataLibraryDesc')}</p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  </CarouselContent>
+                  <CarouselPrevious className="absolute top-1/2" />
+                  <CarouselNext className="absolute top-1/2" />
+                </Carousel>
+              </div>
             </div>
-          </Button>
-          
-          {/* On Demand Services Button */}
-          <Button
-            className="flex items-center gap-4 p-4"
-            onClick={() => {
-              router.push("/services");
-              setShowExploreModal(false);
-            }}
-          >
-            <div className=" w-16 flex items-center justify-center">
-            <Handshake className="mr-2 h-10 w-10"/>
-            </div>
-             <div className="text-left">
-              <div className="font-medium">{t('explore.services')}</div>
-              <div className="text-xs text-muted-foreground">{t('explore.servicesDesc')}</div>
-            </div>
-          </Button>
-          {/* Data Library Button */}
-          <Button
-            className="flex items-center gap-4 p-4"
-            onClick={() => {
-              router.push("/library");
-              setShowExploreModal(false);
-            }}
-          >
-            <div className=" w-16 flex items-center justify-center">
-            <DatabaseZap className="mr-2 h-10 w-10" />
-            </div>
-             <div className="text-left">
-              <div className="font-medium">{t('explore.dataLibrary')}</div>
-              <div className="text-xs text-muted-foreground">{t('explore.dataLibraryDesc')}</div>
-            </div>
-          </Button>
+          </div>
         </div>
-      </Dialog.Content>
-    </Dialog>
+      </DrawerContent>
+    </Drawer>
     
     </div>
   )
