@@ -148,7 +148,7 @@ export function SignupForm({
                     />
                   </Field>
             
-                <Field className="grid grid-cols-2 gap-4">
+                <Field className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Field>
                     <FieldLabel htmlFor="password">Password</FieldLabel>
                     <Input 
