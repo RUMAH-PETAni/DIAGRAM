@@ -23,7 +23,7 @@ I didn’t come with answers — I came with time. I sat with them, drinking cof
 
 The process was far from easy.  Long debates, exhausting participatory mapping, and endless technical training tested our patience. But slowly, hope began to grow.
 
-Finally, on **December 19, 2019**,  the Ministry of Environment and Forestry issued a **Community Forest Utilization Permit (IUPHKm)**  for Gapoktanhut Lestari Sejahtera.  That day, I saw faces filled with hope.  But I knew — the permit was not the end, only the beginning:  a doorway to new challenges Maintaining commitment, nurturing trust, and building independence.
+Finally, on **December 19, 2019**,  the Ministry of Environment and Forestry issued a **Community Forest Permit (IUPHKm)**  for Gapoktanhut Lestari Sejahtera.  That day, I saw faces filled with hope.  But I knew — the permit was not the end, only the beginning:  a doorway to new challenges Maintaining commitment, nurturing trust, and building independence.
 
 <p align="center">
   <img src="/planting.png" alt="planting" width="600" class="rounded-4xl"/>

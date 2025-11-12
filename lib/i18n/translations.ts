@@ -23,6 +23,8 @@ export const translations = {
     'hero.openMap':'Open Map',
     
     // Explore modal translations
+    'explore.ecosystem': 'Our Ecosystems',
+    'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
     'explore.features': 'Features and Tools',
     'explore.featuresDesc': 'Map, monitor, and manage your farm efficiently.',
     'explore.services': 'On Demand Services',
@@ -279,6 +281,8 @@ export const translations = {
 
 
     // Explore modal translations
+    'explore.ecosystem': 'Ekosistem Kami',
+    'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
     'explore.features': 'Fitur dan Alat',
     'explore.featuresDesc': 'Alat untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',
     'explore.services': 'Layanan Berbasis Permintaan',
