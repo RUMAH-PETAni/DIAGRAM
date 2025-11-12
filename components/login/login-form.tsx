@@ -58,8 +58,9 @@ export function LoginForm({
         onClose();
       }
       // Redirect to the homepage or protected route after successful login
-      router.push("/");
       router.refresh();
+      router.push("/");
+      
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

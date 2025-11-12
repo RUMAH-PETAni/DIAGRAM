@@ -29,6 +29,7 @@ import {
 import { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 import { useLanguage } from "@/lib/i18n/context";
+import { useRouter } from "next/navigation"
 
 export function SignupForm({
   className,
@@ -44,6 +45,7 @@ export function SignupForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasConsented, setHasConsented] = useState(false);
+  const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +82,9 @@ export function SignupForm({
       if (onClose) {
         onClose();
       }
-      
+       // Redirect to the homepage or protected route after successful login
+      router.refresh();
+      router.push("/");
       // Show success toast instead of modal
       toast.success(t('auth.toastCheckReg'), {
         description: `${t('auth.toastCheckEmailReg')} ${email}`,

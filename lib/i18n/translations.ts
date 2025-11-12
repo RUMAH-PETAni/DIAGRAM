@@ -19,6 +19,8 @@ export const translations = {
     'hero.supportMessage': 'Help local farmers by planting trees in community forest areas',
     'hero.donateLink': 'You can donate through our environmental fundraising project at',
     'hero.about': 'About',
+    'hero.hasPlanted':'Has palnted 100 trees',
+    'hero.openMap':'Open Map',
     
     // Explore modal translations
     'explore.features': 'Features and Tools',
@@ -43,6 +45,7 @@ export const translations = {
     'about.storyContent3': 'From Mat to Digital Map at Register 31.',
     'about.storyWritten': 'Written by: B.Pergola',
     'about.storyReadMore': 'read more..',
+    'about.storyFull': 'One Mat, a Thousand Stories: Change Begins With Listening',
 
     
     // Navigation translations
@@ -271,7 +274,10 @@ export const translations = {
     'hero.supportMessage': 'Bantu petani lokal dengan menanam pohon di Hutan Kemasyarakatan',
     'hero.donateLink': 'Anda dapat berdonasi melalui proyek penggalangan dana lingkungan kami di',
     'hero.about': 'Tentang',
-    
+    'hero.hasPlanted':'Telah menanam 100 pohon',
+    'hero.openMap':'Buka Peta',
+
+
     // Explore modal translations
     'explore.features': 'Fitur dan Alat',
     'explore.featuresDesc': 'Alat untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',
@@ -295,6 +301,7 @@ export const translations = {
     'about.storyContent3': 'Dari Tikar ke Peta Digital di Register 31.',
     'about.storyWritten': 'Ditulis oleh: B.Pergola',
     'about.storyReadMore': 'baca selengkapnya..',
+    'about.storyFull': 'Satu Tikar, Seribu Cerita: Perubahan yang Dimulai dari Mendengar',
 
     
     // Navigation translations

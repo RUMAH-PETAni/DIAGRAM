@@ -8,6 +8,7 @@ import {
   FieldDescription,
   FieldGroup,
 } from "@/components/ui/field"
+import ReactMarkdown from 'react-markdown';
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -26,7 +27,7 @@ export function About({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -35,17 +36,45 @@ export function About({
   const { theme } = useTheme();
   const router = useRouter();
   const [showStoryDrawer, setShowStoryDrawer] = useState(false);
-  const [showPDFModal, setShowPDFModal] = useState(false);
+  const [showStoryFull, setShowStoryFull] = useState(false);
+   const [storyContent, setStoryContent] = useState("");
+
+  const fetchStory = async () => {
+    try {
+      const response = await fetch(`/story-${language}.md`);
+      const text = await response.text();
+      setStoryContent(text);
+    } catch (error) {
+      console.error('Error fetching story:', error);
+      // Fallback to English if the language-specific file doesn't exist
+      try {
+        const response = await fetch('/story-en.md');
+        const text = await response.text();
+        setStoryContent(text);
+      } catch {
+        setStoryContent('# Story\n\nError loading content.');
+      }
+    }
+  };
+  // Fetch story content when language changes
+  useEffect(() => {
+    if (showStoryFull) {
+      fetchStory();
+    }
+  }, [language]); // Only re-fetch when language changes
 
   const handleStoryClick = () => {
     setShowStoryDrawer(true);
   };
 
   const handleReadMoreClick = () => {
-    setShowStoryDrawer(false); // Close the drawer first
-    setTimeout(() => {
-      setShowPDFModal(true); // Then open the PDF modal
-    }, 300); // Delay to allow drawer closing animation to complete
+    // Fetch story content first, then show the full story drawer
+    fetchStory().then(() => {
+      setShowStoryDrawer(false); // Close the first drawer
+      setTimeout(() => {
+        setShowStoryFull(true); // Open the full story drawer after a short delay
+      }, 300);
+    });
   };
 
   useEffect(() => {
@@ -173,28 +202,18 @@ export function About({
           </div>
         </DrawerContent>
       </Drawer>
-
-      {/* PDF Modal */}
-      <Dialog open={showPDFModal} onOpenChange={setShowPDFModal}>
-        <Dialog.Content size="screen" className="max-w-5xl max-h-[90vh] overflow-hidden">
-          
-          <div className="p-4 max-h-[70vh] overflow-auto">
-            <iframe 
-              src="/story.pdf" 
-              className="w-full h-[60vh] border-0"
-              title="Story PDF"
-            />
-          </div>
-          <Dialog.Footer className="border-t-2 px-4 py-2 flex items-center justify-end gap-2">
-            <Button 
-              
-              onClick={() => setShowPDFModal(false)}
-            >
-              {t('general.close')}
-            </Button>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog>
+      
+      {/* Full Story drawer */}
+           <Drawer open={showStoryFull} onOpenChange={setShowStoryFull}>
+              <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6 bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
+                <DrawerHeader>
+                  <DrawerTitle className="font-bold text-2xl"> {t('about.storyFull')}</DrawerTitle>
+                </DrawerHeader>
+                <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
+                  <ReactMarkdown>{storyContent}</ReactMarkdown>
+                </div>
+              </DrawerContent>
+            </Drawer>
     </div>
   )
 }

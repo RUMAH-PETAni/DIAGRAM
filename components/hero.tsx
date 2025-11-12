@@ -53,11 +53,12 @@ export function Hero({
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showExploreDrawer, setShowExploreDrawer] = useState(false);
   const [showCampaignDrawer, setShowCampaignDrawer] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [showReportDrawer, setShowReportDrawer] = useState(false);
+  const [activeImage2Index, setActiveImage2Index] = useState(0);
   const { theme } = useTheme();
   const router = useRouter();
 
@@ -96,9 +97,14 @@ export function Hero({
 
   const handleExplore = (e: React.FormEvent) => {
     e.preventDefault();
-    // Show the explore modal for all users
     setShowExploreDrawer(true);
     setActiveImageIndex(0); // Reset to first slide and image
+  };
+
+  const handleReport = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowReportDrawer(true);
+    setActiveImage2Index(0); // Reset to first slide and image
   };
 
    const [progress, setProgress] = React.useState(20);
@@ -150,9 +156,6 @@ export function Hero({
                       </div>
                     </Field>
                   </CardContent>
-                  
-                  
-                  
               <FieldDescription className="text-left italic">
                 {t('hero.description')}
               </FieldDescription>
@@ -199,6 +202,10 @@ export function Hero({
                           variant = "outline"
                           type="button"
                           className="flex items-center justify-center"
+                          onClick={() => {
+                            setShowReportDrawer(true);
+                            setShowCampaignDrawer(false);
+                          }}
                         >
                          {t('hero.report')}
                         </Button>
@@ -217,7 +224,7 @@ export function Hero({
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
-                        <TreesIcon className="size-8"/>
+                          <TreesIcon className="size-8"/>
                         </div>
                       </div>
                     </div>
@@ -353,6 +360,103 @@ export function Hero({
                         </div>
                       </div>
                     </CarouselItem>
+                  </CarouselContent>
+                  <CarouselPrevious className="absolute top-1/2" />
+                  <CarouselNext className="absolute top-1/2" />
+                </Carousel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DrawerContent>
+    </Drawer>
+
+    {/* Report Drawer */}
+    <Drawer open={showReportDrawer} onOpenChange={setShowReportDrawer}>
+      <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto flex flex-col bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')"}}>
+        <DrawerTitle></DrawerTitle>
+        <div className="h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
+          <div className="inline-block w-full max-w-3xl px-6">
+            <div className="square md:aspect-video w-full relative">
+              <img 
+                src="/sugriwo.png" 
+                alt="Farmer 1" 
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImage2Index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
+              <img 
+                src="/supriyadi.png" 
+                alt="Farmer 2" 
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImage2Index === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
+              <img 
+                src="/laptop.png" 
+                alt="Data Library" 
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImage2Index === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
+            </div>
+            <div className="px-6 mt-80 md:mt-0 flex-1 flex flex-col">
+              <div >
+                <Carousel opts={{ align: "end" }} className="w-full" setApi={(api: CarouselApi) => {
+                  api?.on("select", () => {
+                    setActiveImage2Index(api.selectedScrollSnap());
+                  });
+                }}>
+                  <CarouselContent>
+                    <CarouselItem>
+                      {/* Farmer1 Report */}
+                      <div className="flex flex-col items-center justify-between">
+                        <Card 
+                          className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
+                          onClick={() => {setShowReportDrawer(false)}}>
+                          <div className="text-left">
+                            
+                            <div className="text-lg md:text-2xl font-bold">Sugriwo</div>
+                           
+                              <div className="text-sm">
+                                {t('hero.hasPlanted')} 
+                              </div>
+                              
+                          </div>
+                          <Button
+                              type="button"
+                              className="flex items-center justify-center"
+                            >
+                              {t('hero.openMap')}
+                          </Button>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                    <CarouselItem>
+                      {/* Farmer1 Report2 */}
+                      <div className="flex flex-col items-center">
+                        <Card 
+                          className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
+                          onClick={() => {setShowReportDrawer(false)}}>
+                          <div className="text-left">
+                           
+                            <div className="text-lg md:text-2xl font-bold">Supriyadi</div>
+                            
+                              <div className="text-sm">
+                                {t('hero.hasPlanted')} 
+                              </div>
+                             
+                          </div>
+                          <Button
+                              type="button"
+                              className="flex items-center justify-center"
+                            >
+                              {t('hero.openMap')}
+                          </Button>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                   
                   </CarouselContent>
                   <CarouselPrevious className="absolute top-1/2" />
                   <CarouselNext className="absolute top-1/2" />

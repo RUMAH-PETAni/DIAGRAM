@@ -33,6 +33,16 @@ body {
   border-radius: 0.5rem;
 }
 
+/* Maplibre Map Styles */
+.maplibregl-ctrl-top-left,
+.maplibregl-ctrl-bottom-left {
+  margin: 10px;
+}
+
+.maplibregl-ctrl-bottom-right {
+  margin: 10px;
+}
+
 /* Flashing point styles - not used for RSource/RLayer implementation */
 
 .theme-scaled {
