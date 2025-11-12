@@ -1,4 +1,8 @@
-In a world of constant change and growing environmental challenges, there are still individuals who choose to return — not for luxury, but for hope. This is the story of someone who went back to his roots, bringing not only knowledge, but also love, time, and the courage to listen. A story about how great change can begin from something simple — from a humble mat, a cup of warm coffee, and a willingness to be fully present.
+
+
+In a world of constant change and growing environmental challenges, there are still individuals who choose to return — not for luxury, but for hope. This is the story of someone who went back to his roots, bringing not only knowledge, but also love, time, and the courage to listen. 
+
+A story about how great change can begin from something simple — from a humble mat, a cup of warm coffee, and a willingness to be fully present.
 
 
 ---
@@ -21,6 +25,10 @@ The process was far from easy.  Long debates, exhausting participatory mapping, 
 
 Finally, on **December 19, 2019**,  the Ministry of Environment and Forestry issued a **Community Forest Utilization Permit (IUPHKm)**  for Gapoktanhut Lestari Sejahtera.  That day, I saw faces filled with hope.  But I knew — the permit was not the end, only the beginning:  a doorway to new challenges Maintaining commitment, nurturing trust, and building independence.
 
+<p align="center">
+  <img src="/planting.png" alt="planting" width="600" class="rounded-4xl"/>
+</p>
+
 Another challenge came in 2020.  We received a **land rehabilitation program** from **One Tree Planted (OTP)** with an ambitious target: planting 100,000 trees, including 30,000 bamboo. But the community refused to plant bamboo for them, bamboo was a pest to coffee, not a savior of forests.
 
 We didn’t force them.  We returned to our core method — listening.  We met them, discussed late into the night, not just speaking but truly listening. Gradually, understanding grew.  Members of Gapoktanhut Lestari Sejahtera began to see  that this wasn’t about a planting project, but an investment in the future — for generations to come.
@@ -40,6 +48,10 @@ To be a forester is to be a bridge —  a bridge connecting a wounded past with 
 But times change.  Today, the greatest challenge is not only planting trees — but planting **data**.  In the digital era, information is key.  Unfortunately, data from forest farmer groups (KTH) are often scattered, incomplete, or lost.  Without data, how can we plan for the future?
 
 From this concern, **RUMAH PETAni** was born — not merely a platform, but a *digital home* for hope and potential,  powered by geospatial technology and the **KoboToolbox** system.  We began to collect data with precision —  interactive maps, farmer profiles, and non-timber forest product data — now everything is clear and open to everyone.
+
+<p align="center">
+  <img src="/mapping.png" alt="mapping" width="600" class="rounded-4xl"/>
+</p>
 
 One of **RUMAH PETAni’s** proudest achievements  is the success of **participatory mapping**  in KTH Tumpak Rejo 1, 2, 3, and Gapoktanhut Lestari Sejahtera.  The process did not just produce maps — it created a new culture.  Farmers no longer talk only about harvests and fertilizers;  they now talk about coordinates and geo-tagging.
 

@@ -9,6 +9,8 @@ import {
   FieldGroup,
 } from "@/components/ui/field"
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
+
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -210,7 +212,9 @@ export function About({
                   <DrawerTitle className="font-bold text-2xl"> {t('about.storyFull')}</DrawerTitle>
                 </DrawerHeader>
                 <div className="p-4 max-w-none leading-relaxed space-y-4 h-[calc(80vh-80px)] overflow-y-auto">
-                  <ReactMarkdown>{storyContent}</ReactMarkdown>
+                  <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                    {storyContent}
+                  </ReactMarkdown>
                 </div>
               </DrawerContent>
             </Drawer>
