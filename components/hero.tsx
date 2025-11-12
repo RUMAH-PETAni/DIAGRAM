@@ -16,6 +16,9 @@ import {
 } from "@/components/retroui/Tooltip"
 
 import { Dialog } from "@/components/retroui/DialogCustom"
+import { ExploreDrawer } from "./ExploreDrawer"
+import { CampaignDrawer } from "./CampaignDrawer"
+import { ReportDrawer } from "./ReportDrawer"
 
 import {
   Drawer,
@@ -62,14 +65,14 @@ export function Hero({
   const { theme } = useTheme();
   const router = useRouter();
 
-  useEffect(() => {   
+  useEffect(() => {
     // Check authentication status
     const checkAuth = async () => {
       const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
       setIsAuthenticated(!!session);
     };
-    
+
     checkAuth();
   }, []);
 
@@ -108,7 +111,7 @@ export function Hero({
   };
 
    const [progress, setProgress] = React.useState(20);
- 
+
   React.useEffect(() => {
     const timer = setTimeout(() => setProgress(20), 500);
     return () => clearTimeout(timer);
@@ -146,8 +149,8 @@ export function Hero({
                           ]}
                           wrapper="span"
                           speed={40} // Speed of typing: 1 = slowest, 99 = fastest
-                          style={{ 
-                            display: 'inline-block', 
+                          style={{
+                            display: 'inline-block',
                             color: 'inherit',
                             width: '100%'
                           }}
@@ -160,76 +163,30 @@ export function Hero({
                 {t('hero.description')}
               </FieldDescription>
               <div className="grid grid-cols-2 gap-4">
-                
-                      <Button
-                        type="button"
-                        className="flex items-center justify-center"
-                        onClick={handleExplore} 
-                        disabled={isLoading}
-                      >
-                        {isLoading ? t('hero.explore') + "..." : t('hero.explore')}
-                      </Button>
-             
-                <Drawer open={showCampaignDrawer} onOpenChange={setShowCampaignDrawer}>
-                  <DrawerTrigger asChild>
-                    <Button
-                      variant = "secondary"
-                      type="button"
-                      className="flex items-center justify-center"
-                      onClick={() => setShowCampaignDrawer(true)}
-                    >
-                      {t('hero.campaign')}
-                    </Button>
-                  </DrawerTrigger>
-                 
-                  <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
-                    <DrawerHeader>
-                      <DrawerTitle className="font-bold text-2xl">{t('hero.letSupport')}</DrawerTitle>
-                    </DrawerHeader>
-                    <div className="p-6 text-center h-full flex items-start justify-center ">
-                      <div className=" bg-opacity-50 p-6 md:p-8 inline-block border-2 shadow-md transition-all hover:shadow-none bg-card">
-                        <p className="text-2xl font-bold">
-                        {t('hero.supportMessage')}</p>
-                        <p className="mt-2">{t('hero.donateLink')} <a href="https://kitabisa.com" className="underline">kitabisa.com</a></p>
-                         <section className="w-full grid grid-cols-2 gap-4 mt-4 p-4">
-                        <Button
-                          type="button"
-                          className="flex items-center justify-center"
-                        >
-                          {t('hero.donate')}
-                        </Button>
-                        <Button
-                          variant = "outline"
-                          type="button"
-                          className="flex items-center justify-center"
-                          onClick={() => {
-                            setShowReportDrawer(true);
-                            setShowCampaignDrawer(false);
-                          }}
-                        >
-                         {t('hero.report')}
-                        </Button>
-                        </section>
-                        <div className="p-6 flex items-center justify-center gap-4 ">
-                          <p className="font-bold" >{t('hero.progress')}</p>
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <div className="cursor-pointer w-full">
-                                  <Progress value={progress} className="w-full" />
-                                </div>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>{t('hero.treesPlanted')}</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                          <TreesIcon className="size-8"/>
-                        </div>
-                      </div>
-                    </div>
-                  </DrawerContent>
-                </Drawer>
+                <Button
+                  type="button"
+                  className="flex items-center justify-center"
+                  onClick={handleExplore}
+                  disabled={isLoading}
+                  >
+                  {isLoading ? t('hero.explore') + "..." : t('hero.explore')}
+                </Button>
+
+              <ExploreDrawer 
+                open={showExploreDrawer} 
+                onOpenChange={setShowExploreDrawer} 
+                activeImageIndex={activeImageIndex}
+                setActiveImageIndex={setActiveImageIndex}
+              />
+
+                <CampaignDrawer 
+                  open={showCampaignDrawer} 
+                  onOpenChange={setShowCampaignDrawer} 
+                  showReportDrawer={showReportDrawer}
+                  setShowReportDrawer={setShowReportDrawer}
+                  setShowCampaignDrawer={setShowCampaignDrawer}
+                  progress={progress}
+                />
               </div>
               {error && (
                 <div className="text-sm text-red-500 text-center">
@@ -256,239 +213,14 @@ export function Hero({
           </div>
         </CardContent>
       </Card>
-    
-    {/* Explore Drawer */}
-    <Drawer open={showExploreDrawer} onOpenChange={setShowExploreDrawer} direction="top">
-      <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto flex flex-col bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')"}}>
-        <DrawerTitle></DrawerTitle>
-        <div className="h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
-          <div className="inline-block w-full max-w-3xl px-6">
-            <div className="square md:aspect-video w-full relative">
-              <img 
-                src="/farmer1.png" 
-                alt="Ecosystem" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImageIndex === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-              <img 
-                src="/tabletmap1.png" 
-                alt="Features & Tools" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImageIndex === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-              <img 
-                src="/hero1.png" 
-                alt="On Demand Services" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImageIndex === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-              <img 
-                src="/laptop.png" 
-                alt="Data Library" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImageIndex === 3 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-            </div>
-            <div className="px-6 mt-80 md:mt-0 flex-1 flex flex-col">
-              <div >
-                <Carousel opts={{ align: "end" }} className="w-full" setApi={(api: CarouselApi) => {
-                  api?.on("select", () => {
-                    setActiveImageIndex(api.selectedScrollSnap());
-                  });
-                }}>
-                  <CarouselContent>
-                         <CarouselItem>
-                      {/* Features & Tools Button */}
-                      <div className="flex flex-col items-center justify-center">
-                        <Card 
-                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
-                          onClick={() => {
-                            router.push("/ecosystem");
-                            setShowExploreDrawer(false);
-                          }}
-                        >
-                          <div className=" w-16 flex items-center justify-center">
-                          <Sparkles className="mr-2 h-10 w-10"/>
-                          </div>
-                          <div className="text-left">
-                            <div className="text-lg md:text-2xl font-bold">{t('explore.ecosystem')}</div>
-                          </div>
-                        </Card>
-                        <div className="mt-2 text-center">
-                          <p className="text-muted-foreground">{t('explore.ecosystemDesc')}</p>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      {/* Features & Tools Button */}
-                      <div className="flex flex-col items-center justify-center">
-                        <Card 
-                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
-                          onClick={() => {
-                            router.push("/features");
-                            setShowExploreDrawer(false);
-                          }}
-                        >
-                          <div className=" w-16 flex items-center justify-center">
-                          <Shapes className="mr-2 h-10 w-10"/>
-                          </div>
-                          <div className="text-left">
-                            <div className="text-lg md:text-2xl font-bold">{t('explore.features')}</div>
-                          </div>
-                        </Card>
-                        <div className="mt-2 text-center">
-                          <p className="text-muted-foreground">{t('explore.featuresDesc')}</p>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      {/* On Demand Services Button */}
-                      <div className="flex flex-col items-center">
-                        <Card 
-                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
-                          onClick={() => {
-                            router.push("/services");
-                            setShowExploreDrawer(false);
-                          }}
-                        >
-                          <div className=" w-16 flex items-center justify-center">
-                          <Handshake className="mr-2 h-10 w-10"/>
-                          </div>
-                          <div className="text-left">
-                            <div className="text-lg md:text-2xl font-bold">{t('explore.services')}</div>
-                          </div>
-                        </Card>
-                        <div className="mt-2 text-center">
-                          <p className=" text-muted-foreground">{t('explore.servicesDesc')}</p>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      {/* Data Library Button */}
-                      <div className="flex flex-col items-center">
-                        <Card 
-                          className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
-                          onClick={() => {
-                            router.push("/library");
-                            setShowExploreDrawer(false);
-                          }}
-                        >
-                          <div className=" w-16 flex items-center justify-center">
-                          <DatabaseZap className="mr-2 h-10 w-10" />
-                          </div>
-                          <div className="text-left">
-                            <div className="text-lg md:text-2xl font-bold">{t('explore.dataLibrary')}</div>
-                          </div>
-                        </Card>
-                        <div className="mt-2 text-center">
-                          <p className="text-muted-foreground">{t('explore.dataLibraryDesc')}</p>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  </CarouselContent>
-                  <CarouselPrevious className="absolute top-1/2" />
-                  <CarouselNext className="absolute top-1/2" />
-                </Carousel>
-              </div>
-            </div>
-          </div>
-        </div>
-      </DrawerContent>
-    </Drawer>
 
-    {/* Report Drawer */}
-    <Drawer open={showReportDrawer} onOpenChange={setShowReportDrawer}>
-      <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto flex flex-col bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')"}}>
-        <DrawerTitle></DrawerTitle>
-        <div className="h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
-          <div className="inline-block w-full max-w-3xl px-6">
-            <div className="square md:aspect-video w-full relative">
-              <img 
-                src="/sugriwo.png" 
-                alt="Farmer 1" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImage2Index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-              <img 
-                src="/supriyadi.png" 
-                alt="Farmer 2" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImage2Index === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-              <img 
-                src="/laptop.png" 
-                alt="Data Library" 
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImage2Index === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-            </div>
-            <div className="px-6 mt-80 md:mt-0 flex-1 flex flex-col">
-              <div >
-                <Carousel opts={{ align: "end" }} className="w-full" setApi={(api: CarouselApi) => {
-                  api?.on("select", () => {
-                    setActiveImage2Index(api.selectedScrollSnap());
-                  });
-                }}>
-                  <CarouselContent>
-                    <CarouselItem>
-                      {/* Farmer1 Report */}
-                      <div className="flex flex-col items-center justify-between">
-                        <Card 
-                          className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
-                          onClick={() => {setShowReportDrawer(false)}}>
-                          <div className="text-left">
-                            <div className="text-lg md:text-2xl font-bold">Sugriwo</div>
-                            <div className="text-sm">{t('hero.hasPlanted')}</div>
-                            <div className="text-sm">HKm Lestari Sejahtera</div>  
-                          </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.openMap')}
-                          </Button>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      {/* Farmer1 Report2 */}
-                      <div className="flex flex-col items-center">
-                        <Card 
-                          className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
-                          onClick={() => {setShowReportDrawer(false)}}>
-                          <div className="text-left">
-                            <div className="text-lg md:text-2xl font-bold">Supriyadi</div>
-                            <div className="text-sm">{t('hero.hasPlanted')}</div>
-                            <div className="text-sm">HKm Lestari Sejahtera</div> 
-                          </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.openMap')}
-                          </Button>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                   
-                  </CarouselContent>
-                  <CarouselPrevious className="absolute top-1/2" />
-                  <CarouselNext className="absolute top-1/2" />
-                </Carousel>
-              </div>
-            </div>
-          </div>
-        </div>
-      </DrawerContent>
-    </Drawer>
-    
+    <ReportDrawer 
+      open={showReportDrawer} 
+      onOpenChange={setShowReportDrawer} 
+      activeImage2Index={activeImage2Index}
+      setActiveImage2Index={setActiveImage2Index}
+    />
+
     </div>
   )
 }

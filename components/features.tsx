@@ -271,7 +271,7 @@ export function Features({
             </Card>
 
             {/* Discussion Card */}
-            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
+            <Card className=" border p-4 bg-background flex flex-col items-center justify-center">
               <MessagesSquare className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -291,7 +291,8 @@ export function Features({
             
             
             {/* Carbon Tools Card */}
-            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
+            <Card className="relative border p-4 bg-background flex flex-col items-center justify-center">
+               <Badge variant="solid" size="sm" className="absolute top-2 right-2">Pro</Badge>
               <Calculator className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"
@@ -308,7 +309,8 @@ export function Features({
               </Button>
             </Card>
             {/* WHISP Tools Card */}
-            <Card className="border p-4 bg-background flex flex-col items-center justify-center">
+            <Card className="relative border p-4 bg-background flex flex-col items-center justify-center">
+               <Badge variant="solid" size="sm" className="absolute top-2 right-2">Pro</Badge>
               <Trees className="w-8 h-8 mb-2" />
               <Button
                 variant="secondary"

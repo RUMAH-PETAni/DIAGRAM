@@ -19,11 +19,11 @@ export const translations = {
     'hero.supportMessage': 'Help local farmers by planting trees in community forest areas',
     'hero.donateLink': 'You can donate through our environmental fundraising project at',
     'hero.about': 'About',
-    'hero.hasPlanted':'Has palnted 100 trees',
-    'hero.openMap':'Open Map',
+    'hero.hasPlanted':'Has planted 100 trees',
+    'hero.seeDetails':'See Details',
     
     // Explore modal translations
-    'explore.ecosystem': 'Our Ecosystems',
+    'explore.ecosystem': 'Sustainable Ecosystems',
     'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
     'explore.features': 'Features and Tools',
     'explore.featuresDesc': 'Map, monitor, and manage your farm efficiently.',
@@ -277,11 +277,11 @@ export const translations = {
     'hero.donateLink': 'Anda dapat berdonasi melalui proyek penggalangan dana lingkungan kami di',
     'hero.about': 'Tentang',
     'hero.hasPlanted':'Telah menanam 100 pohon',
-    'hero.openMap':'Buka Peta',
+    'hero.seeDetails':'Lihat Detail',
 
 
     // Explore modal translations
-    'explore.ecosystem': 'Ekosistem Kami',
+    'explore.ecosystem': 'Ekosistem Berkelanjutan',
     'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
     'explore.features': 'Fitur dan Alat',
     'explore.featuresDesc': 'Alat untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',

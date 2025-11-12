@@ -73,9 +73,7 @@ export function About({
     // Fetch story content first, then show the full story drawer
     fetchStory().then(() => {
       setShowStoryDrawer(false); // Close the first drawer
-      setTimeout(() => {
-        setShowStoryFull(true); // Open the full story drawer after a short delay
-      }, 300);
+      setShowStoryFull(true); // Open the full story drawer
     });
   };
 

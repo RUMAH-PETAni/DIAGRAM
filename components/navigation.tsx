@@ -64,19 +64,6 @@ const Navigation = () => {
                 {t('nav.home')}
               </Button>
             </Card>
-
-              <Card className="border p-4 bg-background flex flex-col items-center justify-center"> 
-            <InfoIcon className="h-8 w-8 mb-2" />
-            <Button 
-              size="sm"
-              className="w-full flex text-xs items-center justify-center"
-              onClick={() => {
-              setShowNavDrawer(false);
-              window.location.href = "/about";
-            }}>
-              {t('nav.about')}
-            </Button>
-            </Card>
       
             <Card className="border p-4 bg-background flex flex-col items-center justify-center">       
             <Shapes className="h-8 w-8 mb-2" />
@@ -117,8 +104,6 @@ const Navigation = () => {
             </Button>
             </Card>
 
-          
-
             <Card className="border p-4 bg-background flex flex-col items-center justify-center"> 
             <Settings className="h-8 w-8 mb-2" />
             <Button 
@@ -131,8 +116,19 @@ const Navigation = () => {
               {t('nav.settings')}
             </Button>
             </Card>
+            <Card className="border p-4 bg-background flex flex-col items-center justify-center"> 
+            <InfoIcon className="h-8 w-8 mb-2" />
+            <Button 
+              size="sm"
+              className="w-full flex text-xs items-center justify-center"
+              onClick={() => {
+              setShowNavDrawer(false);
+              window.location.href = "/about";
+            }}>
+              {t('nav.about')}
+            </Button>
+            </Card>
           </div>
-          
         </DrawerContent>
       </Drawer>
       
