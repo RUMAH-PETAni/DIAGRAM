@@ -14,12 +14,12 @@ export const translations = {
     'hero.letSupport': 'Let`s Support Us!',
     'hero.donate': 'Donate',
     'hero.report': 'Report',
-    'hero.treesPlanted': '20% out of 1000 trees planted',
+    'hero.treesPlanted': '20% out of 100.000 trees has planted',
     'hero.progress': 'Progress:',
     'hero.supportMessage': 'Help local farmers by planting trees in community forest areas',
     'hero.donateLink': 'You can donate through our environmental fundraising project at',
     'hero.about': 'About',
-    'hero.hasPlanted':'Has planted 100 trees',
+    'hero.hasPlanted':'Has planted ∞ trees 🌳',
     'hero.seeDetails':'See Details',
     
     // Explore modal translations
@@ -273,13 +273,13 @@ export const translations = {
     'hero.campaign': 'Kampanye!',
     'hero.letSupport': 'Mari Dukung Kami!',
     'hero.donate': 'Donasi',
-    'hero.treesPlanted': '20% dari 1000 pohon ditanam',
+    'hero.treesPlanted': '20% dari 100.000 pohon telah ditanam',
     'hero.report': 'Laporan',
     'hero.progress': 'Kemajuan:',
     'hero.supportMessage': 'Bantu petani lokal dengan menanam pohon di Hutan Kemasyarakatan',
     'hero.donateLink': 'Anda dapat berdonasi melalui proyek penggalangan dana lingkungan kami di',
     'hero.about': 'Tentang',
-    'hero.hasPlanted':'Telah menanam 100 pohon',
+    'hero.hasPlanted':'Telah menanam ∞ pohon 🌳',
     'hero.seeDetails':'Lihat Detail',
 
 
