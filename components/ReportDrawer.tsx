@@ -26,21 +26,21 @@ import { useLanguage } from "@/lib/i18n/context";
 interface ReportDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  activeImage2Index: number;
-  setActiveImage2Index: (index: number) => void;
+  activeImageIndex: number;
+  setActiveImageIndex: (index: number) => void;
 }
 
 export function ReportDrawer({ 
   open, 
   onOpenChange, 
-  activeImage2Index, 
-  setActiveImage2Index 
+  activeImageIndex, 
+  setActiveImageIndex 
 }: ReportDrawerProps) {
   const router = useRouter();
   const { t } = useLanguage();
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
+    <Drawer open={open} onOpenChange={onOpenChange} direction="top">
       <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto flex flex-col bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')"}}>
         <DrawerTitle></DrawerTitle>
         <div className="h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
@@ -50,21 +50,14 @@ export function ReportDrawer({
                 src="/sugriwo.png"
                 alt="Farmer 1"
                 className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImage2Index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  activeImageIndex === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
               <img
                 src="/supriyadi.png"
                 alt="Farmer 2"
                 className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImage2Index === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-              <img
-                src="/laptop.png"
-                alt="Data Library"
-                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  activeImage2Index === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  activeImageIndex === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
             </div>
@@ -72,7 +65,7 @@ export function ReportDrawer({
               <div >
                 <Carousel opts={{ align: "end" }} className="w-full" setApi={(api: CarouselApi) => {
                   api?.on("select", () => {
-                    setActiveImage2Index(api.selectedScrollSnap());
+                    setActiveImageIndex(api.selectedScrollSnap());
                   });
                 }}>
                   <CarouselContent>

@@ -61,7 +61,7 @@ export function Hero({
   const [showCampaignDrawer, setShowCampaignDrawer] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [showReportDrawer, setShowReportDrawer] = useState(false);
-  const [activeImage2Index, setActiveImage2Index] = useState(0);
+
   const { theme } = useTheme();
   const router = useRouter();
 
@@ -107,7 +107,7 @@ export function Hero({
   const handleReport = (e: React.FormEvent) => {
     e.preventDefault();
     setShowReportDrawer(true);
-    setActiveImage2Index(0); // Reset to first slide and image
+    setActiveImageIndex(0); // Reset to first slide and image
   };
 
    const [progress, setProgress] = React.useState(20);
@@ -217,8 +217,8 @@ export function Hero({
     <ReportDrawer 
       open={showReportDrawer} 
       onOpenChange={setShowReportDrawer} 
-      activeImage2Index={activeImage2Index}
-      setActiveImage2Index={setActiveImage2Index}
+      activeImageIndex={activeImageIndex}
+      setActiveImageIndex={setActiveImageIndex}
     />
 
     </div>
