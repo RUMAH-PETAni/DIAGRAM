@@ -62,23 +62,31 @@ export function ReportDrawer({
               />
               <img
                 src="/report/supriyadi.png"
-                alt="Farmer 2"
+                alt="Farmer 3"
                 className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
                   activeImageIndex === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
-               <img
-                src="/report/suwarni.png"
-                alt="Farmer 3"
+                <img
+                src="/report/murahrejeki.png"
+                alt="Farmer 4"
                 className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
                   activeImageIndex === 3 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
                <img
-                src="/report/sidomakmur.png"
-                alt="Farmer 3"
+                src="/report/suwarni.png"
+                alt="Farmer 5"
                 className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
                   activeImageIndex === 4 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              />
+            
+               <img
+                src="/report/sidomakmur.png"
+                alt="Farmer 6"
+                className={`w-full h-70 md:h-90 object-cover rounded-b-4xl absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  activeImageIndex === 5 ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               />
             </div>
@@ -158,6 +166,26 @@ export function ReportDrawer({
                           className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
                           onClick={() => {onOpenChange(false)}}>
                           <div className="text-left">
+                            <div className="text-lg md:text-2xl font-bold">Muslimin</div>
+                            <div className="text-sm">{t('hero.hasPlanted')}</div>
+                            <div className="text-sm">@ KTH Murah Rejeki</div>
+                          </div>
+                          <Button
+                              type="button"
+                              className="flex items-center justify-center"
+                            >
+                              {t('hero.seeDetails')}
+                          </Button>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                    <CarouselItem>
+                      {/* Farmer5 Report */}
+                      <div className="flex flex-col items-center">
+                        <Card
+                          className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
+                          onClick={() => {onOpenChange(false)}}>
+                          <div className="text-left">
                             <div className="text-lg md:text-2xl font-bold">Suwarni</div>
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Mandiri Jaya</div>
@@ -172,7 +200,7 @@ export function ReportDrawer({
                       </div>
                     </CarouselItem>
                     <CarouselItem>
-                      {/* Farmer5 Report */}
+                      {/* Farmer6 Report */}
                       <div className="flex flex-col items-center">
                         <Card
                           className="flex items-center justify-between gap-4 w-64 md:w-lg p-4 shadow-none hover:shadow-none"
