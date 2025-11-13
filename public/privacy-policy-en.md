@@ -1,4 +1,4 @@
-We value your privacy and are committed to protecting your personal information.
+We value privacy and are committed to protecting your personal information.
 
 ### **1. Information We Collect**
 We may collect:

@@ -26,7 +26,7 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-} from "@/components/ui/carousel";
+} from "@/components/ui/carousela";
 
 export default function EcosystemContent() {
   const { t } = useLanguage();
@@ -54,7 +54,7 @@ export default function EcosystemContent() {
         </div>
         {/* Testimonials Carousel */}
         <div className="w-full max-w-5xl p-6 flex items-center justify-center">
-          <Carousel className="w-full max-w-3xl">
+          <Carousel className="w-full max-w-5xl">
             <CarouselContent>
               <CarouselItem className="md:basis-1/2 lg:basis-1/3">
                 <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
@@ -70,8 +70,8 @@ export default function EcosystemContent() {
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">Sugriwo</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-left font-medium text-sm">Sugriwo</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
                           Petani
                         </div>
                       </div>
@@ -93,8 +93,8 @@ export default function EcosystemContent() {
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">Bondan P.</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-left font-medium text-sm">Bondan P.</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
                           Staff KPH
                         </div>
                       </div>
@@ -117,8 +117,8 @@ export default function EcosystemContent() {
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">F.Surachman</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-left font-medium text-sm">F.Surachman</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
                           Manager Project
                         </div>
                       </div>
@@ -141,8 +141,8 @@ export default function EcosystemContent() {
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">Sahmi</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-left font-medium text-sm">Sahmi</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
                           Ketua Kelompok
                         </div>
                       </div>
@@ -165,8 +165,31 @@ export default function EcosystemContent() {
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">Duryat</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-left font-medium text-sm">Duryat</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
+                          Akademisi
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+               <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
+                      &quot; Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. &quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-16 w-16">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/avatar/male3.webp"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="text-left font-medium text-sm">A.M Muslih</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
                           Akademisi
                         </div>
                       </div>
@@ -189,8 +212,8 @@ export default function EcosystemContent() {
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">Anonimous</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-left font-medium text-sm">Anonimous</div>
+                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
                           Petani
                         </div>
                       </div>

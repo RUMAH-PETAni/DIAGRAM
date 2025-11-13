@@ -1,9 +1,7 @@
 import { FloatingAIButton } from "@/components/floating-ai-button";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { Text } from "@/components/retroui/Text";
-import Marquee from "@/components/ui/marquee";
-import EcosystemContent from "./EcosystemContent";
+import EcosystemContent from "../../components/EcosystemContent";
 
 export default function EcosystemPage() {
   return (

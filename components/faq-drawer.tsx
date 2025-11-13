@@ -54,7 +54,7 @@ export function FAQDrawer({ isOpen = false, onOpenChange }: { isOpen?: boolean; 
 
   return (
     <Drawer open={effectiveIsOpen} onOpenChange={setIsOpen}>
-      <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+      <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto px-6">
         <DrawerHeader>
           <DrawerTitle className="text-2xl font-bold">{t('faq.title')}</DrawerTitle>
         </DrawerHeader>  

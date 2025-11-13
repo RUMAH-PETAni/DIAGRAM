@@ -104,7 +104,7 @@ export function Footer() {
       
       {/* Terms of Service drawer */}
      <Drawer open={showTermsSheet} onOpenChange={setShowTermsSheet}>
-        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+        <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto px-6">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('general.terms')}</DrawerTitle>
           </DrawerHeader>
@@ -116,7 +116,7 @@ export function Footer() {
       
       {/* Privacy Policy Drawer */}
       <Drawer open={showPrivacySheet} onOpenChange={setShowPrivacySheet}>
-        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+        <DrawerContent className="h-[80vh] w-full max-w-3xl mx-auto px-6">
           <DrawerHeader>
             <DrawerTitle className="font-bold text-2xl">{t('general.privacy')}</DrawerTitle>
           </DrawerHeader>

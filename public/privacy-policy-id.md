@@ -1,4 +1,4 @@
-Kami menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi Anda.
+Kami menghargai privasi dan berkomitmen untuk melindungi informasi pribadi Anda.
 
 ### **1. Informasi yang Kami Kumpulkan**
 Kami mungkin mengumpulkan:

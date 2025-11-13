@@ -18,16 +18,27 @@ import { useState } from "react"
 import { Dialog } from "@/components/retroui/DialogCustom"
 import { Text } from "@/components/retroui/Text"
 import { ForgotPasswordForm } from "@/components/login/forgot-password-form"
+import { useLanguage } from "@/lib/i18n/context";
+import { SignupForm } from "@/components/signup/signup-form";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/retroui/DrawerCustom";
 
 export function LoginForm({
   className,
+  onClose,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { onClose?: () => void }) {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showSignupDrawer, setShowSignupDrawer] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -42,9 +53,14 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
+      // Close the drawer after successful login
+      if (onClose) {
+        onClose();
+      }
       // Redirect to the homepage or protected route after successful login
-      router.push("/");
       router.refresh();
+      router.push("/");
+      
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -60,14 +76,14 @@ export function LoginForm({
           <form className="p-6 md:p-8 " onSubmit={handleLogin}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Login to your account</h1>
+                <h1 className="text-2xl font-bold">{t('auth.loginTitle')}</h1>
               </div>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t('auth.email')}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder={t('auth.emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -75,19 +91,19 @@ export function LoginForm({
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">{t('auth.password')}</FieldLabel>
                   <button
                     type="button"
                     className="ml-auto text-sm underline-offset-2 hover:underline cursor-pointer"
                     onClick={() => setShowForgotPasswordModal(true)}
                   >
-                    Forgot your password?
+                    {t('auth.forgotPassword')}
                   </button>
                 </div>
                 <Input 
                   id="password" 
                   type="password"
-                  placeholder="********" 
+                  placeholder={t('auth.passwordPlaceholder')} 
                   required 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -95,7 +111,7 @@ export function LoginForm({
               </Field>
               <Field>
                 <Button type="submit" className="flex items-center justify-center" disabled={isLoading}>
-                  {isLoading ? "Logging in..." : "Login"}
+                  {isLoading ? t('auth.loggingIn') : t('auth.loginButton')}
                 </Button>
               </Field>
               {error && (
@@ -103,27 +119,34 @@ export function LoginForm({
                   {error}
                 </div>
               )}
-        
-                <FieldDescription className="text-left">
-                  Don&apos;t have an account?{" "}
-                  <Link href="/auth/sign-up" className="font-bold cursor-pointer">
-                    Sign up
-                  </Link>
-                </FieldDescription>
+              
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
+ 
       
       {/* Forgot Password Modal */}
       <Dialog open={showForgotPasswordModal} onOpenChange={setShowForgotPasswordModal}>
         <Dialog.Content size={"md"}>
           <Dialog.Header>
-            <Text as="h5">Reset your password</Text>
+            <Text as="h5">{t('auth.forgotPasswordModalTitle')}</Text>
           </Dialog.Header>
           <ForgotPasswordForm onClose={() => setShowForgotPasswordModal(false)} />
         </Dialog.Content>
       </Dialog>
+      
+      {/* Signup Drawer */}
+      <Drawer open={showSignupDrawer} onOpenChange={setShowSignupDrawer} direction="bottom">
+        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
+          <DrawerHeader>
+            <DrawerTitle className="font-bold text-2xl">{t('auth.signUpTitle')}</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4 pb-8 max-h-[80vh] overflow-y-auto">
+            <SignupForm onClose={() => setShowSignupDrawer(false)} />
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }
