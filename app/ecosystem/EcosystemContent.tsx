@@ -60,18 +60,17 @@ export default function EcosystemContent() {
                 <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
                   <Card.Content className="flex flex-col flex-1 p-4">
                     <Text className="text-base flex-1 text-center">
-                      &quot; Platform yang cukup membagongkan! 😁
-                      mengajak kami para petani untuk melek teknologi..&quot;
+                      &quot; Dulu saya mencatat semua penanaman di buku. Sekarang, dengan DIAGRAM, saya bisa memantau pertumbuhan pohon dari ponsel &quot;
                     </Text>
                     <div className="flex items-center space-x-2 mt-auto pt-4">
                       <Avatar className="h-12 w-12">
                         <Avatar.Image
                           alt="avatar"
-                          src="/avatar/male2.webp"
+                          src="/sugriwo-small.png"
                         />
                       </Avatar>
                       <div>
-                        <div className="font-medium text-sm">Anonimous</div>
+                        <div className="font-medium text-sm">Sugriwo</div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           Petani
                         </div>
@@ -107,6 +106,30 @@ export default function EcosystemContent() {
                 <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
                   <Card.Content className="flex flex-col flex-1 p-4">
                     <Text className="text-base flex-1 text-center">
+                      &quot; Mengelola data agroforestri secara lebih efisien dan transparan. 
+                      Proses monitoring pohon, lahan, dan mitra kini jauh lebih mudah diakses dan terintegrasi. &quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-12 w-12">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/avatar/male.webp"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-sm">R. Putra</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Manager Project
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
                       &quot; Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. &quot;
                     </Text>
                     <div className="flex items-center space-x-2 mt-auto pt-4">
@@ -130,7 +153,7 @@ export default function EcosystemContent() {
                 <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
                   <Card.Content className="flex flex-col flex-1 p-4">
                     <Text className="text-base flex-1 text-center">
-                      &quot; Platform yang ditujukan untuk para kaum milenial, Lanjutkan mas bro!👍 &quot;
+                      &quot; Platform yang ditujukan untuk para petani kaum milenial, mari tetap dukung petani lokal kita.. Lanjutkan mas bro!👍 &quot;
                     </Text>
                     <div className="flex items-center space-x-2 mt-auto pt-4">
                       <Avatar className="h-12 w-12">
@@ -143,6 +166,30 @@ export default function EcosystemContent() {
                         <div className="font-medium text-sm">Sahmi</div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           Ketua Kelompok
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+               <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
+                      &quot; Aplikasi yang cukup membagongkan! 😁
+                      mengajak kami para petani untuk melek teknologi..&quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-12 w-12">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/avatar/male2.webp"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-sm">Anonimous</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Petani
                         </div>
                       </div>
                     </div>
