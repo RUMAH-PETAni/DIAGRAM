@@ -4,6 +4,14 @@ import { Text } from "@/components/retroui/Text";
 import Marquee from "@/components/ui/marquee";
 import { useLanguage } from "@/lib/i18n/context";
 import { Button } from "@/components/retroui/ButtonCustom";
+import { Avatar } from "@/components/retroui/Avatar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/retroui/CardCustom";
 import { 
   Drawer,
   DrawerContent,
@@ -12,6 +20,13 @@ import {
 } from "@/components/retroui/DrawerCustom";
 import { useState } from "react";
 import { SignupForm } from "@/components/signup/signup-form";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 
 export default function EcosystemContent() {
   const { t } = useLanguage();
@@ -37,8 +52,111 @@ export default function EcosystemContent() {
             {t('general.joinNow')}
           </Button>
         </div>
+        {/* Testimonials Carousel */}
+        <div className="w-full max-w-5xl p-6 flex items-center justify-center">
+          <Carousel className="w-full max-w-3xl">
+            <CarouselContent>
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
+                      &quot; Platform yang cukup membagongkan! 😁
+                      mengajak kami para petani untuk melek teknologi..&quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-12 w-12">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/avatar/male2.webp"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-sm">Anonimous</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Petani
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
+                      &quot; Alat kerja yang revolusioner, tidak perlu lagi membawa catatan lusuh semua data ada di ujung jari &quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-12 w-12">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/bondan.png"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-sm">Bondan P.</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Staff KPH
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
+                      &quot; Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. &quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-12 w-12">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/duryat.png"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-sm">Duryat</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Akademisi
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                  <Card.Content className="flex flex-col flex-1 p-4">
+                    <Text className="text-base flex-1 text-center">
+                      &quot; Platform yang ditujukan untuk para kaum milenial, Lanjutkan mas bro!👍 &quot;
+                    </Text>
+                    <div className="flex items-center space-x-2 mt-auto pt-4">
+                      <Avatar className="h-12 w-12">
+                        <Avatar.Image
+                          alt="avatar"
+                          src="/sahmi.png"
+                        />
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-sm">Sahmi</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Ketua Kelompok
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </Card>
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious className="left-4" />
+            <CarouselNext className="right-4" />
+          </Carousel>
+        </div>
       </div>
       <div className="w-full justify-center">
+        <h3 className="font-bold text-lg text-center">{t('explore.ecosystemPartner')}</h3>
         <Marquee items={[
           "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp", "/partner/mitra4.webp", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
           
