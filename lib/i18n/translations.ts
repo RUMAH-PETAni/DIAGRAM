@@ -23,6 +23,7 @@ export const translations = {
     'hero.seeDetails':'See Details',
     
     // Explore modal translations
+    'explore.ecosystemTitle': 'Come Join Our Ecosystems',
     'explore.ecosystem': 'Sustainable Ecosystems',
     'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
     'explore.features': 'Features and Tools',
@@ -79,6 +80,7 @@ export const translations = {
     'general.terms': 'Term of Service',
     'general.privacy': 'Privacy Policy',
     'general.faq': 'F.A.Q',
+    'general.join': 'Join',
     
     // Settings translations
     'settings.locationAccess': 'Location Access',
@@ -281,6 +283,7 @@ export const translations = {
 
 
     // Explore modal translations
+    'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami',
     'explore.ecosystem': 'Ekosistem Berkelanjutan',
     'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
     'explore.features': 'Fitur dan Alat',
@@ -337,6 +340,7 @@ export const translations = {
     'general.faq': 'F.A.Q',
     'general.hello': 'Halo',
     'general.loading': 'Memuat...',
+    'general.join': 'Gabung',
     
     
     // Settings translations
