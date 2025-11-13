@@ -32,10 +32,9 @@ export default function EcosystemContent() {
         <div className="flex justify-center mt-6">
           <Button 
             variant="outline" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
             onClick={handleOpenDrawer}
           >
-            {t('general.join')}
+            {t('general.joinNow')}
           </Button>
         </div>
       </div>

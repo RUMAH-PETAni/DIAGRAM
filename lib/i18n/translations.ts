@@ -80,7 +80,7 @@ export const translations = {
     'general.terms': 'Term of Service',
     'general.privacy': 'Privacy Policy',
     'general.faq': 'F.A.Q',
-    'general.join': 'Join',
+    'general.joinNow': 'Join Now!',
     
     // Settings translations
     'settings.locationAccess': 'Location Access',
@@ -340,7 +340,7 @@ export const translations = {
     'general.faq': 'F.A.Q',
     'general.hello': 'Halo',
     'general.loading': 'Memuat...',
-    'general.join': 'Gabung',
+    'general.joinNow': 'Gabung Sekarang!',
     
     
     // Settings translations
