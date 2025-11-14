@@ -126,7 +126,7 @@ export function ReportDrawer({
                             <div className="text-sm">@ KTH Mancingan Atas</div>
                           </div>
                           <TooltipProvider>
-                            <Tooltip>
+                            <Tooltip delayDuration={0}>
                               <TooltipTrigger asChild>
                                 <Button
                                   type="button"
@@ -164,7 +164,7 @@ export function ReportDrawer({
                             <div className="text-sm">@ KTH Bumi Mulyo</div>
                           </div>
                           <TooltipProvider>
-                            <Tooltip>
+                            <Tooltip delayDuration={0}>
                               <TooltipTrigger asChild>
                                 <Button
                                   type="button"
@@ -203,7 +203,7 @@ export function ReportDrawer({
                             <div className="text-sm">@ KTH Kuyung Jejer</div>
                           </div>
                           <TooltipProvider>
-                            <Tooltip>
+                            <Tooltip delayDuration={0}>
                               <TooltipTrigger asChild>
                                 <Button
                                   type="button"
@@ -241,7 +241,7 @@ export function ReportDrawer({
                             <div className="text-sm">@ KTH Murah Rejeki</div>
                           </div>
                           <TooltipProvider>
-                            <Tooltip>
+                            <Tooltip delayDuration={0}>
                               <TooltipTrigger asChild>
                                 <Button
                                   type="button"
@@ -279,7 +279,7 @@ export function ReportDrawer({
                             <div className="text-sm">@ KTH Mandiri Jaya</div>
                           </div>
                           <TooltipProvider>
-                            <Tooltip>
+                            <Tooltip delayDuration={0}>
                               <TooltipTrigger asChild>
                                 <Button
                                   type="button"
@@ -317,7 +317,7 @@ export function ReportDrawer({
                             <div className="text-sm">@ KTH Sido Makmur</div>
                           </div>
                           <TooltipProvider>
-                            <Tooltip>
+                            <Tooltip delayDuration={0}>
                               <TooltipTrigger asChild>
                                 <Button
                                   type="button"

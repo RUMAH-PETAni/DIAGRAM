@@ -157,7 +157,7 @@ export function ExploreDrawer({
                         <Card
                           className="flex items-center justify-center gap-4 w-64 md:w-lg p-4 cursor-pointer"
                           onClick={() => {
-                            router.push("/library");
+                            router.push("/data-library");
                             onOpenChange(false);
                           }}
                         >

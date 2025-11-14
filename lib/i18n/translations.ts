@@ -24,7 +24,7 @@ export const translations = {
     'hero.seeDetails':'See Details',
     
     // Explore modal translations
-    'explore.ecosystemTitle': 'Come Join Our Ecosystems 🚀',
+    'explore.ecosystemTitle': 'Come Join Our Ecosystems',
     'explore.ecosystemTitle2': 'Welcome to DIAGRAM 👋',
     'explore.ecosystem': 'Sustainable Ecosystems',
     'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
@@ -78,12 +78,13 @@ export const translations = {
     'general.light': 'Light',
     'general.dark': 'Dark',
     'general.close': 'Close',
+    'general.open': 'Open',
     'general.hello': 'Hello',
     'general.loading': 'Loading...',
     'general.terms': 'Term of Service',
     'general.privacy': 'Privacy Policy',
     'general.faq': 'F.A.Q',
-    'general.joinNow': 'Join Now!',
+    'general.joinNow': 'Join Now 🚀',
     'general.loginFirst': 'You must login first!',
     'general.contactUs': 'Contact Us',
     
@@ -289,7 +290,7 @@ export const translations = {
 
 
     // Explore modal translations
-    'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami 🚀',
+    'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami',
     'explore.ecosystemTitle2': 'Selamat Datang di DIAGRAM 👋',
     'explore.ecosystem': 'Ekosistem Berkelanjutan',
     'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
@@ -343,12 +344,13 @@ export const translations = {
     'general.light': 'Terang',
     'general.dark': 'Gelap',
     'general.close': 'Tutup',
+    'general.open': 'Buka',
     'general.terms': 'Ketentuan Layanan',
     'general.privacy': 'Kebijakan Privasi',
     'general.faq': 'F.A.Q',
     'general.hello': 'Halo',
     'general.loading': 'Memuat...',
-    'general.joinNow': 'Gabung Sekarang!',
+    'general.joinNow': 'Gabung Sekarang 🚀',
     'general.loginFirst': 'Anda harus login terlebih dahulu!',
     'general.contactUs': 'Kontak Kami',
     
