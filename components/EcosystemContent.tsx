@@ -5,6 +5,8 @@ import Marquee from "@/components/ui/marquee";
 import { useLanguage } from "@/lib/i18n/context";
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Avatar } from "@/components/retroui/Avatar";
+import Lottie from "lottie-react";
+import indonesiaMap from "./indonesia-map-data";
 import {
   Card,
   CardContent,
@@ -27,6 +29,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousela";
+import { AspectRatio } from "./ui/aspect-ratio";
 
 export default function EcosystemContent() {
   const { t } = useLanguage();
@@ -52,8 +55,79 @@ export default function EcosystemContent() {
             {t('general.joinNow')}
           </Button>
         </div>
+
+        {/* component with Lottie animation and multiple stacked Avatars */}
+        <div className="aspect-video overflow-hidden max-w-5xl mt-6">
+          <div className="flex items-center justify-center relative">
+            <Lottie
+              className = "items-center justify-center"
+              animationData={indonesiaMap}
+              loop={true}
+              style={{
+                width: 'auto',
+                height: 'auto',
+
+              }}
+              rendererSettings={{
+                preserveAspectRatio: 'xMidYMid slice'
+              }}
+            />
+            
+            <div className="absolute top-4 right-8 flex -space-x-6"> {/* Overlapping effect with negative margin */}
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+                <Avatar className="w-12 h-12 md:w-16 md:h-16">
+                  <Avatar.Image
+                  alt="avatar"
+                  src="/avatar/male.webp"
+                  />
+                </Avatar>
+              </div>
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+                <Avatar className="w-12 h-12 md:w-16 md:h-16">
+                  <Avatar.Image
+                  alt="avatar"
+                  src="/avatar/female.webp"
+                  />
+                </Avatar>
+              </div>
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+                <Avatar className="w-12 h-12 md:w-16 md:h-16">
+                  <Avatar.Image
+                  alt="avatar"
+                  src="/avatar/male1.webp"
+                  />
+                </Avatar>
+              </div>
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+                <Avatar className="w-12 h-12 md:w-16 md:h-16">
+                  <Avatar.Image
+                  alt="avatar"
+                  src="/avatar/female1.webp"
+                  />
+                </Avatar>
+              </div>
+               <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+                <Avatar className="w-12 h-12 md:w-16 md:h-16">
+                  <Avatar.Image
+                  alt="avatar"
+                  src="/avatar/male2.webp"
+                  />
+                </Avatar>
+              </div>
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+                <Avatar className="w-12 h-12 md:w-16 md:h-16">
+                  <Avatar.Image
+                  alt="avatar"
+                  src="/avatar/female2.webp"
+                  />
+                </Avatar>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Testimonials Carousel */}
-        <div className="w-full max-w-5xl p-6 flex items-center justify-center">
+        <div className="w-full max-w-5xl px-6 flex items-center justify-center">
           <Carousel className="w-full max-w-5xl">
             <CarouselContent>
               <CarouselItem className="md:basis-1/2 lg:basis-1/3">

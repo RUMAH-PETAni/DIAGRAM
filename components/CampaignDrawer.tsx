@@ -96,7 +96,7 @@ export function CampaignDrawer({
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <TreesIcon className="size-8"/>
+             🌱
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ export const translations = {
     'hero.supportMessage': 'Help local farmers by planting trees in community forest areas',
     'hero.donateLink': 'You can donate through our environmental fundraising project at',
     'hero.about': 'About',
-    'hero.hasPlanted':'Has planted ∞ trees 🌳',
+    'hero.hasPlanted':'Has planted ∞ trees 🌱',
     'hero.seeDetails':'See Details',
     
     // Explore modal translations
@@ -279,7 +279,7 @@ export const translations = {
     'hero.supportMessage': 'Bantu petani lokal dengan menanam pohon di Hutan Kemasyarakatan',
     'hero.donateLink': 'Anda dapat berdonasi melalui proyek penggalangan dana lingkungan kami di',
     'hero.about': 'Tentang',
-    'hero.hasPlanted':'Telah menanam ∞ pohon 🌳',
+    'hero.hasPlanted':'Telah menanam ∞ pohon 🌱',
     'hero.seeDetails':'Lihat Detail',
 
 

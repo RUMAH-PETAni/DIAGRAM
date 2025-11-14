@@ -191,7 +191,7 @@ export function About({
                   {t('about.storyReadMore')}
                 </span>
               </p>
-              <div className="square md:aspect-video w-full mt-10 rounded-4xl overflow-hidden">
+              <div className="aspect-square md:aspect-video w-full mt-10 rounded-4xl overflow-hidden">
                 <img
                   src="/blossom1.png"
                   alt="Image"
