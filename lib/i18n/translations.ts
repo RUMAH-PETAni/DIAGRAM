@@ -24,6 +24,7 @@ export const translations = {
     
     // Explore modal translations
     'explore.ecosystemTitle': 'Come Join Our Ecosystems',
+    'explore.ecosystemTitle2': 'Welcome to DIAGRAM',
     'explore.ecosystem': 'Sustainable Ecosystems',
     'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
     'explore.ecosystemPartner': 'Collaboration Partner:',
@@ -285,6 +286,7 @@ export const translations = {
 
     // Explore modal translations
     'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami',
+    'explore.ecosystemTitle2': 'Selamat Datang di DIAGRAM',
     'explore.ecosystem': 'Ekosistem Berkelanjutan',
     'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
     'explore.ecosystemPartner': 'Mitra Kolaborasi:',

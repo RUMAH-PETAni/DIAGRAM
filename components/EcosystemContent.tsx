@@ -6,6 +6,7 @@ import { useLanguage } from "@/lib/i18n/context";
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Avatar } from "@/components/retroui/Avatar";
 import { useTheme } from "next-themes";
+import { createBrowserClient } from "@supabase/ssr";
 import indonesiaMap from "./indonesia-map-data";
 import ThemedLottie from "./ThemedLottie";
 import {
@@ -21,7 +22,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/retroui/DrawerCustom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SignupForm } from "@/components/signup/signup-form";
 import {
   Carousel,
@@ -35,6 +36,20 @@ import { AspectRatio } from "./ui/aspect-ratio";
 export default function EcosystemContent() {
   const { t } = useLanguage();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+  );
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+    };
+
+    checkAuthStatus();
+  }, [supabase]);
 
   const handleOpenDrawer = () => {
     setIsDrawerOpen(true);
@@ -47,15 +62,17 @@ export default function EcosystemContent() {
   return (
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
       <div className="w-full md:max-w-5xl text-center text-balance">
-        <Text as="h1">{t('explore.ecosystemTitle')}</Text>
-        <div className="flex justify-center mt-6">
-          <Button 
-            variant="outline" 
-            onClick={handleOpenDrawer}
-          >
-            {t('general.joinNow')}
-          </Button>
-        </div>
+        <Text as="h1">{isAuthenticated ? t('explore.ecosystemTitle2') : t('explore.ecosystemTitle')}</Text>
+        {!isAuthenticated && (
+          <div className="flex justify-center mt-6">
+            <Button 
+              variant="outline" 
+              onClick={handleOpenDrawer}
+            >
+              {t('general.joinNow')}
+            </Button>
+          </div>
+        )}
 
         {/* component with Lottie animation and multiple stacked Avatars */}
         <AspectRatio ratio={16 / 9} className="overflow-hidden max-w-5xl mt-6">
