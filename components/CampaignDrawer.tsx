@@ -92,12 +92,13 @@ export function CampaignDrawer({
                     </div>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{t('hero.treesPlanted')}</p>
+                    <p>{t('hero.trees%Planted')}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
              🌱
             </div>
+            <p className="mt-2 text-lg font-bold">{t('hero.treesPlanted')}</p>
           </div>
         </div>
       </DrawerContent>

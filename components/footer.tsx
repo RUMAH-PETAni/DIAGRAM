@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 import { FAQDrawer } from "@/components/faq-drawer";
 import { useLanguage } from "@/lib/i18n/context";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 
 export function Footer() {
   const { language, t } = useLanguage();
@@ -98,8 +99,7 @@ export function Footer() {
           }}
         >
           {t('general.privacy')}
-        </button>
-       
+        </button>       
       </div>
       
       {/* Terms of Service drawer */}
@@ -137,6 +137,35 @@ export function Footer() {
         </Link>
       
       </p>
+      <div className="flex space-x-4 mt-2">
+        <a 
+          href="https://www.facebook.com/yourpage" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          className="text-foreground hover:text-primary transition-colors"
+        >
+          <Facebook size={20} />
+        </a>
+        <a 
+          href="https://www.instagram.com/yourpage" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          className="text-foreground hover:text-primary transition-colors"
+        >
+          <Instagram size={20} />
+        </a>
+        <a 
+          href="https://www.youtube.com/yourchannel" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+          className="text-foreground hover:text-primary transition-colors"
+        >
+          <Youtube size={20} />
+        </a>
+      </div>
     </footer>
   );
 }

@@ -19,9 +19,11 @@ import {
   type CarouselApi,
 } from "@/components/ui/carouselcustom";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { useLanguage } from "@/lib/i18n/context";
+import { createBrowserClient } from "@supabase/ssr";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/retroui/TooltipCustom";
 
 interface ReportDrawerProps {
   open: boolean;
@@ -38,6 +40,20 @@ export function ReportDrawer({
 }: ReportDrawerProps) {
   const router = useRouter();
   const { t } = useLanguage();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+  );
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+    };
+
+    checkAuthStatus();
+  }, [supabase]);
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="top">
@@ -109,12 +125,30 @@ export function ReportDrawer({
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Mancingan Atas</div>
                           </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.seeDetails')}
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  type="button"
+                                  className="flex items-center justify-center"
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Prevent event bubbling to the card
+                                    if (isAuthenticated) {
+                                      router.push('/campaign-report');
+                                      onOpenChange(false);
+                                    }
+                                  }}
+                                >
+                                  {t('hero.seeDetails')}
+                                </Button>
+                              </TooltipTrigger>
+                              {!isAuthenticated && (
+                                <TooltipContent>
+                                  <p>{t('general.loginFirst')}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </Card>
                       </div>
                     </CarouselItem>
@@ -129,12 +163,30 @@ export function ReportDrawer({
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Bumi Mulyo</div>
                           </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.seeDetails')}
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  type="button"
+                                  className="flex items-center justify-center"
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Prevent event bubbling to the card
+                                    if (isAuthenticated) {
+                                      router.push('/campaign-report');
+                                      onOpenChange(false);
+                                    }
+                                  }}
+                                >
+                                  {t('hero.seeDetails')}
+                                </Button>
+                              </TooltipTrigger>
+                              {!isAuthenticated && (
+                                <TooltipContent>
+                                  <p>{t('general.loginFirst')}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </Card>
                       </div>
                     </CarouselItem>
@@ -150,12 +202,30 @@ export function ReportDrawer({
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Kuyung Jejer</div>
                           </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.seeDetails')}
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  type="button"
+                                  className="flex items-center justify-center"
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Prevent event bubbling to the card
+                                    if (isAuthenticated) {
+                                      router.push('/campaign-report');
+                                      onOpenChange(false);
+                                    }
+                                  }}
+                                >
+                                  {t('hero.seeDetails')}
+                                </Button>
+                              </TooltipTrigger>
+                              {!isAuthenticated && (
+                                <TooltipContent>
+                                  <p>{t('general.loginFirst')}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </Card>
                       </div>
                     </CarouselItem>
@@ -170,12 +240,30 @@ export function ReportDrawer({
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Murah Rejeki</div>
                           </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.seeDetails')}
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  type="button"
+                                  className="flex items-center justify-center"
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Prevent event bubbling to the card
+                                    if (isAuthenticated) {
+                                      router.push('/campaign-report');
+                                      onOpenChange(false);
+                                    }
+                                  }}
+                                >
+                                  {t('hero.seeDetails')}
+                                </Button>
+                              </TooltipTrigger>
+                              {!isAuthenticated && (
+                                <TooltipContent>
+                                  <p>{t('general.loginFirst')}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </Card>
                       </div>
                     </CarouselItem>
@@ -190,12 +278,30 @@ export function ReportDrawer({
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Mandiri Jaya</div>
                           </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.seeDetails')}
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  type="button"
+                                  className="flex items-center justify-center"
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Prevent event bubbling to the card
+                                    if (isAuthenticated) {
+                                      router.push('/campaign-report');
+                                      onOpenChange(false);
+                                    }
+                                  }}
+                                >
+                                  {t('hero.seeDetails')}
+                                </Button>
+                              </TooltipTrigger>
+                              {!isAuthenticated && (
+                                <TooltipContent>
+                                  <p>{t('general.loginFirst')}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </Card>
                       </div>
                     </CarouselItem>
@@ -210,12 +316,30 @@ export function ReportDrawer({
                             <div className="text-sm">{t('hero.hasPlanted')}</div>
                             <div className="text-sm">@ KTH Sido Makmur</div>
                           </div>
-                          <Button
-                              type="button"
-                              className="flex items-center justify-center"
-                            >
-                              {t('hero.seeDetails')}
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  type="button"
+                                  className="flex items-center justify-center"
+                                  onClick={(e) => {
+                                    e.stopPropagation(); // Prevent event bubbling to the card
+                                    if (isAuthenticated) {
+                                      router.push('/campaign-report');
+                                      onOpenChange(false);
+                                    }
+                                  }}
+                                >
+                                  {t('hero.seeDetails')}
+                                </Button>
+                              </TooltipTrigger>
+                              {!isAuthenticated && (
+                                <TooltipContent>
+                                  <p>{t('general.loginFirst')}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </Card>
                       </div>
                     </CarouselItem>

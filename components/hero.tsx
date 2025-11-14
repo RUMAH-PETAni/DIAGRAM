@@ -110,10 +110,10 @@ export function Hero({
     setActiveImageIndex(0); // Reset to first slide and image
   };
 
-   const [progress, setProgress] = React.useState(20);
+   const [progress, setProgress] = React.useState(12);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(20), 500);
+    const timer = setTimeout(() => setProgress(12), 500);
     return () => clearTimeout(timer);
   }, []);
 

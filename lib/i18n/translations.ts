@@ -10,11 +10,12 @@ export const translations = {
     'hero.precisionAgro': 'Precision Agroforestry.',
     'hero.description': "DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future.",
     'hero.explore': 'Explore',
-    'hero.campaign': 'Campaign!',
+    'hero.campaign': 'Campaign 🌱',
     'hero.letSupport': 'Let`s Support Us!',
     'hero.donate': 'Donate',
     'hero.report': 'Report',
-    'hero.treesPlanted': '20% out of 100.000 trees has planted',
+    'hero.trees%Planted': '12% progress',
+    'hero.treesPlanted': '12.000 / 100.000 trees has planted',
     'hero.progress': 'Progress:',
     'hero.supportMessage': 'Help local farmers by planting trees in community forest areas',
     'hero.donateLink': 'You can donate through our environmental fundraising project at',
@@ -23,8 +24,8 @@ export const translations = {
     'hero.seeDetails':'See Details',
     
     // Explore modal translations
-    'explore.ecosystemTitle': 'Come Join Our Ecosystems',
-    'explore.ecosystemTitle2': 'Welcome to DIAGRAM',
+    'explore.ecosystemTitle': 'Come Join Our Ecosystems 🚀',
+    'explore.ecosystemTitle2': 'Welcome to DIAGRAM 👋',
     'explore.ecosystem': 'Sustainable Ecosystems',
     'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
     'explore.ecosystemPartner': 'Collaboration Partner:',
@@ -83,6 +84,8 @@ export const translations = {
     'general.privacy': 'Privacy Policy',
     'general.faq': 'F.A.Q',
     'general.joinNow': 'Join Now!',
+    'general.loginFirst': 'You must login first!',
+    'general.contactUs': 'Contact Us',
     
     // Settings translations
     'settings.locationAccess': 'Location Access',
@@ -271,10 +274,11 @@ export const translations = {
     'hero.precisionAgro': 'Agroforestri Presisi.',
     'hero.description': "DIAGRAM adalah platform digital berkelanjutan yang dirancang untuk mengubah pertanian konvensional menjadi masa depan yang terhubung dan berbasis data.",
     'hero.explore': 'Jelajahi',
-    'hero.campaign': 'Kampanye!',
+    'hero.campaign': 'Kampanye 🌱',
     'hero.letSupport': 'Mari Dukung Kami!',
     'hero.donate': 'Donasi',
-    'hero.treesPlanted': '20% dari 100.000 pohon telah ditanam',
+    'hero.trees%Planted': '12% kemajuan',
+    'hero.treesPlanted': '12.000 / 100.000 pohon telah ditanam',
     'hero.report': 'Laporan',
     'hero.progress': 'Kemajuan:',
     'hero.supportMessage': 'Bantu petani lokal dengan menanam pohon di Hutan Kemasyarakatan',
@@ -285,8 +289,8 @@ export const translations = {
 
 
     // Explore modal translations
-    'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami',
-    'explore.ecosystemTitle2': 'Selamat Datang di DIAGRAM',
+    'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami 🚀',
+    'explore.ecosystemTitle2': 'Selamat Datang di DIAGRAM 👋',
     'explore.ecosystem': 'Ekosistem Berkelanjutan',
     'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
     'explore.ecosystemPartner': 'Mitra Kolaborasi:',
@@ -345,6 +349,8 @@ export const translations = {
     'general.hello': 'Halo',
     'general.loading': 'Memuat...',
     'general.joinNow': 'Gabung Sekarang!',
+    'general.loginFirst': 'Anda harus login terlebih dahulu!',
+    'general.contactUs': 'Kontak Kami',
     
     
     // Settings translations
