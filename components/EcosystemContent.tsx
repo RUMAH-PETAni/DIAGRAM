@@ -5,8 +5,9 @@ import Marquee from "@/components/ui/marquee";
 import { useLanguage } from "@/lib/i18n/context";
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Avatar } from "@/components/retroui/Avatar";
-import Lottie from "lottie-react";
+import { useTheme } from "next-themes";
 import indonesiaMap from "./indonesia-map-data";
+import ThemedLottie from "./ThemedLottie";
 import {
   Card,
   CardContent,
@@ -45,7 +46,7 @@ export default function EcosystemContent() {
 
   return (
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
-      <div className="w-full max-w-sm md:max-w-5xl text-center text-balance">
+      <div className="w-full md:max-w-5xl text-center text-balance">
         <Text as="h1">{t('explore.ecosystemTitle')}</Text>
         <div className="flex justify-center mt-6">
           <Button 
@@ -57,14 +58,14 @@ export default function EcosystemContent() {
         </div>
 
         {/* component with Lottie animation and multiple stacked Avatars */}
-        <div className="aspect-video overflow-hidden max-w-5xl mt-6">
+        <AspectRatio ratio={16 / 9} className="overflow-hidden max-w-5xl mt-6">
           <div className="flex items-center justify-center relative">
-            <Lottie
+            <ThemedLottie
               className = "items-center justify-center"
               animationData={indonesiaMap}
               loop={true}
               style={{
-                width: 'auto',
+                width: '100%',
                 height: 'auto',
 
               }}
@@ -73,7 +74,7 @@ export default function EcosystemContent() {
               }}
             />
             
-            <div className="absolute top-4 right-8 flex -space-x-6"> {/* Overlapping effect with negative margin */}
+            <div className="absolute top-4 right-4 flex -space-x-6"> {/* Overlapping effect with negative margin */}
               <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
@@ -123,6 +124,24 @@ export default function EcosystemContent() {
                 </Avatar>
               </div>
             </div>
+          </div>
+        </AspectRatio>
+
+        {/* Planting Bamboo Image - Full width on desktop, full height on mobile */}
+        <div className="w-full -mt-25 md:-mt-50">
+          <div className="md:hidden w-full h-96 relative">
+            <img 
+              src="/planting-bamboo.png" 
+              alt="Planting bamboo illustration" 
+              className="absolute inset-0 w-full h-full object-cover rounded-4xl"
+            />
+          </div>
+          <div className="hidden md:block w-full">
+            <img 
+              src="/planting-bamboo.png" 
+              alt="Planting bamboo illustration" 
+              className="w-full h-auto max-h-[700px] object-contain rounded-4xl"
+            />
           </div>
         </div>
 
