@@ -62,6 +62,8 @@ export default function EcosystemContent() {
   return (
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
       <div className="w-full md:max-w-5xl text-center text-balance">
+        
+       
         <Text as="h1">{isAuthenticated ? t('explore.ecosystemTitle2') : t('explore.ecosystemTitle')}</Text>
         {!isAuthenticated && (
           <div className="flex justify-center mt-6">
@@ -92,7 +94,7 @@ export default function EcosystemContent() {
             />
             
             <div className="absolute top-4 right-4 flex -space-x-6"> {/* Overlapping effect with negative margin */}
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
                   alt="avatar"
@@ -100,7 +102,7 @@ export default function EcosystemContent() {
                   />
                 </Avatar>
               </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
                   alt="avatar"
@@ -108,7 +110,7 @@ export default function EcosystemContent() {
                   />
                 </Avatar>
               </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
                   alt="avatar"
@@ -116,7 +118,7 @@ export default function EcosystemContent() {
                   />
                 </Avatar>
               </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
                   alt="avatar"
@@ -124,7 +126,7 @@ export default function EcosystemContent() {
                   />
                 </Avatar>
               </div>
-               <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+               <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
                   alt="avatar"
@@ -132,7 +134,7 @@ export default function EcosystemContent() {
                   />
                 </Avatar>
               </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer">
+              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
                 <Avatar className="w-12 h-12 md:w-16 md:h-16">
                   <Avatar.Image
                   alt="avatar"
