@@ -1,10 +1,10 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import Lottie, { type LottieProps } from 'lottie-react';
+import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
 
-interface ThemedLottieProps extends Omit<LottieProps, 'animationData'> {
+interface ThemedLottieProps extends React.ComponentProps<typeof Lottie> {
   animationData: any;
   darkColor?: string;
   lightColor?: string;
@@ -38,7 +38,7 @@ export default function ThemedLottie({
           typeof obj.k[0] === 'number' &&
           typeof obj.k[1] === 'number' &&
           typeof obj.k[2] === 'number' &&
-          obj.k.every(val => val >= 0 && val <= 1) // Ensure values are in normalized 0-1 range
+          obj.k.every((val: number) => val >= 0 && val <= 1) // Ensure values are in normalized 0-1 range
         ) {
           // Only modify colors that match the original color [0.149, 0.149, 0.149]
           if (
