@@ -98,7 +98,7 @@ const Navigation = () => {
               className="w-full flex text-xs items-center justify-center"
               onClick={() => {
               setShowNavDrawer(false);
-              window.location.href = "/data-library";
+              window.location.href = "/library";
             }}>
               {t('nav.library')}
             </Button>
