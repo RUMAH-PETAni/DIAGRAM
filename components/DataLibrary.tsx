@@ -68,327 +68,57 @@ export default function DataLibrary() {
   };
 
   return (
-    <div className="w-full max-w-5xl p-6">
-      <Carousel className="w-full">
-        <CarouselContent>
+    <div className="w-full max-w-5xl mx-auto p-8 overflow-hidden">
+      <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+        <CarouselContent >
           {dataLibraryItems.map((item, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              {index === 0 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover1.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
+            <CarouselItem key={index} className="basis-full sm:basis-3/4 md:basis-1/3 ">
+              <Card className="w-full shadow-none hover:shadow-md h-full flex flex-col relative overflow-hidden ">
+                {/* Background image as a separate div to better control responsiveness */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+                  style={{
+                    backgroundImage: `url('/lib/cover${(index % 8) + 1}.png')`,
                   }}
                 >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
+                  
+                </div>
+
+                <CardContent className="flex flex-col items-start p-3 sm:p-4 md:p-5 relative z-10 h-full justify-between">
+                  <div className="w-full">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm">Publikasi - {index < 6 ? "2025" : "2023"}</p>
+                  </div>
+
+                  <div className="w-full flex flex-col items-center mt-1">
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain mb-2 mx-auto"
+                    />
+                    <div className="w-full flex justify-end mt-auto pt-1">
+                      <Button
+                        type="button"
+                        variant="default"
+                        onClick={() => handleOpenClick(index)}
+                        className="text-xs sm:text-sm px-2 py-1"
+                      >
+                        {t('general.open')}
+                      </Button>
                     </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 1 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover2.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 2 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover3.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                         {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 3 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover4.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 4 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover5.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                         {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 5 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover6.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 6 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover7.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : index === 7 ? (
-                <Card 
-                  className="w-full shadow-none hover:shadow-md h-full flex flex-col"
-                  style={{ 
-                    backgroundImage: `url('/lib/cover8.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat'
-                  }}
-                >
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2025</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card className="w-full shadow-none hover:shadow-md h-full flex flex-col">
-                  <CardContent className="flex flex-col items-center p-6 grow">
-                    <div className="text-left mb-4 grow w-full">
-                      <h3 className="text-xl md:text-2xl font-bold">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">Publikasi - 2023</p>
-                    </div>
-                    <div className="mt-auto w-full">
-                      <img 
-                        src={item.image} 
-                        alt={item.alt} 
-                        className="w-32 h-32 object-contain mb-4 mx-auto"
-                      />
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          variant="default"
-                          onClick={() => handleOpenClick(index)}
-                        >
-                          {t('general.open')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+                  </div>
+                </CardContent>
+              </Card>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious  />
+        <CarouselNext  />
       </Carousel>
-      
-      
+
+
     </div>
   );
 }
