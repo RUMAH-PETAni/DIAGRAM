@@ -135,18 +135,6 @@ export function AdminLoginForm({
           <ForgotPasswordForm onClose={() => setShowForgotPasswordModal(false)} />
         </Dialog.Content>
       </Dialog>
-      
-      {/* Signup Drawer */}
-      <Drawer open={showSignupDrawer} onOpenChange={setShowSignupDrawer} direction="bottom">
-        <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto px-6">
-          <DrawerHeader>
-            <DrawerTitle className="font-bold text-2xl">{t('auth.signUpTitle')}</DrawerTitle>
-          </DrawerHeader>
-          <div className="p-4 pb-8 max-h-[80vh] overflow-y-auto">
-            <SignupForm onClose={() => setShowSignupDrawer(false)} />
-          </div>
-        </DrawerContent>
-      </Drawer>
     </div>
   )
 }

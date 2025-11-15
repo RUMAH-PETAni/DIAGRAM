@@ -7,8 +7,6 @@ import { Button } from "@/components/retroui/ButtonCustom";
 import { Avatar } from "@/components/retroui/Avatar";
 import { useTheme } from "next-themes";
 import { createBrowserClient } from "@supabase/ssr";
-import indonesiaMap from "./indonesia-map-data";
-import ThemedLottie from "./ThemedLottie";
 import {
   Card,
   CardContent,

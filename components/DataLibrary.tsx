@@ -30,7 +30,7 @@ export function DataLibrary({
       category: "Database",
       source : "RUMAHPETAni",
       title: "Kumpulan Data: Lahan dan Petani",
-      subtitle: "Data Internal 🔐",
+      subtitle: "Akses Terbatas 🔐",
       year: "",
       author: "",
       cover: "",
@@ -42,7 +42,7 @@ export function DataLibrary({
       category: "Database",
       source : "RUMAHPETAni",
       title: "Kumpulan Data: Monitoring Penanaman",
-      subtitle: "Data Internal 🔐",
+      subtitle: "Akses Terbatas 🔐",
       year: "",
       author: "",
       cover: "",
@@ -290,12 +290,12 @@ export function DataLibrary({
 
   return (
     <div className={cn("w-full max-w-5xl mx-auto overflow-hidden", className)} {...props}>
-      <div className="flex flex-col items-center gap-2 text-center">
+      <div className="flex flex-col items-center text-center">
         <h1 className="text-2xl font-bold">{t('dataLibrary.title')}</h1>
       </div>
       <div className="px-12">
         {/* Menu filter */}
-        <div className="mb-6 flex items-center gap-3">
+        <div className="my-6 flex items-center gap-3">
           <label className="text-gray-700 dark:text-gray-300 font-medium">
             {t('dataLibrary.selectCategory')}:
           </label>
@@ -303,6 +303,7 @@ export function DataLibrary({
             <Menu.Trigger asChild>
               <Button
                 variant="outline"
+                size="sm"
                 type="button"
                 className="min-w-[150px] max-w-xs"
               >

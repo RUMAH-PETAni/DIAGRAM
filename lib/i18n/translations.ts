@@ -265,7 +265,7 @@ export const translations = {
 
     // Data Library translations
     'dataLibrary.title': 'Data Library',
-    'dataLibrary.allItems': 'All Items',
+    'dataLibrary.allItems': 'All Category',
     'dataLibrary.selectCategory': 'Select Category',
     'dataLibrary.category.database': 'Database',
     'dataLibrary.category.ensiklo': 'Ensiklo',
@@ -539,7 +539,7 @@ export const translations = {
 
     // Data Library translations
     'dataLibrary.title': 'Perpustakaan Data',
-    'dataLibrary.allItems': 'Semua Item',
+    'dataLibrary.allItems': 'Semua Kategori',
     'dataLibrary.selectCategory': 'Pilih Kategori',
     'dataLibrary.category.database': 'Database',
     'dataLibrary.category.ensiklo': 'Ensiklo',
