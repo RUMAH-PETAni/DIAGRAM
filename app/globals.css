@@ -152,11 +152,11 @@
 
 @keyframes marquee {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-100%); } /* geser setengah panjang, karena digandakan */
+  100% { transform: translateX(-90%); } /* geser setengah panjang, karena digandakan */
 }
 
 .animate-marquee {
-  animation: marquee 7s linear infinite;
+  animation: marquee 16s linear infinite;
 }
 
 

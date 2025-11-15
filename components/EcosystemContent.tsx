@@ -59,11 +59,54 @@ export default function EcosystemContent() {
     setIsDrawerOpen(false);
   };
 
+  const testimonialItems = [
+    {
+      testimoni: "\"Dulu saya mencatat semua penanaman di buku. Sekarang, dengan DIAGRAM, saya bisa memantau pertumbuhan pohon dari ponsel\"",
+      name: "Sugriwo",
+      role: "Petani",
+      image: "partner/sugriwo.png",
+      alt: "avatar",
+    },
+   {
+      testimoni: "\"Bagi Penyuluh Kehutanan ini adalah alat kerja yang revolusioner, tidak perlu lagi membawa catatan lusuh semua data ada di ujung jari\"",
+      name: "Bondan P.",
+      role: "Staff KPH",
+      image: "partner/bondan.png",
+      alt: "avatar",
+    },
+    {
+      testimoni: "\"Platform yang ditujukan untuk para petani milenial, ayo dukung produk lokal kita agar terus berkembang.. Lanjutkan mas bro!👍\"",
+      name: "Sahmi",
+      role: "Ketua Kelompok",
+      image: "partner/sahmi.png",
+      alt: "avatar",
+    },
+    {
+      testimoni: "\"Mengelola data agroforestri secara lebih efisien dan transparan. Proses monitoring pohon, lahan, dan mitra kini jauh lebih mudah diakses dan terintegrasi.\"",
+      name: "I.F Surachman",
+      role: "Manajer Project",
+      image: "partner/fajars.png",
+      alt: "avatar",
+    },
+    {
+      testimoni: "\"Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.\"",
+      name: "A.M Muslih",
+      role: "Akademisi",
+      image: "avatar/male3.webp",
+      alt: "avatar",
+    },
+    {
+      testimoni: "\"Aplikasi yang sangat membantu! mengajak para petani untuk melek teknologi 😁\"",
+      name: "Anonimous",
+      role: "Masyarakat Sipil",
+      image: "avatar/male2.webp",
+      alt: "avatar",
+    }
+  ];
+
   return (
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
       <div className="w-full md:max-w-5xl text-center text-balance">
-        
-       
         <Text as="h1">{isAuthenticated ? t('explore.ecosystemTitle2') : t('explore.ecosystemTitle')}</Text>
         {!isAuthenticated && (
           <div className="flex justify-center mt-6">
@@ -76,78 +119,8 @@ export default function EcosystemContent() {
           </div>
         )}
 
-        {/* component with Lottie animation and multiple stacked Avatars */}
-        <AspectRatio ratio={16 / 9} className="overflow-hidden max-w-5xl mt-6">
-          <div className="flex items-center justify-center relative">
-            <ThemedLottie
-              className = "items-center justify-center"
-              animationData={indonesiaMap}
-              loop={true}
-              style={{
-                width: '100%',
-                height: 'auto',
-
-              }}
-              rendererSettings={{
-                preserveAspectRatio: 'xMidYMid slice'
-              }}
-            />
-            
-            <div className="absolute top-4 right-4 flex -space-x-6"> {/* Overlapping effect with negative margin */}
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
-                <Avatar className="w-12 h-12 md:w-16 md:h-16">
-                  <Avatar.Image
-                  alt="avatar"
-                  src="/avatar/male.webp"
-                  />
-                </Avatar>
-              </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
-                <Avatar className="w-12 h-12 md:w-16 md:h-16">
-                  <Avatar.Image
-                  alt="avatar"
-                  src="/avatar/female.webp"
-                  />
-                </Avatar>
-              </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
-                <Avatar className="w-12 h-12 md:w-16 md:h-16">
-                  <Avatar.Image
-                  alt="avatar"
-                  src="/avatar/male1.webp"
-                  />
-                </Avatar>
-              </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
-                <Avatar className="w-12 h-12 md:w-16 md:h-16">
-                  <Avatar.Image
-                  alt="avatar"
-                  src="/avatar/female1.webp"
-                  />
-                </Avatar>
-              </div>
-               <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
-                <Avatar className="w-12 h-12 md:w-16 md:h-16">
-                  <Avatar.Image
-                  alt="avatar"
-                  src="/avatar/male2.webp"
-                  />
-                </Avatar>
-              </div>
-              <div className="hover:scale-110 z-10 hover:z-20 transition-transform duration-200 ease-in-out cursor-pointer active:scale-110 active:z-20">
-                <Avatar className="w-12 h-12 md:w-16 md:h-16">
-                  <Avatar.Image
-                  alt="avatar"
-                  src="/avatar/female2.webp"
-                  />
-                </Avatar>
-              </div>
-            </div>
-          </div>
-        </AspectRatio>
-
         {/* Planting Bamboo Image - Full width on desktop, full height on mobile */}
-        <div className="w-full -mt-25 md:-mt-50">
+        <div className="w-full -mt-10">
           <div className="md:hidden w-full h-96 relative">
             <img 
               src="/planting-bamboo.png" 
@@ -165,184 +138,44 @@ export default function EcosystemContent() {
         </div>
 
         {/* Testimonials Carousel */}
-        <div className="w-full max-w-5xl px-6 flex items-center justify-center">
-          <Carousel className="w-full max-w-5xl">
+        <div className="w-full max-w-5xl px-12 flex items-center justify-center">
+         <Carousel className="w-full" opts={{ align: "start", loop: true }}>
             <CarouselContent>
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Dulu saya mencatat semua penanaman di buku. Sekarang, dengan DIAGRAM, saya bisa memantau pertumbuhan pohon dari ponsel &quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/sugriwo-small.png"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">Sugriwo</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Petani
+              {testimonialItems.map((item) => (
+                <CarouselItem key={item.name} className="basis-full sm:basis-3/4 md:basis-1/3">
+                  <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
+                    <Card.Content className="flex flex-col flex-1 p-4">
+                      <Text className="text-base flex-1 text-center">
+                        {item.testimoni}
+                      </Text>
+                      <div className="flex items-center space-x-2 mt-auto pt-4">
+                        <Avatar className="h-16 w-16">
+                          <Avatar.Image
+                            src={item.image}
+                            alt={item.alt}
+                          />
+                        </Avatar>
+                        <div>
+                          <div className="text-left font-medium text-sm">{item.name}</div>
+                          <div className="text-left text-xs text-gray-500 dark:text-gray-400">
+                            {item.role}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Bagi Penyuluh Kehutanan ini adalah alat kerja yang revolusioner, tidak perlu lagi membawa catatan lusuh semua data ada di ujung jari &quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/bondan.png"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">Bondan P.</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Staff KPH
-                        </div>
-                      </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Mengelola data agroforestri secara lebih efisien dan transparan. 
-                      Proses monitoring pohon, lahan, dan mitra kini jauh lebih mudah diakses dan terintegrasi. &quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/fajars.png"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">F.Surachman</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Manager Project
-                        </div>
-                      </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
-              
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Platform yang ditujukan untuk para petani kaum milenial, mari tetap dukung petani lokal kita.. Lanjutkan mas bro!👍 &quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/sahmi.png"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">Sahmi</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Ketua Kelompok
-                        </div>
-                      </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
-
-              <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. &quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/duryat.png"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">Duryat</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Akademisi
-                        </div>
-                      </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
-               <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. &quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/avatar/male3.webp"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">A.M Muslih</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Akademisi
-                        </div>
-                      </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
-               <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                <Card className="w-full shadow-none hover:shadow-md mt-6 flex flex-col h-64 sm:h-[300px]">
-                  <Card.Content className="flex flex-col flex-1 p-4">
-                    <Text className="text-base flex-1 text-center">
-                      &quot; Aplikasi yang cukup membagongkan! 😁
-                      mengajak kami para petani untuk melek teknologi..&quot;
-                    </Text>
-                    <div className="flex items-center space-x-2 mt-auto pt-4">
-                      <Avatar className="h-16 w-16">
-                        <Avatar.Image
-                          alt="avatar"
-                          src="/avatar/male2.webp"
-                        />
-                      </Avatar>
-                      <div>
-                        <div className="text-left font-medium text-sm">Anonimous</div>
-                        <div className="text-left text-xs text-gray-500 dark:text-gray-400">
-                          Petani
-                        </div>
-                      </div>
-                    </div>
-                  </Card.Content>
-                </Card>
-              </CarouselItem>
+                    </Card.Content>
+                  </Card>
+                </CarouselItem>
+              ))}
             </CarouselContent>
-            <CarouselPrevious className="left-4" />
-            <CarouselNext className="right-4" />
+            <CarouselPrevious/>
+            <CarouselNext/>
           </Carousel>
         </div>
       </div>
       <div className="w-full justify-center">
         <h3 className="font-bold text-lg text-center">{t('explore.ecosystemPartner')}</h3>
         <Marquee items={[
-          "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp", "/partner/mitra4.webp", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
+          "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp","/partner/mitra.webp", "/partner/mitra4.webp", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
           
           ]}
           />
