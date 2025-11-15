@@ -1,7 +1,7 @@
 import { FloatingAIButton } from "@/components/floating-ai-button";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import DataLibrary from "@/components/DataLibrary";
+import { DataLibrary } from "@/components/DataLibrary";
 
 export default function DataLibraryPage() {
   return (

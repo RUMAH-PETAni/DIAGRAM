@@ -1,7 +1,9 @@
 "use client";
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Card, CardContent } from "@/components/retroui/CardCustom";
+import { Menu } from "@/components/retroui/MenuCustom";
 import {
   Carousel,
   CarouselContent,
@@ -11,114 +13,358 @@ import {
 } from "@/components/ui/carousela";
 import { useLanguage } from "@/lib/i18n/context";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
+export function DataLibrary({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
 
-export default function DataLibrary() {
   const { t } = useLanguage();
+
+  // State untuk filter kategori
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   const dataLibraryItems = [
     {
-      title: "Materi Pelatihan Agroforestri Kopi",
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Materi Pelatihan: Agroforestri Kopi",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00540-25.pdf"
     },
     {
-      title: "Materi Pelatihan Agroforestri Kakao",
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Materi Pelatihan: Agroforestri Kakao",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00542-25.pdf"
     },
     {
-      title: "Materi Pelatihan Agroforestri Karet",
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Materi Pelatihan: Agroforestri Karet",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",     
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00541-25.pdf"
     },
     {
-      title: "Materi Pelatihan Agroforestri Sawit",
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Materi Pelatihan: Agroforestri Sawit",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00538-25.pdf"
     },
     {
-      title: "Materi Pelatihan Pertanian Cerdas Iklim",
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Materi Pelatihan: Pertanian Cerdas Iklim",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00543-25.pdf"
     },
     {
-      title: "Materi Pelatihan Strategi Penyuluhan Agroforestri",
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Materi Pelatihan: Strategi Penyuluhan Agroforestri",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00539-25.pdf"
     },
     {
+      category: "Materi",
+      source : "cifor-icraf",
       title: "Pedoman Budidaya Pohon Penaung Kakao & Kopi",
+      subtitle: "Publikasi",
+      year: "2023",
+      author: "",
+      cover: "",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
       pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00400-23.pdf"
+    },
+       {
+      category: "Materi",
+      source : "cifor-icraf",
+      title: "Pedoman Membangun Kebun Agroforestri Kopi",
+      subtitle: "Publikasi",
+      year: "2017",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/region/sea/publications/softcopy/BL00059-17.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Panduan Pelatihan: Agroforestri Kopi",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00547-25.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Panduan Pelatihan: Agroforestri Kakao",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00549-25.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Panduan Pelatihan: Agroforestri Karet",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",     
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00548-25.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Panduan Pelatihan: Agroforestri Sawit",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00546-25.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Panduan Pelatihan: Pertanian Cerdas Iklim",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00545-25.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Panduan Pelatihan: Strategi Penyuluhan Agroforestri",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00544-25.pdf"
+    },
+     {
+      category: "Poster",
+      source : "cifor-icraf",
+      title: "Kumpulan Poster: Agroforestri Kopi",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00535-25.pdf"
+    },
+    {
+      category: "Poster",
+      source : "cifor-icraf",
+      title: "Kumpulan Poster: Agroforestri Kakao",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00537-25.pdf"
+    },
+    {
+      category: "Poster",
+      source : "cifor-icraf",
+      title: "Kumpulan Poster: Agroforestri Karet",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",     
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00536-25.pdf"
+    },
+    {
+      category: "Poster",
+      source : "cifor-icraf",
+      title: "Kumpulan Poster: Agroforestri Sawit",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00534-25.pdf"
+    },
+    {
+      category: "Panduan",
+      source : "cifor-icraf",
+      title: "Kumpulan Poster: Pertanian Cerdas Iklim",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00533-25.pdf"
+    },
+    {
+      category: "Poster",
+      source : "cifor-icraf",
+      title: "Kumpulan Poster: Strategi Penyuluhan Agroforestri",
+      subtitle: "Publikasi",
+      year: "2025",
+      author: "",
+      cover: "",
+      image: "/cifor-icraf-logo.png",
+      alt: "CIFOR-ICRAF Logo",
+      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00532-25.pdf"
     }
+
   ];
 
-  const handleOpenClick = (index: number) => {
-    if (dataLibraryItems[index].pdfUrl !== "#") {
-      window.open(dataLibraryItems[index].pdfUrl, "_blank");
+  // Dapatkan daftar kategori unik
+  const uniqueCategories = useMemo(() => {
+    return Array.from(new Set(dataLibraryItems.map(item => item.category)));
+  }, [dataLibraryItems]);
+
+  // Filter data berdasarkan kategori yang dipilih
+  const filteredItems = useMemo(() => {
+    if (!selectedCategory) {
+      return dataLibraryItems;
+    }
+    return dataLibraryItems.filter(item => item.category === selectedCategory);
+  }, [dataLibraryItems, selectedCategory]);
+
+  const handleOpenClick = (item: typeof dataLibraryItems[0]) => {
+    if (item.pdfUrl !== "#") {
+      window.open(item.pdfUrl, "_blank");
     }
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-8 overflow-hidden">
-      <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-        <CarouselContent >
-          {dataLibraryItems.map((item, index) => (
-            <CarouselItem key={index} className="basis-full sm:basis-3/4 md:basis-1/3 ">
-              <Card className="w-full shadow-none hover:shadow-md h-full flex flex-col relative overflow-hidden ">
-                {/* Background image as a separate div to better control responsiveness */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-                  style={{
-                    backgroundImage: `url('/lib/cover${(index % 8) + 1}.png')`,
-                  }}
+    <div className={cn("w-full max-w-5xl mx-auto overflow-hidden", className)} {...props}>
+      <div className="px-12">
+        {/* Menu filter */}
+        <div className="mb-6 flex items-center gap-3">
+          <label className="text-gray-700 dark:text-gray-300 font-medium">
+            {t('dataLibrary.selectCategory')}:
+          </label>
+          <Menu>
+            <Menu.Trigger asChild>
+              <Button
+                variant="outline"
+                type="button"
+                className="min-w-[150px] max-w-xs"
+              >
+                {selectedCategory ? t(`dataLibrary.category.${selectedCategory.toLowerCase()}`) : t('dataLibrary.allItems')}
+              </Button>
+            </Menu.Trigger>
+            <Menu.Content className="min-w-[150px] max-w-xs">
+              <Menu.Item
+                onClick={() => setSelectedCategory(null)}
+                className="cursor-pointer"
+              >
+                {t('dataLibrary.allItems')}
+              </Menu.Item>
+              {uniqueCategories.map((category) => (
+                <Menu.Item
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="cursor-pointer"
                 >
+                  {t(`dataLibrary.category.${category.toLowerCase()}`)}
+                </Menu.Item>
+              ))}
+            </Menu.Content>
+          </Menu>
+        </div>
+
+        <Carousel className="w-full" opts={{ align: "start", loop: true }} key={`carousel-${selectedCategory}`}>
+          <CarouselContent key={`content-${selectedCategory}`}>
+            {filteredItems.map((item, index) => (
+              <CarouselItem key={index} className="basis-full sm:basis-3/4 md:basis-1/3 ">
+                <Card className="w-full shadow-none hover:shadow-md h-full flex flex-col relative overflow-hidden ">
                   
-                </div>
-
-                <CardContent className="flex flex-col items-start p-3 sm:p-4 md:p-5 relative z-10 h-full justify-between">
-                  <div className="w-full">
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 line-clamp-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm">Publikasi - {index < 6 ? "2025" : "2023"}</p>
-                  </div>
-
-                  <div className="w-full flex flex-col items-center mt-1">
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain mb-2 mx-auto"
-                    />
-                    <div className="w-full flex justify-end mt-auto pt-1">
-                      <Button
-                        type="button"
-                        variant="default"
-                        onClick={() => handleOpenClick(index)}
-                        className="text-xs sm:text-sm px-2 py-1"
-                      >
-                        {t('general.open')}
-                      </Button>
+                  <CardContent className="flex flex-col items-start p-3 sm:p-4 md:p-5 relative z-10 h-full justify-between">
+                    <div className="w-full">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 line-clamp-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm">{item.subtitle} - {item.year}</p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious  />
-        <CarouselNext  />
-      </Carousel>
 
-
+                    <div className="w-full flex flex-col items-center mt-1">
+                      <img
+                        src={item.image}
+                        alt={item.alt}
+                        className="w-20 h-20  md:w-30 md:h-30 object-contain mb-2 mx-auto"
+                      />
+                      <div className="w-full flex justify-end mt-auto pt-1">
+                        <Button
+                          type="button"
+                          variant="default"
+                          onClick={() => handleOpenClick(item)}
+                        >
+                          {t('general.open')}
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious  />
+          <CarouselNext  />
+        </Carousel>
+      </div>
     </div>
   );
 }

@@ -262,8 +262,14 @@ export const translations = {
     'chat_sheet.infoMessage': 'AI can make mistakes, ask specific questions for the best answers.',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
 
+    // Data Library translations
+    'dataLibrary.allItems': 'All Items',
+    'dataLibrary.selectCategory': 'Select Category',
+    'dataLibrary.category.materi': 'Materi',
+    'dataLibrary.category.panduan': 'Panduan',
+    'dataLibrary.category.poster': 'Poster',
   },
-  
+
   id: {
     // Homepage translations
     'hero.title': 'DIAGRAM',
@@ -526,5 +532,11 @@ export const translations = {
     'chat_sheet.infoMessage': 'AI bisa membuat kesalahan, ajukan pertanyaan spesifik untuk hasil terbaik.',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
 
+    // Data Library translations
+    'dataLibrary.allItems': 'Semua Item',
+    'dataLibrary.selectCategory': 'Pilih Kategori',
+    'dataLibrary.category.materi': 'Materi',
+    'dataLibrary.category.panduan': 'Panduan',
+    'dataLibrary.category.poster': 'Poster',
   }
 };
