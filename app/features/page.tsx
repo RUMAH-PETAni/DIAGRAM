@@ -1,7 +1,7 @@
 import { Features } from "@/components/features"
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { FloatingAIButton } from "@/components/floating-ai-button";
+
 
 export default function FeaturesPage() {
   return (
@@ -14,7 +14,7 @@ export default function FeaturesPage() {
           </div>
         </div>
       </main>
-      <FloatingAIButton />
+
       <Footer />
     </div>
   );

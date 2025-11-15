@@ -12,7 +12,7 @@ import {
   TooltipTrigger,
 } from "@/components/retroui/Tooltip";
 
-export function FloatingAIButton() {
+export function AIButton() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -36,12 +36,12 @@ export function FloatingAIButton() {
   return (
     <ChatSheet>
       <TooltipProvider>
-        <div className="fixed bottom-6 right-6 z-40">
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="default"
-                className="flex items-center justify-center h-10 w-10 p-0 opacity-50 hover:opacity-100 transition-opacity"
+                variant="outline"
+                className="flex items-center justify-center h-10 w-10 p-0"
                 aria-label="AI Agronomist"
               >
                 <Bot/>
@@ -51,7 +51,7 @@ export function FloatingAIButton() {
               <p>Chat with AI-Gronomist</p>
             </TooltipContent>
           </Tooltip>
-        </div>
+
       </TooltipProvider>
     </ChatSheet>
   );

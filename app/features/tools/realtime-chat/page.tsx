@@ -1,7 +1,7 @@
 import   ChatRoom   from "@/components/chat-room"
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { FloatingAIButton } from "@/components/floating-ai-button";
+
 
 export default function RealtimeChatPage() {
   return (
@@ -14,7 +14,7 @@ export default function RealtimeChatPage() {
             </div>
           </div>
         </main>
-        <FloatingAIButton />
+
         <Footer />
       </div>
     );

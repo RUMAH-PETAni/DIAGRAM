@@ -1,4 +1,4 @@
-import { FloatingAIButton } from "@/components/floating-ai-button";
+
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
@@ -13,7 +13,7 @@ export default function InteractiveMapPage() {
           </div>
         </div>
       </main>
-      <FloatingAIButton />
+
       <Footer />
     </div>
   );

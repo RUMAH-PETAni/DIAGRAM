@@ -88,6 +88,13 @@ export default function EcosystemContent() {
       image: "partner/fajars.png",
       alt: "avatar",
     },
+       {
+      testimoni: "\"Alat digital yang cukup mudah digunakan dan sangat membantu ketika dilapangan, saya berharap bisa dikembangkan untuk versi offlinenya 👌\"",
+      name: "Hadi A.",
+      role: "Forest Ranger",
+      image: "partner/hadi.png",
+      alt: "avatar",
+    },
     {
       testimoni: "\"Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.\"",
       name: "A.M Muslih",
@@ -106,7 +113,7 @@ export default function EcosystemContent() {
 
   return (
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
-      <div className="w-full md:max-w-5xl text-center text-balance">
+      <div className="w-full md:max-w-5xl text-center text-balance mt-10">
         <Text as="h1">{isAuthenticated ? t('explore.ecosystemTitle2') : t('explore.ecosystemTitle')}</Text>
         {!isAuthenticated && (
           <div className="flex justify-center mt-6">

@@ -1,5 +1,5 @@
 import { AuthButtonClient } from "@/components/auth-button-client";
-
+import { AIButton } from "@/components/ai-button";
 import { Navigation } from "@/components/navigation";
 
 
@@ -9,6 +9,7 @@ export function Header() {
       <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm gap-2">
         <AuthButtonClient />
          <div className="flex gap-2">
+          <AIButton />
           <Navigation />
       </div>
       </div>
