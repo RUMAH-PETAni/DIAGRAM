@@ -344,7 +344,7 @@ export function DataLibrary({
                       <img
                         src={item.image}
                         alt={item.alt}
-                        className="w-20 h-20  md:w-30 md:h-30 object-contain mb-2 mx-auto"
+                        className="w-30 h-30  md:w-40 md:h-40 object-contain mx-auto"
                       />
                       <div className="w-full flex justify-end mt-auto pt-1">
                         <Button
