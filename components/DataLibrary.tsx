@@ -27,244 +27,244 @@ export function DataLibrary({
 
   const dataLibraryItems = [
     {
+      category: "Database",
+      source : "RUMAHPETAni",
+      title: "Kumpulan Data: Lahan dan Petani",
+      subtitle: "Data Internal 🔐",
+      year: "",
+      author: "",
+      cover: "",
+      image: "/logoRP.svg",
+      alt: "RUMAHPETAni Logo",
+      Url: "/auth/admin"
+    },
+     {
+      category: "Database",
+      source : "RUMAHPETAni",
+      title: "Kumpulan Data: Monitoring Penanaman",
+      subtitle: "Data Internal 🔐",
+      year: "",
+      author: "",
+      cover: "",
+      image: "/logoRP.svg",
+      alt: "RUMAHPETAni Logo",
+      Url: "/auth/admin"
+    },
+      {
+      category: "Database",
+      source : "KLHK",
+      title: "Kumpulan Data: Daftar Kelompok Tani Hutan",
+      subtitle: "Akses Terbuka",
+      year: "",
+      author: "",
+      cover: "",
+      image: "/lib/klhk-logo.png",
+      alt: "KLHK Logo",
+      Url: "/library/farmer-group"
+    },
+    {
+      category: "Ensiklo",
+      source : "RUMAHPETAni",
+      title: "Ensiklo: Hama, Penyakit dan Gulma Pada Tanaman Kopi",
+      subtitle: "Akses Terbuka",
+      year: "",
+      author: "",
+      cover: "",
+      image: "/logoRP.svg",
+      alt: "RUMAHPETAni Logo",
+      Url: "/library/ensiklo"
+    },
+     {
+      category: "Ensiklo",
+      source : "RUMAHPETAni",
+      title: "Ensiklo: Pohon Penaung Kebun Agroforestri",
+      subtitle: "Akses Terbuka",
+      year: "",
+      author: "",
+      cover: "",
+      image: "/logoRP.svg",
+      alt: "RUMAHPETAni Logo",
+      Url: "/library/ensiklo-pohon"
+    },
+    {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Materi Pelatihan: Agroforestri Kopi",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00540-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00540-25.pdf"
     },
     {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Materi Pelatihan: Agroforestri Kakao",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00542-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00542-25.pdf"
     },
     {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Materi Pelatihan: Agroforestri Karet",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",     
+      subtitle: "Publikasi - 2025",    
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00541-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00541-25.pdf"
     },
     {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Materi Pelatihan: Agroforestri Sawit",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00538-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00538-25.pdf"
     },
     {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Materi Pelatihan: Pertanian Cerdas Iklim",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00543-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00543-25.pdf"
     },
     {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Materi Pelatihan: Strategi Penyuluhan Agroforestri",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00539-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00539-25.pdf"
     },
     {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Pedoman Budidaya Pohon Penaung Kakao & Kopi",
-      subtitle: "Publikasi",
-      year: "2023",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00400-23.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00400-23.pdf"
     },
        {
       category: "Materi",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Pedoman Membangun Kebun Agroforestri Kopi",
-      subtitle: "Publikasi",
-      year: "2017",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/region/sea/publications/softcopy/BL00059-17.pdf"
+      Url: "https://www.cifor-icraf.org/publications/region/sea/publications/softcopy/BL00059-17.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Panduan Pelatihan: Agroforestri Kopi",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00547-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00547-25.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Panduan Pelatihan: Agroforestri Kakao",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00549-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00549-25.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Panduan Pelatihan: Agroforestri Karet",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",     
+      subtitle: "Publikasi - 2025",    
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00548-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00548-25.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Panduan Pelatihan: Agroforestri Sawit",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00546-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00546-25.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Panduan Pelatihan: Pertanian Cerdas Iklim",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00545-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00545-25.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Panduan Pelatihan: Strategi Penyuluhan Agroforestri",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00544-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/manual/MN00544-25.pdf"
     },
      {
       category: "Poster",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Kumpulan Poster: Agroforestri Kopi",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00535-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00535-25.pdf"
     },
     {
       category: "Poster",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Kumpulan Poster: Agroforestri Kakao",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00537-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00537-25.pdf"
     },
     {
       category: "Poster",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Kumpulan Poster: Agroforestri Karet",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",     
+      subtitle: "Publikasi - 2025",    
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00536-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00536-25.pdf"
     },
     {
       category: "Poster",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Kumpulan Poster: Agroforestri Sawit",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00534-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00534-25.pdf"
     },
     {
       category: "Panduan",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Kumpulan Poster: Pertanian Cerdas Iklim",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00533-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00533-25.pdf"
     },
     {
       category: "Poster",
-      source : "cifor-icraf",
+      source : "CIFOR-ICRAF",
       title: "Kumpulan Poster: Strategi Penyuluhan Agroforestri",
-      subtitle: "Publikasi",
-      year: "2025",
-      author: "",
-      cover: "",
+      subtitle: "Publikasi - 2025",
       image: "/cifor-icraf-logo.png",
       alt: "CIFOR-ICRAF Logo",
-      pdfUrl: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00532-25.pdf"
+      Url: "https://www.cifor-icraf.org/publications/sea/Publications/files/booklet/BL00532-25.pdf"
     }
 
   ];
@@ -283,13 +283,16 @@ export function DataLibrary({
   }, [dataLibraryItems, selectedCategory]);
 
   const handleOpenClick = (item: typeof dataLibraryItems[0]) => {
-    if (item.pdfUrl !== "#") {
-      window.open(item.pdfUrl, "_blank");
+    if (item.Url !== "#") {
+      window.open(item.Url, "_blank");
     }
   };
 
   return (
     <div className={cn("w-full max-w-5xl mx-auto overflow-hidden", className)} {...props}>
+      <div className="flex flex-col items-center gap-2 text-center">
+        <h1 className="text-2xl font-bold">{t('dataLibrary.title')}</h1>
+      </div>
       <div className="px-12">
         {/* Menu filter */}
         <div className="mb-6 flex items-center gap-3">
@@ -337,16 +340,17 @@ export function DataLibrary({
                       <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 line-clamp-2">
                         {item.title}
                       </h3>
-                      <p className="text-xs sm:text-sm">{item.subtitle} - {item.year}</p>
+                      <p className="text-xs sm:text-sm">{item.subtitle}</p>
+              
                     </div>
 
-                    <div className="w-full flex flex-col items-center mt-1">
+                    <div className="w-full flex flex-col items-center">
                       <img
                         src={item.image}
                         alt={item.alt}
                         className="w-30 h-30  md:w-40 md:h-40 object-contain mx-auto"
                       />
-                      <div className="w-full flex justify-end mt-auto pt-1">
+                      <div className="w-full flex justify-end mt-auto pt-4">
                         <Button
                           type="button"
                           variant="default"

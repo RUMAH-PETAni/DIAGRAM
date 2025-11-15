@@ -116,6 +116,7 @@ export const translations = {
     
     // Authentication translations
     'auth.loginTitle': 'Login to your account',
+    'auth.loginTitleAdmin': 'Login as Administrator',
     'auth.email': 'Email',
     'auth.emailPlaceholder': 'email@example.com',
     'auth.password': 'Password',
@@ -263,8 +264,11 @@ export const translations = {
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
 
     // Data Library translations
+    'dataLibrary.title': 'Data Library',
     'dataLibrary.allItems': 'All Items',
     'dataLibrary.selectCategory': 'Select Category',
+    'dataLibrary.category.database': 'Database',
+    'dataLibrary.category.ensiklo': 'Ensiklo',
     'dataLibrary.category.materi': 'Materi',
     'dataLibrary.category.panduan': 'Panduan',
     'dataLibrary.category.poster': 'Poster',
@@ -389,6 +393,7 @@ export const translations = {
     
     // Authentication translations
     'auth.loginTitle': 'Masuk ke akun Anda',
+    'auth.loginTitleAdmin': 'Masuk sebagai Administrator',
     'auth.email': 'Email',
     'auth.emailPlaceholder': 'email@example.com',
     'auth.password': 'Kata Sandi',
@@ -533,8 +538,11 @@ export const translations = {
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
 
     // Data Library translations
+    'dataLibrary.title': 'Perpustakaan Data',
     'dataLibrary.allItems': 'Semua Item',
     'dataLibrary.selectCategory': 'Pilih Kategori',
+    'dataLibrary.category.database': 'Database',
+    'dataLibrary.category.ensiklo': 'Ensiklo',
     'dataLibrary.category.materi': 'Materi',
     'dataLibrary.category.panduan': 'Panduan',
     'dataLibrary.category.poster': 'Poster',

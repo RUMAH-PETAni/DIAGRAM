@@ -1,5 +1,5 @@
 import { About } from "@/components/about"
-import { FloatingAIButton } from "@/components/floating-ai-button";
+
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
@@ -14,7 +14,7 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
-      <FloatingAIButton />
+
       <Footer />
     </div>
   );

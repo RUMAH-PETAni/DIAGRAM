@@ -9,7 +9,7 @@ export default function EcosystemPage() {
       {/* Layer landscape di bawah */}
      
       <div
-        className="absolute bottom-0 left-0 w-full h-screen bg-[url('/landscape.svg')] bg-cover bg-bottom bg-no-repeat z-0"
+        className="absolute bottom-0 left-0 w-full h-screen bg-[url('/landscape.svg')] bg-cover bg-bottom-left bg-no-repeat z-0"
       ></div>
  
       <div className="relative z-10">
