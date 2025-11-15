@@ -145,7 +145,7 @@ export default function EcosystemContent() {
         </div>
 
         {/* Testimonials Carousel */}
-        <div className="w-full max-w-5xl px-12 flex items-center justify-center">
+        <div className="w-full max-w-5xl px-12 flex items-center justify-center mt-10">
          <Carousel className="w-full" opts={{ align: "start", loop: true }}>
             <CarouselContent>
               {testimonialItems.map((item) => (
