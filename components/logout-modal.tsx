@@ -45,7 +45,7 @@ export function LogoutModal({
 
   return ( 
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <Dialog.Content size={"md"}>
+      <Dialog.Content size={"md"} className="shadow-none">
         <Dialog.Header>
           <Text as="h5">{t('auth.confirmAction')}</Text>
         </Dialog.Header>

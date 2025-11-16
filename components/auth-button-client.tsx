@@ -124,7 +124,7 @@ export function AuthButtonClient() {
               </Avatar>
 
           </Menu.Trigger>
-          <Menu.Content className="min-w-36">
+          <Menu.Content className="min-w-36 z-60">
             <Menu.Item onClick={() => setShowProfileDrawer(true)} className="flex items-center cursor-pointer">
               <UserCircle className="mr-2 h-4 w-4" />
               <span>{t('general.account')}</span>
