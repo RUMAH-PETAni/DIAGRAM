@@ -87,7 +87,7 @@ export default function EcosystemContent() {
       alt: "avatar",
     },
        {
-      testimoni: "\"Alat digital yang cukup mudah digunakan dan sangat membantu ketika dilapangan, saya berharap bisa dikembangkan untuk versi offlinenya 👌\"",
+      testimoni: "\"Alat digital nya cukup mudah digunakan dan sangat membantu ketika dilapangan, saya berharap bisa dikembangkan untuk versi offlinenya 👌\"",
       name: "Hadi A.",
       role: "Forest Ranger",
       image: "partner/hadi.png",
@@ -101,7 +101,7 @@ export default function EcosystemContent() {
       alt: "avatar",
     },
     {
-      testimoni: "\"Aplikasi yang sangat membantu! mengajak para petani untuk melek teknologi 😁\"",
+      testimoni: "\"Aplikasi Web yang sangat membantu! mengajak para petani untuk melek teknologi di zaman yang serba AI 😁\"",
       name: "Anonimous",
       role: "Masyarakat Sipil",
       image: "avatar/male2.webp",
@@ -180,7 +180,7 @@ export default function EcosystemContent() {
       <div className="w-full justify-center">
         <h3 className="font-bold text-lg text-center">{t('explore.ecosystemPartner')}</h3>
         <Marquee items={[
-          "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp","/partner/mitra.webp", "/partner/mitra4.webp", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
+          "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp", "/partner/mitra4.webp", "/partner/mitra8.png", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
           
           ]}
           />
