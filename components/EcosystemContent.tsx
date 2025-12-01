@@ -194,7 +194,7 @@ export default function EcosystemContent() {
           </Carousel>
         </div>
       </div>
-      <div className="w-full justify-center pb-30">
+      <div className="w-full justify-center pb-20">
         <h3 className="font-bold text-lg text-center">{t('explore.ecosystemPartner')}</h3>
         <Marquee items={[
           "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp", "/partner/mitra4.webp", "/partner/mitra8.png", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
