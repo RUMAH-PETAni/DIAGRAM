@@ -113,7 +113,7 @@ export default function EcosystemContent() {
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
       <div className="w-full md:max-w-5xl text-center text-balance mt-10">
         {/* map Image - Full width on desktop, full height on mobile */}
-        <div className="w-full -mt-30 mb-10">
+        <div className="w-full -mt-20 mb-10">
           <div className="md:hidden w-full h-96 relative">
             <img 
               src="/3d.webp" 
