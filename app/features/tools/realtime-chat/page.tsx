@@ -15,7 +15,7 @@ export default function RealtimeChatPage() {
           </div>
         </main>
 
-        <Footer />
+
       </div>
     );
   }

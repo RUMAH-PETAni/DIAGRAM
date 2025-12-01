@@ -8,7 +8,7 @@ export const translations = {
     'hero.dataDriven': 'Data-Driven Solutions.',
     'hero.sustainableTech': 'Sustainable Technology.',
     'hero.precisionAgro': 'Precision Agroforestry.',
-    'hero.description': "DIAGRAM is a sustainable digital platform designed to transform conventional farming into a connected, data-driven future.",
+    'hero.description': "DIAGRAM is a digital platform designed to drive sustainable agricultural practices into a connected, data-driven future.",
     'hero.explore': 'Explore',
     'hero.campaign': 'Campaign 🌱',
     'hero.letSupport': 'Let`s Support Us!',
@@ -27,7 +27,7 @@ export const translations = {
     'explore.ecosystemTitle': 'Come Join Our Ecosystems',
     'explore.ecosystemTitle2': 'Welcome to DIAGRAM 👋',
     'explore.ecosystem': 'Sustainable Ecosystems',
-    'explore.ecosystemDesc': 'Build a sustainable future ecosystem and let`s grow together with the community',
+    'explore.ecosystemDesc': 'Building a sustainable future ecosystem and growing with the community',
     'explore.ecosystemPartner': 'Collaboration Partner:',
     'explore.features': 'Features and Digital Tools',
     'explore.featuresDesc': 'Map, monitor, and manage your farm efficiently.',
@@ -260,8 +260,12 @@ export const translations = {
     'chat_sheet.aiAgronomist': 'AI-Gronomist',
     'chat_sheet.askPlaceholder': 'Ask about agriculture, crops, soil, weather...',
     'chat_sheet.errorMessage': 'Sorry, I encountered an error. Please try again.',
-    'chat_sheet.infoMessage': 'AI can make mistakes, ask specific questions for the best answers.',
+    'chat_sheet.infoMessage': '*AI can make mistakes, ask specific questions for the best answers.',
+    'chat_sheet.loginRequiredMessage': 'You must login first!',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
+    'chat_sheet.tooltip': 'Chat with AI-Gronomist',
+    
+
 
     // Data Library translations
     'dataLibrary.title': 'Data Library',
@@ -283,7 +287,7 @@ export const translations = {
     'hero.dataDriven': 'Solusi Berbasis Data.',
     'hero.sustainableTech': 'Teknologi Berkelanjutan.',
     'hero.precisionAgro': 'Agroforestri Presisi.',
-    'hero.description': "DIAGRAM adalah platform digital berkelanjutan yang dirancang untuk mengubah pertanian konvensional menjadi masa depan yang terhubung dan berbasis data.",
+    'hero.description': "DIAGRAM adalah platform digital yang dirancang untuk mendorong praktik pertanian berkelanjutan ke masa depan yang terhubung dan berbasis data.",
     'hero.explore': 'Jelajahi',
     'hero.campaign': 'Kampanye 🌱',
     'hero.letSupport': 'Mari Dukung Kami!',
@@ -303,7 +307,7 @@ export const translations = {
     'explore.ecosystemTitle': 'Bergabunglah Bersama Ekosistem Kami',
     'explore.ecosystemTitle2': 'Selamat Datang di DIAGRAM 👋',
     'explore.ecosystem': 'Ekosistem Berkelanjutan',
-    'explore.ecosystemDesc': 'Bangun ekosistem masa depan berkelanjutan dan mari tumbuh bersama komunitas',
+    'explore.ecosystemDesc': 'Membangun masa depan ekosistem yang berkelanjutan dan tumbuh bersama komunitas',
     'explore.ecosystemPartner': 'Mitra Kolaborasi:',
     'explore.features': 'Fitur dan Alat Digital',
     'explore.featuresDesc': 'Alat untuk memetakan, memonitor, dan mengelola pertanian Anda secara efisien.',
@@ -534,8 +538,10 @@ export const translations = {
     'chat_sheet.aiAgronomist': 'AI-Gronomist',
     'chat_sheet.askPlaceholder': 'Tanyakan tentang pertanian, tanaman, tanah, cuaca...',
     'chat_sheet.errorMessage': 'Maaf, saya mengalami kesalahan. Silakan coba lagi.',
-    'chat_sheet.infoMessage': 'AI bisa membuat kesalahan, ajukan pertanyaan spesifik untuk hasil terbaik.',
+    'chat_sheet.infoMessage': '*AI dapat membuat kesalahan, ajukan pertanyaan yang spesifik untuk hasil jawaban terbaik.',
+    'chat_sheet.loginRequiredMessage': 'Anda harus login terlebih dahulu!',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
+    'chat_sheet.tooltip': 'Ngobrol dengan AI-Gronomist',
 
     // Data Library translations
     'dataLibrary.title': 'Perpustakaan Data',

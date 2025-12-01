@@ -15,7 +15,7 @@ export default function DataLibraryPage() {
         </div>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { ChatSheet } from "@/components/chat-sheet";
 import { Button } from "@/components/retroui/ButtonCustom";
 import { Bot } from "lucide-react";
@@ -13,26 +11,6 @@ import {
 } from "@/components/retroui/Tooltip";
 
 export function FloatingAIButton() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const supabase = createClient();
-        const { data: { session } } = await supabase.auth.getSession();
-        setIsAuthenticated(!!session);
-      } catch (error) {
-        console.error("Error checking auth status:", error);
-      }
-    };
-
-    checkAuth();
-  }, []);
-
-  if (!isAuthenticated) {
-    return null;
-  }
-
   return (
     <ChatSheet>
       <TooltipProvider>

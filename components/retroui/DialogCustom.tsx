@@ -11,7 +11,7 @@ const Dialog = ReactDialog.Root;
 const DialogTrigger = ReactDialog.Trigger;
 
 const overlayVariants = cva(
-  ` fixed bg-black/80 font-head
+  ` fixed bg-black/80
     data-[state=open]:fade-in-0
     data-[state=open]:animate-in 
     data-[state=closed]:animate-out 

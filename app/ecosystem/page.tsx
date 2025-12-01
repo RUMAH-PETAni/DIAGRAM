@@ -20,7 +20,7 @@ export default function EcosystemPage() {
         <EcosystemContent />
       </main>
 
-      <Footer />
+
       </div>
     </div>
   );

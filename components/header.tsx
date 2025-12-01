@@ -26,10 +26,10 @@ export function Header() {
     <header className={`w-full flex justify-center h-20 sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/10 dark:bg-black/10 backdrop-blur-sm' : ''}`}>
       <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm gap-2">
         <AuthButtonClient />
-         <div className="flex gap-2">
+        <div className="flex gap-2">
           <AIButton />
           <Navigation />
-      </div>
+        </div>
       </div>
     </header>
   );

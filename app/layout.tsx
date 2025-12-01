@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Archivo_Black, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/retroui/Sonner";
 import { LanguageProvider } from "@/lib/i18n/context";
@@ -19,16 +19,9 @@ export const metadata: Metadata = {
   description: "A Digital Ecosystem for Agroforestry Management",
 };
 
-const archivoBlack = Archivo_Black({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-head",
-  display: "swap",
-});
-
-const space = Space_Grotesk({
-  subsets: ["latin"],
-  weight: "400",
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -55,7 +48,7 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body className={`${archivoBlack.variable} ${space.variable}`}>
+      <body className={`${plusJakarta.variable}`}>
         <LanguageProvider>
           <ThemeProvider
             attribute="class"

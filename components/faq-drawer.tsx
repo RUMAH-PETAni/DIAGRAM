@@ -20,35 +20,36 @@ export function FAQDrawer({ isOpen = false, onOpenChange }: { isOpen?: boolean; 
 
   // FAQ content is now translatable
   const faqs = [
+    
     {
       id: 1,
-      question: t('faq.aboutRumahpetani'),
-      answer: t('faq.aboutRumahpetaniAnswer')
-    },
-    {
-      id: 2,
       question: t('faq.whatIsDiagram'),
       answer: t('faq.whatIsDiagramAnswer')
     },
     {
-      id: 3,
+      id: 2,
       question: t('faq.howToGetStarted'),
       answer: t('faq.howToGetStartedAnswer')
     },
     {
-      id: 4,
+      id: 3,
       question: t('faq.cost'),
       answer: t('faq.costAnswer')
     },
     {
-      id: 5,
+      id: 4,
       question: t('faq.mobileSupport'),
       answer: t('faq.mobileSupportAnswer')
     },
     {
-      id: 6,
+      id: 5,
       question: t('faq.contactSupport'),
       answer: t('faq.contactSupportAnswer')
+    },
+    {
+      id: 6,
+      question: t('faq.aboutRumahpetani'),
+      answer: t('faq.aboutRumahpetaniAnswer')
     }
   ];
 

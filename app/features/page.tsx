@@ -15,7 +15,7 @@ export default function FeaturesPage() {
         </div>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

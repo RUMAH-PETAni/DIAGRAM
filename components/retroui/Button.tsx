@@ -4,7 +4,7 @@ import React, { ButtonHTMLAttributes } from "react";
 import { Slot } from "@radix-ui/react-slot";
 
 const buttonVariants = cva(
-  "font-head transition-all rounded outline-hidden cursor-pointer duration-200 font-medium flex items-center",
+  "transition-all rounded outline-hidden cursor-pointer duration-200 font-medium flex items-center",
   {
     variants: {
       variant: {

@@ -8,16 +8,17 @@ import { Input } from "@/components/retroui/InputCustom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "next-themes";
-import { Send, Bot, User, XIcon } from "lucide-react";
+import { Send, Bot, User, XIcon, Lock } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetHeader, 
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
   SheetTitle,
-  SheetTrigger,
   SheetClose
 } from "@/components/retroui/SheetCustom";
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 interface Message {
   id: string;
@@ -46,8 +47,38 @@ export function ChatSheet({ children }: ChatSheetProps) {
   ]);
   const [inputValue, setInputValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  // Check authentication status on component mount and set up listener
+  useEffect(() => {
+    const supabase = createClient();
+
+    // Check initial auth status
+    const checkAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setIsAuthenticated(!!session);
+      } catch (error) {
+        console.error("Error checking auth status:", error);
+        setIsAuthenticated(false); // Default to not authenticated on error
+      }
+    };
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+    });
+
+    // Run initial check
+    checkAuth();
+
+    // Cleanup subscription on unmount
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, []);
   
   // Auto-scroll to bottom when messages change
   React.useEffect(() => {
@@ -58,7 +89,13 @@ export function ChatSheet({ children }: ChatSheetProps) {
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    if (!isAuthenticated) {
+      // Show an alert or notification that user needs to log in
+      alert(t('chat_sheet.loginRequiredMessage') || 'You must login first!');
+      return;
+    }
+
     if (!inputValue.trim() || isLoading) return;
 
     // Add user message
@@ -93,7 +130,7 @@ export function ChatSheet({ children }: ChatSheetProps) {
       }
 
       const data = await response.json();
-      
+
       const aiMessage: Message = {
         id: Date.now().toString(),
         content: data.content,
@@ -104,14 +141,14 @@ export function ChatSheet({ children }: ChatSheetProps) {
       setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
       console.error("Error getting AI response:", error);
-      
+
       const errorMessage: Message = {
         id: Date.now().toString(),
         content: t('chat_sheet.errorMessage'),
         role: "assistant",
         timestamp: new Date(),
       };
-      
+
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -200,27 +237,55 @@ export function ChatSheet({ children }: ChatSheetProps) {
 
           {/* Input area */}
           <div className="p-4 border-t">
-            <form onSubmit={handleSend} className="flex gap-2">
-              <Input
-                ref={inputRef}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder={t('chat_sheet.askPlaceholder')}
-                className="flex-1"
-                disabled={isLoading}
-              />
-              <Button 
-                type="submit" 
-                size="sm" 
-                disabled={!inputValue.trim() || isLoading}
-                className="h-10"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </form>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
+            {!isAuthenticated && (
+              <div className="pb-2 flex items-start gap-2">
+                <Lock className="w-4 h-4 text-destructive mt-0.5 shrink-0" />
+                <p className="text-xs text-destructive">
+                  {t('chat_sheet.loginRequiredMessage') || 'You must login first!'}
+                </p>
+              </div>
+            )}
+            {isAuthenticated ? (
+              <form onSubmit={handleSend} className="flex gap-2">
+                <Input
+                  ref={inputRef}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder={t('chat_sheet.askPlaceholder')}
+                  className="flex-1"
+                  disabled={isLoading}
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  disabled={!inputValue.trim() || isLoading}
+                  className="h-10"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </form>
+            ) : (
+              <div className="flex gap-2">
+                <Input
+                  value=""
+                  onChange={() => {}}
+                  placeholder={t('chat_sheet.askPlaceholder')}
+                  className="flex-1"
+                  disabled={true}
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  disabled={true}
+                  className="h-10"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
+            <p className="text-xs text-muted-foreground mt-2 text-center text-balance">
               {t('chat_sheet.infoMessage')}
-              <br/>{t('chat_sheet.poweredBy')}
+
             </p>
           </div>
         </SheetContent>

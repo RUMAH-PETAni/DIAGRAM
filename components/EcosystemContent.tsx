@@ -112,6 +112,23 @@ export default function EcosystemContent() {
   return (
     <div className="w-full flex flex-col gap-10 items-center justify-center flex-1 min-h-0">
       <div className="w-full md:max-w-5xl text-center text-balance mt-10">
+        {/* map Image - Full width on desktop, full height on mobile */}
+        <div className="w-full -mt-30 mb-10">
+          <div className="md:hidden w-full h-96 relative">
+            <img 
+              src="/3d.webp" 
+              alt="map illustration" 
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+          <div className="hidden md:block w-full">
+            <img 
+              src="/3d.webp" 
+              alt="map illustration" 
+              className="w-full h-auto max-h-[700px] object-contain"
+            />
+          </div>
+        </div>
         <Text as="h1">{isAuthenticated ? t('explore.ecosystemTitle2') : t('explore.ecosystemTitle')}</Text>
         {!isAuthenticated && (
           <div className="flex justify-center mt-6">
