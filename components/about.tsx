@@ -169,7 +169,7 @@ export function About({
       <Drawer open={showStoryDrawer} onOpenChange={setShowStoryDrawer} direction="top">
         <DrawerContent className="h-[80vh] w-full max-w-5xl mx-auto bg-contain bg-no-repeat bg-bottom" style={{ backgroundImage: "url('/landscape.svg')" }}>
           <DrawerHeader>
-            <DrawerTitle className="font-bold text-2xl">{t('about.storyTitle')}</DrawerTitle>
+            <DrawerTitle className="font-bold text-2xl text-balance">{t('about.storyTitle')}</DrawerTitle>
           </DrawerHeader>
           <div className="p-6 text-center h-full overflow-hidden w-full flex items-start justify-center"> {/* h-calc(100%-4rem) accounts for padding */}
             <div className="inline-block w-full max-w-3xl ">

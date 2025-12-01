@@ -261,7 +261,7 @@ export const translations = {
     'chat_sheet.askPlaceholder': 'Ask about agriculture, crops, soil, weather...',
     'chat_sheet.errorMessage': 'Sorry, I encountered an error. Please try again.',
     'chat_sheet.infoMessage': '*AI can make mistakes, ask specific questions for the best answers.',
-    'chat_sheet.loginRequiredMessage': 'You must login first!',
+    'chat_sheet.loginRequiredMessage': 'Please login first!',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
     'chat_sheet.tooltip': 'Chat with AI-Gronomist',
     
@@ -539,7 +539,7 @@ export const translations = {
     'chat_sheet.askPlaceholder': 'Tanyakan tentang pertanian, tanaman, tanah, cuaca...',
     'chat_sheet.errorMessage': 'Maaf, saya mengalami kesalahan. Silakan coba lagi.',
     'chat_sheet.infoMessage': '*AI dapat membuat kesalahan, ajukan pertanyaan yang spesifik untuk hasil jawaban terbaik.',
-    'chat_sheet.loginRequiredMessage': 'Anda harus login terlebih dahulu!',
+    'chat_sheet.loginRequiredMessage': 'Harap login terlebih dahulu!',
     'chat_sheet.poweredBy': 'Powered by OpenAI GPT-4o-mini',
     'chat_sheet.tooltip': 'Ngobrol dengan AI-Gronomist',
 
