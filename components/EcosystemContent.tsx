@@ -147,18 +147,18 @@ export default function EcosystemContent() {
             <img 
               src="/planting-bamboo.png" 
               alt="Planting bamboo illustration" 
-              className="absolute inset-0 w-full h-full object-cover rounded-4xl"
+              className="absolute inset-0 w-full h-full object-cover "
             />
           </div>
           <div className="hidden md:block w-full">
             <img 
               src="/planting-bamboo.png" 
               alt="Planting bamboo illustration" 
-              className="w-full h-auto max-h-[700px] object-contain rounded-4xl"
+              className="w-full h-auto max-h-[700px] object-contain "
             />
           </div>
         </div>
-
+    
         {/* Testimonials Carousel */}
         <div className="w-full max-w-5xl px-12 flex items-center justify-center mt-10">
          <Carousel className="w-full" opts={{ align: "start", loop: true }}>
@@ -194,7 +194,7 @@ export default function EcosystemContent() {
           </Carousel>
         </div>
       </div>
-      <div className="w-full justify-center">
+      <div className="w-full justify-center pb-30">
         <h3 className="font-bold text-lg text-center">{t('explore.ecosystemPartner')}</h3>
         <Marquee items={[
           "/partner/mitra1.webp", "/partner/mitra2.webp", "/partner/mitra3.webp", "/partner/mitra4.webp", "/partner/mitra8.png", "/partner/mitra5.webp", "/partner/mitra6.webp", "/partner/mitra7.webp",
